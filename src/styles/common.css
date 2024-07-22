@@ -1,4 +1,5 @@
 @charset "UTF-8";
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css");
 /* http://meyerweb.com/eric/tools/css/reset/ 
    v2.0 | 20110126
    License: none (public domain)
@@ -75,14 +76,14 @@ button {
 }
 
 body {
-  font-family: "Noto Sans KR", sans-serif;
+  font-family: "Pretendard", sans-serif;
   font-size: 16px;
   height: 100vh;
   background-color: #f8f9fa;
 }
 
 * {
-  font-family: "Noto Sans KR", sans-serif;
+  font-family: "Pretendard", sans-serif;
   font-size: 16px;
 }
 
@@ -91,8 +92,7 @@ body {
   border: 0;
   border-radius: 4px;
   box-sizing: border-box;
-  color: #111827;
-  font-family: "Inter var", ui-sans-serif, system-ui, -apple-system, system-ui, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  color: #333333;
   font-size: 0.875rem;
   font-weight: 600;
   line-height: 1.25rem;
@@ -118,28 +118,29 @@ body {
   box-shadow: none;
 }
 
+.showboxs-title {
+  font-size: 1.6rem;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
 .App-header {
-  display: flex;
-  justify-content: center;
-  align-items: center;
   width: 100%;
   height: 80px;
   padding: 0 20px;
   background-color: #fff;
   border-bottom: 1px solid #e9ecef;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   position: relative;
 }
 .App-header h1 {
-  width: 100%;
   height: 100%;
 }
 .App-header a {
   display: flex;
   align-items: center;
-  width: 100%;
   height: 100%;
   font-size: 1.6rem;
 }
@@ -160,11 +161,6 @@ body {
   justify-content: center;
   align-items: center;
   position: relative;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-}
-.App-body .App-body__section:hover {
-  background-color: rgba(197, 226, 255, 0.3);
-  cursor: pointer;
 }
 .App-body .App-body__section .section-link {
   display: flex;
@@ -173,31 +169,80 @@ body {
   align-items: center;
   width: 100%;
   padding: 20px;
-  position: relative;
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
 }
-.App-body .App-body__section p {
-  display: block;
-  position: absolute;
-  background: #f0f0f0; /* 말풍선 배경색 */
-  border: 1px solid #ccc; /* 말풍선 테두리 */
-  padding: 10px 15px; /* 말풍선 내부 여백 */
-  border-radius: 10px; /* 말풍선 모서리 둥글게 */
-  margin: 10px 0; /* 말풍선 간격 */
-  top: 60px;
-  /* 말풍선 꼬리 */
+.App-body .App-body__section .section-link.on {
+  background-color: #fff;
+  color: #333333;
 }
-.App-body .App-body__section p:after {
-  content: "";
-  position: absolute;
-  bottom: 100%; /* 말풍선의 아래쪽에 위치 */
-  left: 50%; /* 말풍선의 왼쪽에서 20px 떨어진 위치 */
-  margin-left: -10px; /* 말풍선의 가로길이의 절반만큼 왼쪽으로 이동 */
-  border-width: 10px; /* 삼각형 크기 */
-  border-style: solid;
-  border-color: transparent transparent #f0f0f0 transparent; /* 삼각형 색상 */
+.App-body .App-body__section .section-link.on:hover {
+  cursor: pointer;
+  transition: 0.2s all ease;
+  background-color: #007bff;
+  color: #ffffff;
 }
-.App-body .App-body__section.active p {
-  display: block;
+.App-body .App-body__section .section-link.off {
+  background-color: #f8f9fa;
+  color: #cccccc;
+}
+.App-body .App-body__section .section-dec {
+  width: 100%;
+  margin-top: 8px;
+  padding: 4px;
+  font-size: 0.875rem;
+}
+.App-body .App-body__section .section-dec > li {
+  display: flex;
+  flex-direction: column;
+}
+.App-body .App-body__section .section-dec > li:not(:last-child) {
+  margin-bottom: 8px;
+}
+.App-body .App-body__section .section-dec > li .section-dec-title {
+  width: -moz-max-content;
+  width: max-content;
+  background-color: #333;
+  color: #ffffff;
+  border-radius: 4px;
+  padding: 4px 8px 4px 4px;
+  margin-right: 4px;
+  margin-bottom: 4px;
+}
+
+.App-footer {
+  position: fixed;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+  height: 140px;
+  background-color: #343a40;
+  color: #ffffff;
+}
+.App-footer * {
+  font-weight: 300;
+  font-size: 0.875rem;
+}
+.App-footer .footer-link {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+.App-footer .footer-link li {
+  margin-right: 8px;
+}
+.App-footer .footer-link li:not(:last-child)::after {
+  content: "|";
+  margin-left: 8px;
+}
+.App-footer .footer-link li:last-child {
+  margin-right: 0;
+}
+.App-footer p {
+  margin-top: 8px;
 }
 
 .user-tab {
@@ -212,7 +257,7 @@ body {
   height: 40px;
   border-radius: 50%;
   background-color: #d9d9d9;
-  color: #fff;
+  color: #ffffff;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -223,6 +268,7 @@ body {
 }
 .user-tab .user-panel {
   position: fixed;
+  z-index: 9999;
   top: 0;
   right: -240px;
   transition: right 0.3s;
@@ -262,8 +308,8 @@ body {
   width: 100%;
   padding: 16px;
   border-top: 1px solid #e9ecef;
-  background-color: #343a40;
-  color: #fff;
+  background-color: #333333;
+  color: #ffffff;
 }
 .user-tab .user-panel .user-panel-bottom .user-panel-option__logout {
   display: flex;
@@ -275,28 +321,4 @@ body {
 .user-tab .user-panel .user-panel-bottom .user-panel-option__logout:hover {
   cursor: pointer;
   opacity: 0.8;
-}
-
-.CalculatorContainer {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-}
-.CalculatorContainer .CalculToolbar {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  padding: 16px 0;
-  border-bottom: 1px solid #e9ecef;
-}
-.CalculatorContainer .CalculToolbar li {
-  display: inline-block;
-  margin: 0 8px;
-}
-.CalculatorContainer .CalculToolbar li:hover {
-  background-color: #f8f9fa;
-  cursor: pointer;
 }/*# sourceMappingURL=common.css.map */

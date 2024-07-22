@@ -9,14 +9,14 @@
     box-sizing: border-box;
 }
 body {
-	font-family: 'Noto Sans KR', sans-serif;
+	font-family: DS.$font-family;
 	font-size: 16px;
 	height: 100vh;
 	background-color: #f8f9fa;
 }
 // Deafult Font Styles
 *{
-	font-family: 'Noto Sans KR', sans-serif;
+	font-family: DS.$font-family;
 	font-size: 16px;
 }
 // Deafult button Design
@@ -25,8 +25,7 @@ body {
 	border: 0;
 	border-radius: 4px;
 	box-sizing: border-box;
-	color: #111827;
-	font-family: "Inter var", ui-sans-serif, system-ui, -apple-system, system-ui, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+	color: DS.$color-typo-333;
 	font-size: .875rem;
 	font-weight: 600;
 	line-height: 1.25rem;
@@ -55,12 +54,14 @@ body {
 	}
 }
 
+.showboxs-title{
+	font-size: 1.6rem;
+	font-weight: 600;
+	margin-bottom: 20px;
+}
 
 // Header Styles
 .App-header{
-	display: flex;
-	justify-content: center;
-	align-items: center;
 	width: 100%;
 	height: 80px;
 	padding: 0 20px;
@@ -68,23 +69,21 @@ body {
 	border-bottom: 1px solid #e9ecef;
 
 	display: flex;
-	justify-content: center;
+	justify-content: space-between;
 	align-items: center;
 
 	position: relative;
 
 	h1{
-		width: 100%;
 		height: 100%;
 	}
 	a{
 		display: flex;
 		align-items: center;
-		width: 100%;
 		height: 100%;
 		font-size: 1.6rem;
 		&:hover{
-			color: #007bff;	
+			color: DS.$color-primary;	
 		}
 	}
 }
@@ -92,8 +91,8 @@ body {
 .App-body{
 	padding: 20px;
 	display: grid;
-  	grid-template-columns: repeat(4, 1fr); /* 4개의 열을 생성 */
-  	gap: 10px; /* 아이템 간의 간격 */
+	grid-template-columns: repeat(4, 1fr); /* 4개의 열을 생성 */
+	gap: 10px; /* 아이템 간의 간격 */
 	align-items: start;
 
 	.App-body__section{
@@ -103,13 +102,6 @@ body {
 		align-items: center;
 		position: relative;
 
-		box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-		
-		&:hover{
-			background-color: rgba(197, 226, 255, 0.3);
-			cursor: pointer;
-		}	
-
 		.section-link{
 			display: flex;
 			flex-direction: column;
@@ -118,36 +110,95 @@ body {
 
 			width: 100%;
 			padding: 20px;
-			position: relative;
-		}
-				
-		p {
-			display: block;
-			position: absolute;
-			background: #f0f0f0; /* 말풍선 배경색 */
-			border: 1px solid #ccc; /* 말풍선 테두리 */
-			padding: 10px 15px; /* 말풍선 내부 여백 */
-			border-radius: 10px; /* 말풍선 모서리 둥글게 */
-			margin: 10px 0; /* 말풍선 간격 */
-			top: 60px;
 
-			
-		
-			/* 말풍선 꼬리 */
-			&:after {
-			  content: '';
-			  position: absolute;
-			  bottom: 100%; /* 말풍선의 아래쪽에 위치 */
-			  left: 50%; /* 말풍선의 왼쪽에서 20px 떨어진 위치 */
-			  margin-left: -10px; /* 말풍선의 가로길이의 절반만큼 왼쪽으로 이동 */
-			  border-width: 10px; /* 삼각형 크기 */
-			  border-style: solid;
-			  border-color: transparent transparent #f0f0f0 transparent; /* 삼각형 색상 */
+			box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+
+			&.on{
+				background-color: #fff;
+				color: DS.$color-typo-333;
+				&:hover{
+					cursor: pointer;
+					transition: 0.2s all ease;
+					background-color: DS.$color-primary;
+					color: DS.$color-typo-fff;
+				}		
 			}
-		  }
-		&.active p{
-			display: block;
+			&.off{
+				background-color: #f8f9fa;
+				color: DS.$color-typo-ccc;
+			}
 		}
+
+		.section-dec{
+			width: 100%;
+			margin-top: 8px;
+			padding: 4px;
+			@include DS.font-size('md'); // 1.5rem (24px)
+
+			>li{
+				display: flex;
+				flex-direction: column;
+
+				&:not(:last-child){
+					margin-bottom: 8px;
+				}
+
+				.section-dec-title{
+					width: max-content;
+					background-color: #333;
+					color: DS.$color-typo-fff;
+					border-radius: 4px;
+					padding: 4px 8px 4px 4px;
+					margin-right: 4px;
+
+					margin-bottom: 4px;
+				}
+			}
+		}
+	}
+}
+
+.App-footer{
+	// App-footer
+	//	- footer-link(ul)
+	//		- (li) 
+	//			- Link to github
+	//	- (p) > copy-right
+
+	position: fixed;
+	bottom: 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	width: 100%;
+	height: 140px;
+	background-color: DS.$color-dark;
+	color: DS.$color-typo-fff;
+
+	*{
+		@include DS.font-weight('light');
+		@include DS.font-size('md');
+	}
+
+	.footer-link{
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		width: 100%;
+		li{
+			margin-right: 8px;
+			&:not(:last-child)::after{
+				content: '|';
+				margin-left: 8px;
+			}
+			&:last-child{
+				margin-right: 0;
+			}
+		}
+	}
+	p{
+		margin-top: 8px;
 	}
 }
 
@@ -165,7 +216,7 @@ body {
 		height: 40px;
 		border-radius: 50%;
 		background-color: #d9d9d9;
-		color: #fff;
+		color: DS.$color-typo-fff;
 		display: flex;
 		justify-content: center;
 		align-items: center;
@@ -178,6 +229,7 @@ body {
 
 	.user-panel{
 		position: fixed;
+		z-index: 9999;
 		top: 0;
 		right: -240px; // -> 0px
 		transition: right 0.3s;
@@ -225,8 +277,8 @@ body {
 			width: 100%;
 			padding: 16px;
 			border-top: 1px solid #e9ecef;
-			background-color: DS.$color-dark;
-			color: #fff;
+			background-color: DS.$color-typo-333;
+			color: DS.$color-typo-fff;
 
 			.user-panel-option__logout{
 				display: flex;
@@ -246,32 +298,4 @@ body {
 	}
 
 
-}
-
-// CalculatorContainer Styles
-.CalculatorContainer{
-	display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-	width: 100%;
-
-	.CalculToolbar{
-		display: flex;
-		justify-content: center;
-		align-items: center;
-
-		width: 100%;
-		padding: 16px 0;
-		border-bottom: 1px solid #e9ecef;
-
-		li{
-			display: inline-block;
-			margin: 0 8px;
-			&:hover{
-				background-color: #f8f9fa;
-				cursor: pointer;
-			}
-		}
-	}
 }

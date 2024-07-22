@@ -8,7 +8,7 @@ function Header() {
   return (
     <>
       <h1>
-        <Link to="/">뿌까뿌까</Link>
+        <Link to="/" className='showboxs-title'>ShowBok's</Link>
       </h1>
 
       <UserTab />
