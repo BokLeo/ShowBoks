@@ -1,0 +1,302 @@
+@charset "UTF-8";
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+  display: block;
+}
+
+body {
+  line-height: 1;
+}
+
+ol, ul {
+  list-style: none;
+}
+
+blockquote, q {
+  quotes: none;
+}
+
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: "";
+  content: none;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+button {
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Noto Sans KR", sans-serif;
+  font-size: 16px;
+  height: 100vh;
+  background-color: #f8f9fa;
+}
+
+* {
+  font-family: "Noto Sans KR", sans-serif;
+  font-size: 16px;
+}
+
+.btn {
+  background-color: #FFFFFF;
+  border: 0;
+  border-radius: 4px;
+  box-sizing: border-box;
+  color: #111827;
+  font-family: "Inter var", ui-sans-serif, system-ui, -apple-system, system-ui, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  font-size: 0.875rem;
+  font-weight: 600;
+  line-height: 1.25rem;
+  padding: 0.4rem 0.8rem;
+  text-align: center;
+  -webkit-text-decoration: none #D1D5DB solid;
+          text-decoration: none #D1D5DB solid;
+  text-decoration-thickness: auto;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  -moz-user-select: none;
+       user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+.btn:hover {
+  background-color: rgba(0, 123, 255, 0.1);
+}
+.btn:focus {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+}
+.btn:focus-visible {
+  box-shadow: none;
+}
+
+.App-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 80px;
+  padding: 0 20px;
+  background-color: #fff;
+  border-bottom: 1px solid #e9ecef;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+.App-header h1 {
+  width: 100%;
+  height: 100%;
+}
+.App-header a {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  font-size: 1.6rem;
+}
+.App-header a:hover {
+  color: #007bff;
+}
+
+.App-body {
+  padding: 20px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* 4개의 열을 생성 */
+  gap: 10px; /* 아이템 간의 간격 */
+  align-items: start;
+}
+.App-body .App-body__section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+.App-body .App-body__section:hover {
+  background-color: rgba(197, 226, 255, 0.3);
+  cursor: pointer;
+}
+.App-body .App-body__section .section-link {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 20px;
+  position: relative;
+}
+.App-body .App-body__section p {
+  display: block;
+  position: absolute;
+  background: #f0f0f0; /* 말풍선 배경색 */
+  border: 1px solid #ccc; /* 말풍선 테두리 */
+  padding: 10px 15px; /* 말풍선 내부 여백 */
+  border-radius: 10px; /* 말풍선 모서리 둥글게 */
+  margin: 10px 0; /* 말풍선 간격 */
+  top: 60px;
+  /* 말풍선 꼬리 */
+}
+.App-body .App-body__section p:after {
+  content: "";
+  position: absolute;
+  bottom: 100%; /* 말풍선의 아래쪽에 위치 */
+  left: 50%; /* 말풍선의 왼쪽에서 20px 떨어진 위치 */
+  margin-left: -10px; /* 말풍선의 가로길이의 절반만큼 왼쪽으로 이동 */
+  border-width: 10px; /* 삼각형 크기 */
+  border-style: solid;
+  border-color: transparent transparent #f0f0f0 transparent; /* 삼각형 색상 */
+}
+.App-body .App-body__section.active p {
+  display: block;
+}
+
+.user-tab {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 80px;
+}
+.user-tab .circle-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #d9d9d9;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.6rem;
+}
+.user-tab .circle-icon:hover {
+  cursor: pointer;
+}
+.user-tab .user-panel {
+  position: fixed;
+  top: 0;
+  right: -240px;
+  transition: right 0.3s;
+  width: 240px;
+  height: 100vh;
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+.user-tab .user-panel > div {
+  display: flex;
+  align-items: center;
+  padding: 16px;
+}
+.user-tab .user-panel > div:not(:last-child) {
+  border-bottom: 1px solid #e9ecef;
+}
+.user-tab .user-panel > div:not(:first-child):hover {
+  cursor: pointer;
+}
+.user-tab .user-panel > div:not(:first-child):not(:last-child):hover {
+  background-color: rgba(197, 226, 255, 0.3);
+}
+.user-tab .user-panel .user-panel-top {
+  display: flex;
+  align-items: center;
+}
+.user-tab .user-panel .user-panel-top .user-name {
+  margin-left: 12px;
+  font-weight: 600;
+}
+.user-tab .user-panel .user-panel-bottom {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 16px;
+  border-top: 1px solid #e9ecef;
+  background-color: #343a40;
+  color: #fff;
+}
+.user-tab .user-panel .user-panel-bottom .user-panel-option__logout {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  font-weight: 400;
+}
+.user-tab .user-panel .user-panel-bottom .user-panel-option__logout:hover {
+  cursor: pointer;
+  opacity: 0.8;
+}
+
+.CalculatorContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+.CalculatorContainer .CalculToolbar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 16px 0;
+  border-bottom: 1px solid #e9ecef;
+}
+.CalculatorContainer .CalculToolbar li {
+  display: inline-block;
+  margin: 0 8px;
+}
+.CalculatorContainer .CalculToolbar li:hover {
+  background-color: #f8f9fa;
+  cursor: pointer;
+}/*# sourceMappingURL=common.css.map */
