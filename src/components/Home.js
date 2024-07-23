@@ -53,11 +53,11 @@ function Home() {
         </Link>
       
         <ul className='section-dec'>
-          <li><span className='section-dec-title'>💠Description</span>모임에서 사용한 금액을 정산하는 계산기</li>
+          <li><span className='section-dec-title'>💠Description</span>업데이트 예정입니다...</li>
           <li>
             <span className='section-dec-title'>💠lang</span>
             <ul>
-              <li>React</li>
+              <li>...</li>
             </ul>
           </li>
         </ul>
@@ -73,11 +73,11 @@ function Home() {
         </Link>
       
         <ul className='section-dec'>
-          <li><span className='section-dec-title'>💠Description</span>모임에서 사용한 금액을 정산하는 계산기</li>
+          <li><span className='section-dec-title'>💠Description</span>업데이트 예정입니다...</li>
           <li>
             <span className='section-dec-title'>💠lang</span>
             <ul>
-              <li>React</li>
+              <li>...</li>
             </ul>
           </li>
         </ul>
@@ -93,11 +93,11 @@ function Home() {
         </Link>
       
         <ul className='section-dec'>
-          <li><span className='section-dec-title'>💠Description</span>모임에서 사용한 금액을 정산하는 계산기</li>
+          <li><span className='section-dec-title'>💠Description</span>업데이트 예정입니다...</li>
           <li>
             <span className='section-dec-title'>💠lang</span>
             <ul>
-              <li>React</li>
+              <li>...</li>
             </ul>
           </li>
         </ul>
