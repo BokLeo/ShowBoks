@@ -3,6 +3,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import UserTab from './UserTab';
+import Nav from './Nav';
 
 function Header() {
   return (
@@ -10,6 +11,8 @@ function Header() {
       <h1>
         <Link to="/" className='showboxs-title'>ShowBok's</Link>
       </h1>
+
+      <Nav />
 
       <UserTab />
     </>

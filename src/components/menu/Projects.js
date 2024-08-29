@@ -2,7 +2,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-function Home() {
+function Projects() {
   const onHoverSection = (e) => {
     e.preventDefault();
     fn_checkingClass(e);
@@ -15,16 +15,16 @@ function Home() {
 
   const fn_checkingClass = (e) => {
     e.preventDefault();
-    const section = e.target.closest('.App-body__section');
+    const section = e.target.closest('.projects__section');
 		const classArr = section.classList;
 
     classArr.contains('active') ? classArr.remove('active') : classArr.add('active');
   };
 
   return (
-    <>
+    <div className='projects'>
       <section 
-        className='App-body__section active'
+        className='projects__section active'
         onMouseEnter={onHoverSection} 
         onMouseLeave={onLeaveSection}
       >
@@ -44,7 +44,7 @@ function Home() {
       </section>
 
       <section 
-        className='App-body__section'
+        className='projects__section'
         onMouseEnter={onHoverSection} 
         onMouseLeave={onLeaveSection}
       >
@@ -64,7 +64,7 @@ function Home() {
       </section>
 
       <section 
-        className='App-body__section'
+        className='projects__section'
         onMouseEnter={onHoverSection} 
         onMouseLeave={onLeaveSection}
       >
@@ -84,7 +84,7 @@ function Home() {
       </section>
 
       <section 
-        className='App-body__section'
+        className='projects__section'
         onMouseEnter={onHoverSection} 
         onMouseLeave={onLeaveSection}
       >
@@ -102,9 +102,9 @@ function Home() {
           </li>
         </ul>
       </section>
-    </>
+    </div>
   );
 }
 
 
-export default Home;
+export default Projects;

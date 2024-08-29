@@ -69,6 +69,10 @@ button {
   box-sizing: border-box;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -118,13 +122,49 @@ body {
   box-shadow: none;
 }
 
-.showboxs-title {
-  font-size: 1.6rem;
-  font-weight: 600;
-  margin-bottom: 20px;
+h1 {
+  font-size: 3rem;
+  font-weight: 700;
 }
 
-.App-header {
+h2 {
+  font-size: 2.5rem;
+  font-weight: 600;
+}
+
+h3 {
+  font-size: 2rem;
+  font-weight: 500;
+}
+
+h4 {
+  font-size: 1.5rem;
+  font-weight: 500;
+}
+
+h5 {
+  font-size: 1.25rem;
+  font-weight: 400;
+}
+
+h6 {
+  font-size: 1rem;
+  font-weight: 400;
+}
+
+.dashed::after {
+  content: "—";
+  font-weight: 300;
+  padding: 0px 8px;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.app-header {
   width: 100%;
   height: 80px;
   padding: 0 20px;
@@ -133,36 +173,197 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  position: relative;
+  position: sticky;
+  top: 0;
+  background-color: #fff;
+  z-index: 9999;
 }
-.App-header h1 {
-  height: 100%;
+.app-header h1 {
+  font-size: unset;
 }
-.App-header a {
+.app-header .showboxs-title {
+  font-size: 1.6rem;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+.app-header .showboxs-title a {
   display: flex;
   align-items: center;
   height: 100%;
   font-size: 1.6rem;
 }
-.App-header a:hover {
+.app-header .showboxs-title a:hover {
   color: #007bff;
 }
 
-.App-body {
+.app-body {
+  padding: 20px 20px 0 20px;
+  flex: 1;
+}
+
+.experience {
+  display: flex;
+  align-items: baseline;
+}
+.experience .sticky-title { /* For Safari */
+  position: sticky;
+  top: 110px;
+  z-index: 1000; /* Optional: to ensure the title stays on top of other content */
+  margin-right: 40px;
+}
+.experience .sticky-title ul {
+  color: #666666;
+  font-size: 1.5rem;
+  font-weight: 400;
+  margin-top: 12px;
+  line-height: 2rem;
+  text-align: right;
+}
+.experience .sticky-title ul li:hover {
+  cursor: pointer;
+  color: #007bff;
+}
+.experience .sticky-title ul li.active {
+  color: #007bff;
+}
+.experience .experience-detail {
+  width: 80%;
+}
+.experience .experience-detail .experience-section {
+  margin-bottom: 80px;
+}
+.experience .experience-detail .experience-section h4 {
+  font-size: 1rem;
+  padding: 8px 16px;
+  border-bottom: 1px solid #d9d9d9;
+  margin-bottom: 20px;
+}
+.experience .experience-detail .experience-section h4::before {
+  content: "🔹";
+  display: inline-block;
+  width: 4px;
+  height: 16px;
+  margin-right: 16px;
+}
+.experience .experience-detail .experience-section ul[class*=-list] {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  align-items: flex-end;
+}
+.experience .experience-detail .experience-section ul[class*=-list] > li {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
   padding: 20px;
+}
+.experience .experience-detail .experience-section ul[class*=-list] > li .period {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 40%;
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.5;
+}
+.experience .experience-detail .experience-section ul[class*=-list] > li .detail {
+  width: 60%;
+}
+
+.experience-section > ul h5[class*=title] {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+.experience-section > ul p[class*=desc] {
+  font-size: 1rem;
+  font-weight: 300;
+  margin-bottom: 12px;
+  line-height: 1.25;
+}
+
+.experience-section .job-list .job {
+  opacity: 0.3;
+}
+.experience-section .job-list .job:not(:last-child) {
+  margin-bottom: 20px;
+}
+.experience-section .job-list .job .period::after {
+  content: "";
+  display: block;
+  width: 1px;
+  height: 100%;
+  background-color: #666666;
+  margin-top: 12px;
+}
+.experience-section .job-list .job .job-title::before {
+  content: "⏺️";
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  margin-right: 16px;
+  margin-left: -4px;
+}
+.experience-section .job-list .job .job-skill h5 {
+  font-size: 1rem;
+  font-weight: 400;
+  margin-bottom: 4px;
+  background-color: #333333;
+  color: #ffffff;
+  border-radius: 4px;
+  padding: 4px 8px;
+  display: inline-block;
+}
+.experience-section .job-list .job .job-skill .skills {
+  display: flex;
+  flex-wrap: wrap;
+}
+.experience-section .job-list .job .job-skill .skills li {
+  margin-right: 8px;
+  line-height: 1.25;
+  font-weight: 300;
+}
+.experience-section .job-list .job .job-skill .skills li:not(:last-child)::after {
+  content: "|";
+  margin-left: 8px;
+}
+.experience-section .job-list .job.active {
+  opacity: 1;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: 0.3s all ease;
+}
+.experience-section .job-list .job.active .period, .experience-section .job-list .job.active .job-title {
+  color: #007bff;
+}
+.experience-section .job-list .job.active .job-skill h5 {
+  background-color: #007bff;
+}
+.experience-section .job-list .job:hover {
+  cursor: pointer;
+  opacity: 1;
+  transition: 0.3s all ease;
+}
+.experience-section .job-list .job:hover .period, .experience-section .job-list .job:hover .job-title {
+  color: #007bff;
+}
+.experience-section .job-list .job:hover .job-skill h5 {
+  background-color: #007bff;
+}
+
+.projects {
   display: grid;
   grid-template-columns: repeat(4, 1fr); /* 4개의 열을 생성 */
   gap: 10px; /* 아이템 간의 간격 */
   align-items: start;
 }
-.App-body .App-body__section {
+.projects .projects__section {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   position: relative;
 }
-.App-body .App-body__section .section-link {
+.projects .projects__section .section-link {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -171,34 +372,34 @@ body {
   padding: 20px;
   box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
 }
-.App-body .App-body__section .section-link.on {
+.projects .projects__section .section-link.on {
   background-color: #fff;
   color: #333333;
 }
-.App-body .App-body__section .section-link.on:hover {
+.projects .projects__section .section-link.on:hover {
   cursor: pointer;
   transition: 0.2s all ease;
   background-color: #007bff;
   color: #ffffff;
 }
-.App-body .App-body__section .section-link.off {
+.projects .projects__section .section-link.off {
   background-color: #f8f9fa;
   color: #cccccc;
 }
-.App-body .App-body__section .section-dec {
+.projects .projects__section .section-dec {
   width: 100%;
   margin-top: 8px;
   padding: 4px;
   font-size: 0.875rem;
 }
-.App-body .App-body__section .section-dec > li {
+.projects .projects__section .section-dec > li {
   display: flex;
   flex-direction: column;
 }
-.App-body .App-body__section .section-dec > li:not(:last-child) {
+.projects .projects__section .section-dec > li:not(:last-child) {
   margin-bottom: 8px;
 }
-.App-body .App-body__section .section-dec > li .section-dec-title {
+.projects .projects__section .section-dec > li .section-dec-title {
   width: -moz-max-content;
   width: max-content;
   background-color: #333;
@@ -209,8 +410,8 @@ body {
   margin-bottom: 4px;
 }
 
-.App-footer {
-  position: fixed;
+.app-footer {
+  position: static;
   bottom: 0;
   display: flex;
   justify-content: center;
@@ -221,28 +422,52 @@ body {
   background-color: #343a40;
   color: #ffffff;
 }
-.App-footer * {
+.app-footer * {
   font-weight: 300;
   font-size: 0.875rem;
 }
-.App-footer .footer-link {
+.app-footer .footer-link {
   display: flex;
   justify-content: center;
   align-items: center;
   width: 100%;
 }
-.App-footer .footer-link li {
+.app-footer .footer-link li {
   margin-right: 8px;
 }
-.App-footer .footer-link li:not(:last-child)::after {
+.app-footer .footer-link li:not(:last-child)::after {
   content: "|";
   margin-left: 8px;
 }
-.App-footer .footer-link li:last-child {
+.app-footer .footer-link li:last-child {
   margin-right: 0;
 }
-.App-footer p {
+.app-footer p {
   margin-top: 8px;
+}
+
+.nav {
+  width: 90%;
+}
+.nav ul {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.nav ul li {
+  margin-right: 20px;
+}
+.nav ul li:not(:last-child) {
+  margin-right: 20px;
+}
+.nav ul li:last-child {
+  margin-right: 0;
+}
+.nav ul li a {
+  font-size: 0.875rem;
+}
+.nav ul li a:hover {
+  transform: scale(1.1);
 }
 
 .user-tab {

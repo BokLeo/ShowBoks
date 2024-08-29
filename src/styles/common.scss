@@ -3,6 +3,10 @@
 
 
 // Deafult Styles
+html { 
+	scroll-behavior: smooth;
+}
+
 *{
     margin: 0;
     padding: 0;
@@ -54,14 +58,49 @@ body {
 	}
 }
 
-.showboxs-title{
-	font-size: 1.6rem;
-	font-weight: 600;
-	margin-bottom: 20px;
+// h1, h2, h3, h4, h5, h6 {
+h1{
+	font-size: 3rem;
+	@include DS.font-weight('bold');
+}
+h2{
+	font-size: 2.5rem;
+	@include DS.font-weight('semi-bold');
+}
+h3{
+	font-size: 2rem;
+	@include DS.font-weight('medium');
+}
+h4{
+	font-size: 1.5rem;
+	@include DS.font-weight('medium');
+}
+h5{
+	font-size: 1.25rem;
+	@include DS.font-weight('regular');
+}
+h6{
+	font-size: 1rem;
+	@include DS.font-weight('regular');
+}
+
+.dashed{
+	&::after{
+		content: '—';
+		font-weight: 300;
+		padding: 0px 8px;	
+	}
+}
+
+
+#root{
+	display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
 // Header Styles
-.App-header{
+.app-header{
 	width: 100%;
 	height: 80px;
 	padding: 0 20px;
@@ -72,30 +111,225 @@ body {
 	justify-content: space-between;
 	align-items: center;
 
-	position: relative;
+	position: sticky;
+	top: 0;
+	background-color: #fff;
+	z-index: 9999;
 
 	h1{
-		height: 100%;
+		font-size: unset;
 	}
-	a{
-		display: flex;
-		align-items: center;
-		height: 100%;
+
+	.showboxs-title{
 		font-size: 1.6rem;
-		&:hover{
-			color: DS.$color-primary;	
+		font-weight: 600;
+		margin-bottom: 20px;
+		a{
+			display: flex;
+			align-items: center;
+			height: 100%;
+			font-size: 1.6rem;
+			&:hover{
+				color: DS.$color-primary;	
+			}
 		}
 	}
 }
 
-.App-body{
-	padding: 20px;
+.app-body{
+	padding: 20px 20px 0 20px;	
+	flex: 1;
+}
+
+//experience Styles
+.experience{
+	display: flex;
+	align-items: baseline;
+	.sticky-title{
+		position: -webkit-sticky; /* For Safari */
+		position: sticky;
+		top: 110px;
+		z-index: 1000; /* Optional: to ensure the title stays on top of other content */
+		margin-right: 40px;
+
+		ul{
+			color: DS.$color-typo-666;
+			font-size: 1.5rem;
+			@include DS.font-weight('regular');
+			margin-top: 12px;
+			line-height: 2rem;
+			text-align: right;
+
+			li{
+				&:hover{
+					cursor: pointer;
+					color: DS.$color-primary;
+				}
+				&.active{
+					color: DS.$color-primary;
+				}	
+			}
+		}
+	}
+	.experience-detail{
+		width: 80%;
+
+		.experience-section{
+			margin-bottom: 80px;
+
+			h4{
+				&::before{
+					content: '🔹';
+					display: inline-block;
+					width: 4px;
+					height: 16px;
+					margin-right: 16px;
+				}
+				font-size: 1rem;
+				padding: 8px 16px;
+				border-bottom: 1px solid #d9d9d9;
+				margin-bottom: 20px;
+			}
+
+
+			ul[class*="-list"]{
+				display: flex;
+				flex-direction: column;
+				flex-wrap: nowrap;
+				align-items: flex-end;
+				
+				>li{
+					display: flex;
+					flex-direction: row;
+					width: 100%;
+					
+					padding: 20px;
+
+					.period{
+						display: flex;
+						flex-direction: column;
+						align-items: center;
+		
+						width: 40%;
+						font-size: 1rem;
+						font-weight: 600;
+						line-height: 1.5;
+					}
+		
+					.detail{
+						width: 60%;
+					}
+				}
+			}
+		}
+	}
+}
+
+.experience-section > ul{
+	h5[class*="title"]{
+		font-size: 1.25rem;
+		font-weight: 600;
+		margin-bottom: 12px;
+	}
+
+	p[class*="desc"]{
+		font-size: 1rem;
+		font-weight: 300;
+		margin-bottom: 12px;
+		line-height: 1.25;
+	}
+}
+
+.experience-section .job-list{
+	.job{
+		&:not(:last-child){
+			margin-bottom: 20px;
+		}
+
+		.period{
+			&::after{
+				content: '';
+				display: block;
+				width: 1px;
+				height: 100%;
+				background-color: DS.$color-typo-666;
+				margin-top: 12px;
+			}
+		}
+		.job-title{
+			&::before{
+				content: '⏺️';
+				display: inline-block;
+				width: 16px;
+				height: 16px;
+				margin-right: 16px;
+				margin-left: -4px;
+			}
+		}
+		.job-skill{
+			h5{
+				font-size: 1rem;
+				font-weight: 400;
+				margin-bottom: 4px;	
+
+				background-color: DS.$color-typo-333;
+				color: DS.$color-typo-fff;
+				border-radius: 4px;
+				padding: 4px 8px;
+				display: inline-block;
+			}
+			.skills{
+				display: flex;
+				flex-wrap: wrap;
+				li{
+					margin-right: 8px;
+					line-height: 1.25;
+					font-weight: 300;
+					&:not(:last-child)::after{
+						content: '|';
+						margin-left: 8px;
+					}
+				}
+			}
+		}
+
+		//---------------- defualt style
+		opacity: 0.3;
+		//----------------
+		&.active{
+			opacity: 1;
+			box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+			transition: 0.3s all ease;
+			.period, .job-title{
+				color: DS.$color-primary;
+			}
+			.job-skill h5{
+				background-color: DS.$color-primary;
+			}
+		}
+		&:hover{
+			cursor: pointer;
+			opacity: 1;
+			transition: 0.3s all ease;
+			.period, .job-title{
+				color: DS.$color-primary;
+			}
+			.job-skill h5{
+				background-color: DS.$color-primary;
+			}
+		}
+	}
+}
+
+
+// Projects Styles
+.projects{
 	display: grid;
 	grid-template-columns: repeat(4, 1fr); /* 4개의 열을 생성 */
 	gap: 10px; /* 아이템 간의 간격 */
 	align-items: start;
 
-	.App-body__section{
+	.projects__section{
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
@@ -158,14 +392,8 @@ body {
 	}
 }
 
-.App-footer{
-	// App-footer
-	//	- footer-link(ul)
-	//		- (li) 
-	//			- Link to github
-	//	- (p) > copy-right
-
-	position: fixed;
+.app-footer{
+	position: static;
 	bottom: 0;
 	display: flex;
 	justify-content: center;
@@ -199,6 +427,33 @@ body {
 	}
 	p{
 		margin-top: 8px;
+	}
+}
+
+// Nav Styles
+.nav{
+	width: 90%;
+	ul{
+		display: flex;
+		justify-content: center;
+		align-items: center;
+
+		li{
+			margin-right: 20px;
+			&:not(:last-child){
+				margin-right: 20px;
+			}
+			&:last-child{
+				margin-right: 0;
+			}
+			a{
+				@include DS.font-size('md'); // 1.5rem (24px)
+
+				&:hover{
+					transform: scale(1.1);
+				}
+			}
+		}	
 	}
 }
 
