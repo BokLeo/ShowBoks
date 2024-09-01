@@ -69,6 +69,16 @@ button {
   box-sizing: border-box;
 }
 
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 10px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translateZ(0);
+  }
+}
 html {
   scroll-behavior: smooth;
 }
@@ -92,7 +102,7 @@ body {
 }
 
 .btn {
-  background-color: #FFFFFF;
+  background-color: transparent;
   border: 0;
   border-radius: 4px;
   box-sizing: border-box;
@@ -158,6 +168,20 @@ h6 {
   padding: 0px 8px;
 }
 
+.right-double-arrow::after {
+  content: "»";
+  font-weight: 300;
+  padding: 0px 8px;
+}
+
+.hide {
+  display: none;
+}
+
+.show {
+  display: block;
+}
+
 #root {
   display: flex;
   flex-direction: column;
@@ -168,14 +192,13 @@ h6 {
   width: 100%;
   height: 80px;
   padding: 0 20px;
-  background-color: #fff;
+  background-color: rgba(255, 255, 255, 0.8);
   border-bottom: 1px solid #e9ecef;
   display: flex;
   justify-content: space-between;
   align-items: center;
   position: sticky;
   top: 0;
-  background-color: #fff;
   z-index: 9999;
 }
 .app-header h1 {
@@ -197,8 +220,15 @@ h6 {
 }
 
 .app-body {
-  padding: 20px 20px 0 20px;
+  padding: 20px;
   flex: 1;
+  background-color: #fff;
+}
+.app-body.experience {
+  background-color: #f8f9fa;
+}
+.app-body.talk {
+  background-color: #101528;
 }
 
 .experience {
@@ -269,26 +299,24 @@ h6 {
 .experience .experience-detail .experience-section ul[class*=-list] > li .detail {
   width: 60%;
 }
-
-.experience-section > ul h5[class*=title] {
+.experience .experience-section > ul h5[class*=title] {
   font-size: 1.25rem;
   font-weight: 600;
   margin-bottom: 12px;
 }
-.experience-section > ul p[class*=desc] {
+.experience .experience-section > ul p[class*=desc] {
   font-size: 1rem;
   font-weight: 300;
   margin-bottom: 12px;
   line-height: 1.25;
 }
-
-.experience-section .job-list .job {
+.experience .experience-section .job-list .job {
   opacity: 0.3;
 }
-.experience-section .job-list .job:not(:last-child) {
+.experience .experience-section .job-list .job:not(:last-child) {
   margin-bottom: 20px;
 }
-.experience-section .job-list .job .period::after {
+.experience .experience-section .job-list .job .period::after {
   content: "";
   display: block;
   width: 1px;
@@ -296,7 +324,7 @@ h6 {
   background-color: #666666;
   margin-top: 12px;
 }
-.experience-section .job-list .job .job-title::before {
+.experience .experience-section .job-list .job .job-title::before {
   content: "⏺️";
   display: inline-block;
   width: 16px;
@@ -304,7 +332,7 @@ h6 {
   margin-right: 16px;
   margin-left: -4px;
 }
-.experience-section .job-list .job .job-skill h5 {
+.experience .experience-section .job-list .job .job-skill h5 {
   font-size: 1rem;
   font-weight: 400;
   margin-bottom: 4px;
@@ -314,40 +342,143 @@ h6 {
   padding: 4px 8px;
   display: inline-block;
 }
-.experience-section .job-list .job .job-skill .skills {
+.experience .experience-section .job-list .job .job-skill .skills {
   display: flex;
   flex-wrap: wrap;
 }
-.experience-section .job-list .job .job-skill .skills li {
+.experience .experience-section .job-list .job .job-skill .skills li {
   margin-right: 8px;
   line-height: 1.25;
   font-weight: 300;
 }
-.experience-section .job-list .job .job-skill .skills li:not(:last-child)::after {
+.experience .experience-section .job-list .job .job-skill .skills li:not(:last-child)::after {
   content: "|";
   margin-left: 8px;
 }
-.experience-section .job-list .job.active {
+.experience .experience-section .job-list .job.active {
   opacity: 1;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   transition: 0.3s all ease;
 }
-.experience-section .job-list .job.active .period, .experience-section .job-list .job.active .job-title {
+.experience .experience-section .job-list .job.active .period, .experience .experience-section .job-list .job.active .job-title {
   color: #007bff;
 }
-.experience-section .job-list .job.active .job-skill h5 {
+.experience .experience-section .job-list .job.active .job-skill h5 {
   background-color: #007bff;
 }
-.experience-section .job-list .job:hover {
+.experience .experience-section .job-list .job:hover {
   cursor: pointer;
   opacity: 1;
   transition: 0.3s all ease;
 }
-.experience-section .job-list .job:hover .period, .experience-section .job-list .job:hover .job-title {
+.experience .experience-section .job-list .job:hover .period, .experience .experience-section .job-list .job:hover .job-title {
   color: #007bff;
 }
-.experience-section .job-list .job:hover .job-skill h5 {
+.experience .experience-section .job-list .job:hover .job-skill h5 {
   background-color: #007bff;
+}
+
+.talk {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+}
+.talk * {
+  color: inherit;
+}
+.talk .btn-wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.talk .btn-wrap li:not(:last-child) {
+  margin-right: 20px;
+}
+.talk .btn-wrap li:last-child {
+  margin-right: 0;
+}
+.talk .btn-wrap .btn {
+  border: 1px solid #fff;
+  color: #ffffff;
+  font-size: 1.5rem;
+  font-weight: 600;
+  padding: 24px 48px;
+  opacity: 0.8;
+  transition: 0.3s all ease;
+}
+.talk .btn-wrap .btn:hover {
+  background-color: rgba(0, 123, 255, 0.1);
+  opacity: 1;
+}
+.talk .talk-wrap {
+  text-align: center;
+  width: 60%;
+  height: 100%;
+  padding: 40px 0;
+  margin-top: -40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+.talk .talk-wrap .talk-body .question {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  background-color: #101528;
+  color: #ffffff;
+  margin-top: 40px;
+}
+.talk .talk-wrap .talk-body .question li {
+  margin-top: 14px;
+}
+.talk .talk-wrap .talk-body .question li:not(:last-child) {
+  margin-right: 14px;
+}
+.talk .talk-wrap .talk-body .question li button {
+  font-size: 0.875rem;
+  padding: 14px;
+  border: 1px solid #fff;
+  border-radius: 8px;
+}
+.talk .talk-wrap .talk-body .question li button:hover {
+  background-color: rgba(0, 123, 255, 0.1);
+  transform: translateY(-4px);
+  transition: 0.3s all ease;
+}
+.talk .talk-wrap .talk-body .answer.hide {
+  display: none;
+}
+.talk .talk-wrap .talk-body .answer.show {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 40px;
+  padding: 40px;
+  border-radius: 16px;
+  background-color: #ffd200;
+  color: #101528;
+}
+.talk .talk-wrap .talk-body .answer.show.fadeInUp {
+  animation: fadeInUp 1s ease-out;
+  will-change: transform, opacity;
+}
+.talk .talk-wrap .move {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  bottom: -42px;
+  opacity: 0.7;
+  transition: 0.3s all ease;
+}
+.talk .talk-wrap .move:hover {
+  opacity: 1;
+  transform: scale(1.05);
 }
 
 .projects {
