@@ -68,3 +68,136 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+```
+frontend
+├─ .env
+├─ .gitignore
+├─ jsconfig.json
+├─ package-lock.json
+├─ package.json
+├─ public
+│  ├─ favicon.ico
+│  ├─ index.html
+│  ├─ logo192.png
+│  ├─ logo512.png
+│  ├─ manifest.json
+│  └─ robots.txt
+├─ README.md
+├─ src
+│  ├─ App.css
+│  ├─ App.js
+│  ├─ App.test.js
+│  ├─ components
+│  │  ├─ layout
+│  │  │  ├─ BodyLayout.js
+│  │  │  ├─ ExperienceLayout.js
+│  │  │  ├─ HeaderLayout.js
+│  │  │  └─ index.js
+│  │  ├─ menu
+│  │  │  ├─ About.js
+│  │  │  ├─ Experience.js
+│  │  │  ├─ ExperienceJob.js
+│  │  │  ├─ index.js
+│  │  │  ├─ Projects.js
+│  │  │  └─ Talk.js
+│  │  ├─ route
+│  │  │  └─ AppRoutes.js
+│  │  └─ utils
+│  │     ├─ Nav.js
+│  │     └─ UserTab.js
+│  ├─ index.css
+│  ├─ index.js
+│  ├─ logo.svg
+│  ├─ pages
+│  │  └─ talk
+│  │     ├─ FreeTalk.js
+│  │     ├─ index.js
+│  │     └─ QuickTalk.js
+│  ├─ reportWebVitals.js
+│  ├─ services
+│  │  ├─ api.js
+│  │  ├─ index.js
+│  │  └─ talk
+│  │     └─ TalkQnaApi.js
+│  ├─ setupTests.js
+│  └─ styles
+│     ├─ common.css
+│     ├─ common.css.map
+│     ├─ common.scss
+│     ├─ design-system.css
+│     ├─ design-system.css.map
+│     ├─ design-system.scss
+│     ├─ keyframs.css
+│     ├─ keyframs.css.map
+│     ├─ keyframs.scss
+│     └─ reset.css
+└─ webpack.config.js
+
+```
+```
+frontend
+├─ .env
+├─ .gitignore
+├─ jsconfig.json
+├─ package-lock.json
+├─ package.json
+├─ public
+│  ├─ favicon.ico
+│  ├─ index.html
+│  ├─ logo192.png
+│  ├─ logo512.png
+│  ├─ manifest.json
+│  └─ robots.txt
+├─ README.md
+├─ src
+│  ├─ App.css
+│  ├─ App.js
+│  ├─ App.test.js
+│  ├─ components
+│  │  ├─ layout
+│  │  │  ├─ BodyLayout.js
+│  │  │  ├─ ExperienceLayout.js
+│  │  │  ├─ HeaderLayout.js
+│  │  │  └─ index.js
+│  │  ├─ menu
+│  │  │  ├─ About.js
+│  │  │  ├─ Experience.js
+│  │  │  ├─ ExperienceJob.js
+│  │  │  ├─ index.js
+│  │  │  ├─ Projects.js
+│  │  │  └─ Talk.js
+│  │  ├─ route
+│  │  │  └─ AppRoutes.js
+│  │  └─ utils
+│  │     ├─ Nav.js
+│  │     └─ UserTab.js
+│  ├─ index.css
+│  ├─ index.js
+│  ├─ logo.svg
+│  ├─ pages
+│  │  └─ talk
+│  │     ├─ FreeTalk.js
+│  │     ├─ index.js
+│  │     └─ QuickTalk.js
+│  ├─ reportWebVitals.js
+│  ├─ services
+│  │  ├─ api.js
+│  │  ├─ index.js
+│  │  └─ talk
+│  │     └─ TalkQnaApi.js
+│  ├─ setupTests.js
+│  └─ styles
+│     ├─ common.css
+│     ├─ common.css.map
+│     ├─ common.scss
+│     ├─ design-system.css
+│     ├─ design-system.css.map
+│     ├─ design-system.scss
+│     ├─ keyframs.css
+│     ├─ keyframs.css.map
+│     ├─ keyframs.scss
+│     └─ reset.css
+└─ webpack.config.js
+
+```

@@ -7,35 +7,31 @@ import './styles/common.css';
 
 // Components
 import { HeaderLayout, BodyLayout } from './components/layout';
+import { checkServerStatus } from 'services/api';
 
 function App() {
-  const [items, setItems] = useState([]);
-  const [newItem, setNewItem] = useState('');
+  const [serverStatus, setServerStatus] = useState('Checking...');
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    // Fetch items from the backend
-    axios.get('http://localhost:5000/api/items')
-      .then(response => {
-        setItems(response.data);
-      })
-      .catch(error => {
-        console.error('There was an error fetching the items!', error);
-      });
-  }, []);
+    const fetchServerStatus = async () => {
+      try {
+        const response = await checkServerStatus();
+        console.log('Server status response:', response.data); // 디버깅을 위해 응답 데이터 출력
+        setServerStatus(response.data);
+      } catch (error) {
+        setError('Failed to connect to the server.');
+        console.error('Server status check error:', error);
+      }
+    };
 
-  const addItem = () => {
-    axios.post('http://localhost:5000/api/items', { name: newItem })
-      .then(response => {
-        setItems([...items, response.data]);
-        setNewItem('');
-      })
-      .catch(error => {
-        console.error('There was an error adding the item!', error);
-      });
-  };
+    fetchServerStatus();
+  }, []);
 
   return (
     <BrowserRouter>
+      <p>Server Status: {error ? error : serverStatus}</p>
+
       <HeaderLayout />
 
       <BodyLayout />
@@ -45,24 +41,6 @@ function App() {
           <li><Link to="/test1">Feedback</Link></li>
           <li><Link to="/test2">Contact</Link></li>
         </ul>
-
-        <p>© 2024 ShowBok's. All rights reserved.</p>
-      </div>
-
-      <div>
-        <h2>Items</h2>
-        <ul>
-          {items.map(item => (
-            <li key={item.id}>{item.name}</li>
-          ))}
-        </ul>
-        <input
-          type="text"
-          value={newItem}
-          onChange={(e) => setNewItem(e.target.value)}
-          placeholder="Add new item"
-        />
-        <button onClick={addItem}>Add Item</button>
       </div>
     </BrowserRouter>
   );
