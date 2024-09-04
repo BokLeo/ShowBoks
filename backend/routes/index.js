@@ -2,7 +2,6 @@ const express = require('express');
 const router = express.Router();
 
 // ----- Import the talk_qna routes -----
-const talkQnaApi = require('./talk/talkQnaApi');
-router.use('/talk/talkQnaApi', talkQnaApi);
+router.use('/talk/talk_qna', require('./talk/talkQnaApi'));
 
 module.exports = router;

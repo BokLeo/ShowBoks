@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { fetchQuickTalkData } from 'services/index';
 
 const QuickTalk = () => {
@@ -60,6 +61,11 @@ const QuickTalk = () => {
         <div className={`answer ${answerState} ${animate ? 'fadeInUp' : ''}`}>
           {selectedAnswer}
         </div>
+      </div>
+
+      {/* 자유작성으로 이동하기 위한 링크 */}
+      <div className='move'>
+        <Link to="/Talk/FreeTalk" className='right-double-arrow'>자유 작성으로 이동하기</Link>
       </div>
     </div>
   );
