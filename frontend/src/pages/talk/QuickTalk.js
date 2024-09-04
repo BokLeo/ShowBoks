@@ -47,7 +47,7 @@ const QuickTalk = () => {
 
   return (
     <div className='talk-wrap'>
-      <div className='talk-body'>
+      <div className='talk-body quick'>
         <h5>궁금하신 질문을 선택해주세요.</h5>
 
         <ul className='question'>

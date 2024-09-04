@@ -1,0 +1,62 @@
+// Design System
+
+// Modules
+// -- Pretendard Font
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css");
+
+// Variables
+$font-family: 'Pretendard', sans-serif;
+// font size table
+$base-font-size: 16px;
+// --------------------
+$font-sizes: (
+  'xs': 0.625rem,  // 10px
+  'sm': 0.75rem,   // 12px
+  'md': 0.875rem,  // 14px
+  'lg': 1rem,      // 16px
+  'xl': 1.25rem,   // 20px
+  'xxl': 1.5rem    // 24px
+);
+// Helper mixin to apply font-size
+@mixin font-size($size) {
+  font-size: map-get($font-sizes, $size);
+}
+
+//font weight table
+$font-weights: (
+  'light': 300,
+  'regular': 400,
+  'medium': 500,
+  'semi-bold': 600,
+  'bold': 700
+);
+// Helper mixin to apply font-weight
+@mixin font-weight($weight) {
+  font-weight: map-get($font-weights, $weight);
+}
+
+
+// -- Color Variables
+
+// Type color Variables
+$color-typo-000: #000000;
+$color-typo-333: #333333;
+$color-typo-666: #666666;
+$color-typo-999: #999999;
+$color-typo-ccc: #cccccc;
+$color-typo-eee: #eeeeee;
+$color-typo-fff: #ffffff;
+
+// Design color Variables
+$color-primary: #007bff;
+$color-primary-hover: rgba(0, 123, 255, 0.1);
+
+$color-dark: #343a40;
+
+
+
+
+
+
+
+

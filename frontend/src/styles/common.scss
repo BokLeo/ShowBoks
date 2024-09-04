@@ -1,5 +1,6 @@
 @use 'reset';
-@use 'design-system' as DS;
+@use 'base-system' as BS;
+@import 'design-system';
 @import 'keyframs';
 
 // Deafult Styles
@@ -15,14 +16,14 @@ html {
     box-sizing: border-box;
 }
 body {
-	font-family: DS.$font-family;
+	font-family: BS.$font-family;
 	font-size: 16px;
 	height: 100vh;
 	background-color: #f8f9fa;
 }
 // Deafult Font Styles
 *{
-	font-family: DS.$font-family;
+	font-family: BS.$font-family;
 	font-size: 16px;
 }
 // Deafult button Design
@@ -31,7 +32,7 @@ body {
 	border: 0;
 	border-radius: 4px;
 	box-sizing: border-box;
-	color: DS.$color-typo-333;
+	color: BS.$color-typo-333;
 	font-size: .875rem;
 	font-weight: 600;
 	line-height: 1.25rem;
@@ -47,7 +48,7 @@ body {
 	touch-action: manipulation;
 
 	&:hover {
-		background-color: DS.$color-primary-hover;
+		background-color: BS.$color-primary-hover;
 	}
 	
 	&:focus {
@@ -63,27 +64,27 @@ body {
 // h1, h2, h3, h4, h5, h6 {
 h1{
 	font-size: 3rem;
-	@include DS.font-weight('bold');
+	@include BS.font-weight('bold');
 }
 h2{
 	font-size: 2.5rem;
-	@include DS.font-weight('semi-bold');
+	@include BS.font-weight('semi-bold');
 }
 h3{
 	font-size: 2rem;
-	@include DS.font-weight('medium');
+	@include BS.font-weight('medium');
 }
 h4{
 	font-size: 1.5rem;
-	@include DS.font-weight('medium');
+	@include BS.font-weight('medium');
 }
 h5{
 	font-size: 1.25rem;
-	@include DS.font-weight('regular');
+	@include BS.font-weight('regular');
 }
 h6{
 	font-size: 1rem;
-	@include DS.font-weight('regular');
+	@include BS.font-weight('regular');
 }
 
 .dashed{
@@ -147,7 +148,7 @@ h6{
 			height: 100%;
 			font-size: 1.6rem;
 			&:hover{
-				color: DS.$color-primary;	
+				color: BS.$color-primary;	
 			}
 		}
 	}
@@ -179,9 +180,9 @@ h6{
 		margin-right: 40px;
 
 		ul{
-			color: DS.$color-typo-666;
+			color: BS.$color-typo-666;
 			font-size: 1.5rem;
-			@include DS.font-weight('regular');
+			@include BS.font-weight('regular');
 			margin-top: 12px;
 			line-height: 2rem;
 			text-align: right;
@@ -189,10 +190,10 @@ h6{
 			li{
 				&:hover{
 					cursor: pointer;
-					color: DS.$color-primary;
+					color: BS.$color-primary;
 				}
 				&.active{
-					color: DS.$color-primary;
+					color: BS.$color-primary;
 				}	
 			}
 		}
@@ -278,7 +279,7 @@ h6{
 					display: block;
 					width: 1px;
 					height: 100%;
-					background-color: DS.$color-typo-666;
+					background-color: BS.$color-typo-666;
 					margin-top: 12px;
 				}
 			}
@@ -298,8 +299,8 @@ h6{
 					font-weight: 400;
 					margin-bottom: 4px;	
 
-					background-color: DS.$color-typo-333;
-					color: DS.$color-typo-fff;
+					background-color: BS.$color-typo-333;
+					color: BS.$color-typo-fff;
 					border-radius: 4px;
 					padding: 4px 8px;
 					display: inline-block;
@@ -327,10 +328,10 @@ h6{
 				box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 				transition: 0.3s all ease;
 				.period, .job-title{
-					color: DS.$color-primary;
+					color: BS.$color-primary;
 				}
 				.job-skill h5{
-					background-color: DS.$color-primary;
+					background-color: BS.$color-primary;
 				}
 			}
 			&:hover{
@@ -338,10 +339,10 @@ h6{
 				opacity: 1;
 				transition: 0.3s all ease;
 				.period, .job-title{
-					color: DS.$color-primary;
+					color: BS.$color-primary;
 				}
 				.job-skill h5{
-					background-color: DS.$color-primary;
+					background-color: BS.$color-primary;
 				}
 			}
 		}
@@ -376,14 +377,14 @@ h6{
 		}
 		.btn{
 			border: 1px solid #fff;
-			color: DS.$color-typo-fff;
+			color: BS.$color-typo-fff;
 			font-size: 1.5rem;
 			font-weight: 600;
 			padding: 24px 48px;
 			opacity: 0.8;
 			transition: 0.3s all ease;
 			&:hover{
-				background-color: DS.$color-primary-hover;
+				background-color: BS.$color-primary-hover;
 				opacity: 1;
 			}
 		}
@@ -402,7 +403,7 @@ h6{
 
 		position: relative;	
 
-		.talk-body{
+		.talk-body.quick{
 			.question{
 				display: flex;
 				flex-direction: row;
@@ -411,7 +412,7 @@ h6{
 				align-items: center;
 				
 				background-color: #101528;
-				color: DS.$color-typo-fff;
+				color: BS.$color-typo-fff;
 	
 				margin-top: 40px;
 				li {
@@ -427,7 +428,7 @@ h6{
 						border-radius: 8px;
 						
 						&:hover{
-							background-color: DS.$color-primary-hover;
+							background-color: BS.$color-primary-hover;
 							transform: translateY(-4px);
 							transition: 0.3s all ease;
 						}
@@ -454,6 +455,63 @@ h6{
 					&.fadeInUp{	
 						animation: fadeInUp 1s ease-out;
 						will-change: transform, opacity;
+					}
+				}
+			}
+		}
+
+		.talk-body.free{
+			// 보라색 border
+			.message{
+				display: flex;
+				align-items: center;
+
+				border: 1px solid #6f42c1;
+				background-color: #1a1a2e;
+				color: #fff;
+				padding: 4px;
+
+				.message-input {
+					width: 100%;
+					background-color: transparent;
+					border:0;
+					resize: none;
+					padding: 4px;
+					padding-right: 40px;
+
+					height: 2rem;
+					max-height: 300px; /* 최대 높이를 설정하여 너무 커지는 것을 방지 */
+					
+					line-height: 1.5; /* 줄 높이를 설정 */
+
+					border: none;
+					overflow: hidden;
+					outline: none;
+			
+					-webkit-box-shadow: none;
+					-moz-box-shadow: none;
+					box-shadow: none;
+			
+					resize: none;
+				}
+				
+				.send-button {
+					display: flex;
+					align-items: center;
+
+					cursor: pointer;
+					
+					transition: 0.3s all ease;
+					opacity: 0.8;
+
+					SendIcon{
+						font-size: 1.5rem;
+						color: #fff;
+						line-height: 1.5;
+					}
+					&:hover {
+						color: #27c8e1;
+						opacity: 1;
 					}
 				}
 			}
@@ -505,17 +563,17 @@ h6{
 
 			&.on{
 				background-color: #fff;
-				color: DS.$color-typo-333;
+				color: BS.$color-typo-333;
 				&:hover{
 					cursor: pointer;
 					transition: 0.2s all ease;
-					background-color: DS.$color-primary;
-					color: DS.$color-typo-fff;
+					background-color: BS.$color-primary;
+					color: BS.$color-typo-fff;
 				}		
 			}
 			&.off{
 				background-color: #f8f9fa;
-				color: DS.$color-typo-ccc;
+				color: BS.$color-typo-ccc;
 			}
 		}
 
@@ -523,7 +581,7 @@ h6{
 			width: 100%;
 			margin-top: 8px;
 			padding: 4px;
-			@include DS.font-size('md'); // 1.5rem (24px)
+			@include BS.font-size('md'); // 1.5rem (24px)
 
 			>li{
 				display: flex;
@@ -536,7 +594,7 @@ h6{
 				.section-dec-title{
 					width: max-content;
 					background-color: #333;
-					color: DS.$color-typo-fff;
+					color: BS.$color-typo-fff;
 					border-radius: 4px;
 					padding: 4px 8px 4px 4px;
 					margin-right: 4px;
@@ -557,12 +615,12 @@ h6{
 	flex-direction: column;
 	width: 100%;
 	height: 140px;
-	background-color: DS.$color-dark;
-	color: DS.$color-typo-fff;
+	background-color: BS.$color-dark;
+	color: BS.$color-typo-fff;
 
 	*{
-		@include DS.font-weight('light');
-		@include DS.font-size('md');
+		@include BS.font-weight('light');
+		@include BS.font-size('md');
 	}
 
 	.footer-link{
@@ -603,7 +661,7 @@ h6{
 				margin-right: 0;
 			}
 			a{
-				@include DS.font-size('md'); // 1.5rem (24px)
+				@include BS.font-size('md'); // 1.5rem (24px)
 
 				&:hover{
 					transform: scale(1.1);
@@ -627,7 +685,7 @@ h6{
 		height: 40px;
 		border-radius: 50%;
 		background-color: #d9d9d9;
-		color: DS.$color-typo-fff;
+		color: BS.$color-typo-fff;
 		display: flex;
 		justify-content: center;
 		align-items: center;
@@ -688,8 +746,8 @@ h6{
 			width: 100%;
 			padding: 16px;
 			border-top: 1px solid #e9ecef;
-			background-color: DS.$color-typo-333;
-			color: DS.$color-typo-fff;
+			background-color: BS.$color-typo-333;
+			color: BS.$color-typo-fff;
 
 			.user-panel-option__logout{
 				display: flex;

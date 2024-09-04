@@ -1,5 +1,6 @@
 @charset "UTF-8";
 @import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css");
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css");
 /* http://meyerweb.com/eric/tools/css/reset/ 
    v2.0 | 20110126
    License: none (public domain)
@@ -67,6 +68,15 @@ button {
 
 * {
   box-sizing: border-box;
+}
+
+.talk .info-subtle {
+  color: #cccccc !important;
+  font-size: 0.875rem;
+}
+
+.pd40 {
+  padding: 20px;
 }
 
 @keyframes fadeInUp {
@@ -422,7 +432,7 @@ h6 {
   align-items: center;
   position: relative;
 }
-.talk .talk-wrap .talk-body .question {
+.talk .talk-wrap .talk-body.quick .question {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -432,27 +442,27 @@ h6 {
   color: #ffffff;
   margin-top: 40px;
 }
-.talk .talk-wrap .talk-body .question li {
+.talk .talk-wrap .talk-body.quick .question li {
   margin-top: 14px;
 }
-.talk .talk-wrap .talk-body .question li:not(:last-child) {
+.talk .talk-wrap .talk-body.quick .question li:not(:last-child) {
   margin-right: 14px;
 }
-.talk .talk-wrap .talk-body .question li button {
+.talk .talk-wrap .talk-body.quick .question li button {
   font-size: 0.875rem;
   padding: 14px;
   border: 1px solid #fff;
   border-radius: 8px;
 }
-.talk .talk-wrap .talk-body .question li button:hover {
+.talk .talk-wrap .talk-body.quick .question li button:hover {
   background-color: rgba(0, 123, 255, 0.1);
   transform: translateY(-4px);
   transition: 0.3s all ease;
 }
-.talk .talk-wrap .talk-body .answer.hide {
+.talk .talk-wrap .talk-body.quick .answer.hide {
   display: none;
 }
-.talk .talk-wrap .talk-body .answer.show {
+.talk .talk-wrap .talk-body.quick .answer.show {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -463,9 +473,49 @@ h6 {
   background-color: #ffd200;
   color: #101528;
 }
-.talk .talk-wrap .talk-body .answer.show.fadeInUp {
+.talk .talk-wrap .talk-body.quick .answer.show.fadeInUp {
   animation: fadeInUp 1s ease-out;
   will-change: transform, opacity;
+}
+.talk .talk-wrap .talk-body.free .message {
+  display: flex;
+  align-items: center;
+  border: 1px solid #6f42c1;
+  background-color: #1a1a2e;
+  color: #fff;
+  padding: 4px;
+}
+.talk .talk-wrap .talk-body.free .message .message-input {
+  width: 100%;
+  background-color: transparent;
+  border: 0;
+  resize: none;
+  padding: 4px;
+  padding-right: 40px;
+  height: 2rem;
+  max-height: 300px; /* 최대 높이를 설정하여 너무 커지는 것을 방지 */
+  line-height: 1.5; /* 줄 높이를 설정 */
+  border: none;
+  overflow: hidden;
+  outline: none;
+  box-shadow: none;
+  resize: none;
+}
+.talk .talk-wrap .talk-body.free .message .send-button {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  transition: 0.3s all ease;
+  opacity: 0.8;
+}
+.talk .talk-wrap .talk-body.free .message .send-button SendIcon {
+  font-size: 1.5rem;
+  color: #fff;
+  line-height: 1.5;
+}
+.talk .talk-wrap .talk-body.free .message .send-button:hover {
+  color: #27c8e1;
+  opacity: 1;
 }
 .talk .talk-wrap .move {
   display: flex;
