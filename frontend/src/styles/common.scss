@@ -115,6 +115,7 @@ h6{
 #root{
 	display: flex;
   flex-direction: column;
+	height: 100vh;
   min-height: 100vh;
 }
 
@@ -165,6 +166,7 @@ h6{
 	}
 	&.talk{
 		background-color: #101528;
+		position: relative;	
 	}
 }
 
@@ -395,13 +397,11 @@ h6{
 		width: 60%;
 		height: 100%;
 		padding: 40px 0;
-		margin-top: -40px;
 
-		display: flex;
-    justify-content: center;
-    align-items: center;
-
-		position: relative;	
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+		align-items: center;
 
 		.talk-body.quick{
 			.question{
@@ -461,57 +461,104 @@ h6{
 		}
 
 		.talk-body.free{
-			// 보라색 border
-			.message{
+			flex: 1;
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+
+			.talk-body-title{
+				p{
+					padding-bottom: 0px;
+				}
+			}
+
+			.talk-body-chat{
+				width: 80vw;
+				height: 0px;
+				transition : 3s all ease;
+				padding: 20px 0;
+			}
+
+			&.active{
+				.talk-body-chat{
+					height: 100%;
+				}
+			}			
+
+			.talk-body-message{
 				display: flex;
+				flex-direction: column;
 				align-items: center;
 
-				border: 1px solid #6f42c1;
-				background-color: #1a1a2e;
-				color: #fff;
-				padding: 4px;
-
-				.message-input {
+				.message-info{
+					display: flex;
+					justify-content: space-between;
+					align-items: center;
 					width: 100%;
-					background-color: transparent;
-					border:0;
-					resize: none;
-					padding: 4px;
-					padding-right: 40px;
+					margin-bottom: 8px;
 
-					height: 2rem;
-					max-height: 300px; /* 최대 높이를 설정하여 너무 커지는 것을 방지 */
-					
-					line-height: 1.5; /* 줄 높이를 설정 */
-
-					border: none;
-					overflow: hidden;
-					outline: none;
-			
-					-webkit-box-shadow: none;
-					-moz-box-shadow: none;
-					box-shadow: none;
-			
-					resize: none;
+					.message-id, .message-password{
+						font-size: 0.875rem;
+						width: 49%;
+						padding: 8px;
+						border: 1px solid #555555;
+						border-radius: 4px;
+						background-color: #1a1a2e;
+					}
 				}
-				
-				.send-button {
+				.message-text{
 					display: flex;
 					align-items: center;
+					width: 100%;
+					border: 1px solid #6f42c1;
+					border-radius: 4px;
+					background-color: #1a1a2e;
+					color: #fff;
+					padding: 4px;	
 
-					cursor: pointer;
-					
-					transition: 0.3s all ease;
-					opacity: 0.8;
-
-					SendIcon{
-						font-size: 1.5rem;
-						color: #fff;
-						line-height: 1.5;
+					.message-input {
+						width: 100%;
+						background-color: transparent;
+						border:0;
+						resize: none;
+						padding: 4px;
+						padding-right: 40px;
+	
+						height: 2rem;
+						max-height: 300px; /* 최대 높이를 설정하여 너무 커지는 것을 방지 */
+						
+						line-height: 1.5; /* 줄 높이를 설정 */
+	
+						border: none;
+						overflow: hidden;
+						outline: none;
+				
+						-webkit-box-shadow: none;
+						-moz-box-shadow: none;
+						box-shadow: none;
+				
+						resize: none;
 					}
-					&:hover {
-						color: #27c8e1;
-						opacity: 1;
+					
+					.send-button {
+						display: flex;
+						align-items: center;
+	
+						cursor: pointer;
+						
+						transition: 0.3s all ease;
+						opacity: 0.8;
+	
+						SendIcon{
+							font-size: 1.5rem;
+							color: #fff;
+							line-height: 1.5;
+						}
+						&:hover {
+							color: #27c8e1;
+							opacity: 1;
+						}
 					}
 				}
 			}
@@ -523,7 +570,7 @@ h6{
 			align-items: center;
 
 			position: absolute; // 고정 위치로 설정
-			bottom: -42px;
+			bottom: 20px;
 			
 			opacity: 0.7;
 			transition: 0.3s all ease;
@@ -614,7 +661,7 @@ h6{
 	align-items: center;
 	flex-direction: column;
 	width: 100%;
-	height: 140px;
+	height: 60px;
 	background-color: BS.$color-dark;
 	color: BS.$color-typo-fff;
 

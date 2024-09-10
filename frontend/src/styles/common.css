@@ -195,6 +195,7 @@ h6 {
 #root {
   display: flex;
   flex-direction: column;
+  height: 100vh;
   min-height: 100vh;
 }
 
@@ -239,6 +240,7 @@ h6 {
 }
 .app-body.talk {
   background-color: #101528;
+  position: relative;
 }
 
 .experience {
@@ -426,11 +428,10 @@ h6 {
   width: 60%;
   height: 100%;
   padding: 40px 0;
-  margin-top: -40px;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  justify-content: space-between;
   align-items: center;
-  position: relative;
 }
 .talk .talk-wrap .talk-body.quick .question {
   display: flex;
@@ -477,15 +478,56 @@ h6 {
   animation: fadeInUp 1s ease-out;
   will-change: transform, opacity;
 }
-.talk .talk-wrap .talk-body.free .message {
+.talk .talk-wrap .talk-body.free {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.talk .talk-wrap .talk-body.free .talk-body-title p {
+  padding-bottom: 0px;
+}
+.talk .talk-wrap .talk-body.free .talk-body-chat {
+  width: 80vw;
+  height: 0px;
+  transition: 3s all ease;
+  padding: 20px 0;
+}
+.talk .talk-wrap .talk-body.free.active .talk-body-chat {
+  height: 100%;
+}
+.talk .talk-wrap .talk-body.free .talk-body-message {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.talk .talk-wrap .talk-body.free .talk-body-message .message-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 8px;
+}
+.talk .talk-wrap .talk-body.free .talk-body-message .message-info .message-id, .talk .talk-wrap .talk-body.free .talk-body-message .message-info .message-password {
+  font-size: 0.875rem;
+  width: 49%;
+  padding: 8px;
+  border: 1px solid #555555;
+  border-radius: 4px;
+  background-color: #1a1a2e;
+}
+.talk .talk-wrap .talk-body.free .talk-body-message .message-text {
   display: flex;
   align-items: center;
+  width: 100%;
   border: 1px solid #6f42c1;
+  border-radius: 4px;
   background-color: #1a1a2e;
   color: #fff;
   padding: 4px;
 }
-.talk .talk-wrap .talk-body.free .message .message-input {
+.talk .talk-wrap .talk-body.free .talk-body-message .message-text .message-input {
   width: 100%;
   background-color: transparent;
   border: 0;
@@ -501,19 +543,19 @@ h6 {
   box-shadow: none;
   resize: none;
 }
-.talk .talk-wrap .talk-body.free .message .send-button {
+.talk .talk-wrap .talk-body.free .talk-body-message .message-text .send-button {
   display: flex;
   align-items: center;
   cursor: pointer;
   transition: 0.3s all ease;
   opacity: 0.8;
 }
-.talk .talk-wrap .talk-body.free .message .send-button SendIcon {
+.talk .talk-wrap .talk-body.free .talk-body-message .message-text .send-button SendIcon {
   font-size: 1.5rem;
   color: #fff;
   line-height: 1.5;
 }
-.talk .talk-wrap .talk-body.free .message .send-button:hover {
+.talk .talk-wrap .talk-body.free .talk-body-message .message-text .send-button:hover {
   color: #27c8e1;
   opacity: 1;
 }
@@ -522,7 +564,7 @@ h6 {
   justify-content: center;
   align-items: center;
   position: absolute;
-  bottom: -42px;
+  bottom: 20px;
   opacity: 0.7;
   transition: 0.3s all ease;
 }
@@ -599,7 +641,7 @@ h6 {
   align-items: center;
   flex-direction: column;
   width: 100%;
-  height: 140px;
+  height: 60px;
   background-color: #343a40;
   color: #ffffff;
 }
