@@ -1,3 +1,3 @@
 // services/talk/index.js
 export { fetchQuickTalkData } from './talk/TalkQnaApi';
-export { fetchFreeTalkData, postFreeTalkData } from './talk/TalkFreeApi';
+export { basicFreeTalkData, fetchFreeTalkData, postFreeTalkData } from './talk/TalkFreeApi';

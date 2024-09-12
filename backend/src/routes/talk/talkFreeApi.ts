@@ -12,6 +12,7 @@ const conn = require(connPath).default; // conn 모듈 가져오기
 const getUserIp = require(path.join(appRoot.path, 'src', 'utils', 'getUserIp')).default;
 
 type BaseTalkFree = {
+  cnt: number;
   id: number;
   content: string;
   // created_dt: string; auto generated
@@ -25,19 +26,47 @@ type BaseTalkFree = {
 interface TalkFreeRequestBody extends Pick<BaseTalkFree, 'content' | 'user_ip' | 'free_nickname' | 'free_password'> {};
 
 
-// 페이지 진입 시
 router.get('', (req: Request, res: Response) => {
-  console.log('talkFree API accessed');
-
-  conn.query('SELECT * FROM talk_free', (err: Error, results: any[]) => {
+  conn.query(`SELECT count(*) as cnt FROM talk_free where use_yn = 'Y'`, (err: Error, results: BaseTalkFree[]) => {
     if (err) {
       console.error('Database query error:', err); // Log the error
       return res.status(500).json({ error: err.message });
     }
     console.log('Database query results:', results); // Log the results
+    // res.json(results);
+    const cnt = results[0]['cnt'];
+    const pageSize = 8;
+    const totalPage = Math.ceil(cnt / pageSize);
+
+    res.json({totalPage : totalPage});
+  });
+});
+
+// 데이터 요청
+router.get('/data', (req: Request, res: Response) => {
+  console.log('talkFree API accessed');
+
+  // 페이지네이션 파라미터 가져오기
+  const page = parseInt(req.query.page as string) || 1; // 기본값 1
+  const pageSize = 8;
+
+  
+  // OFFSET 계산
+  const offset = (page - 1) * pageSize;
+
+  console.log(`page: ${page}, pageSize: ${pageSize}, offset: ${offset}`);
+
+  // 데이터 조회 쿼리 실행
+  conn.query(`SELECT * FROM talk_free WHERE use_yn = 'Y' ORDER BY updated_dt DESC LIMIT ? OFFSET ?`, [pageSize, offset], (err: Error, results: any[]) => {
+    if (err) {
+      console.error('Database query error:', err); // Log the error
+      return res.status(500).json({ error: err.message });
+    }
     res.json(results);
   });
 });
+
+
 
 
 

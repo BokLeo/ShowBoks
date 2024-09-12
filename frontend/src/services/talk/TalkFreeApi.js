@@ -1,7 +1,12 @@
 import api from 'services/api';
 
-export const fetchFreeTalkData = async () => {
+export const basicFreeTalkData = async () => {
   return await api.get('/api/talk/talk_free');
+}
+
+export const fetchFreeTalkData = async (page) => {
+  // return await api.get('/api/talk/talk_free');
+  return await api.get(`/api/talk/talk_free/data?page=${page}`);
 };
 
 // post 요청
