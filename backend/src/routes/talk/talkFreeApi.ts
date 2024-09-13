@@ -26,7 +26,7 @@ type BaseTalkFree = {
 interface TalkFreeRequestBody extends Pick<BaseTalkFree, 'content' | 'user_ip' | 'free_nickname' | 'free_password'> {};
 
 
-router.get('', (req: Request, res: Response) => {
+router.get('/total_cnt', (req: Request, res: Response) => {
   conn.query(`SELECT count(*) as cnt FROM talk_free where use_yn = 'Y'`, (err: Error, results: BaseTalkFree[]) => {
     if (err) {
       console.error('Database query error:', err); // Log the error

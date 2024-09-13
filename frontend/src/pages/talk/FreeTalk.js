@@ -8,7 +8,7 @@ import SimpleSnackbar from 'components/utils/SimpleSnackbar';
 
 
 // API
-import { basicFreeTalkData, fetchFreeTalkData, postFreeTalkData } from 'services/index';
+import { getFreeTalkTotalCnt, fetchFreeTalkData, postFreeTalkData } from 'services/index';
 
 const generateRandomPassword = () => {
   return Math.floor(1000 + Math.random() * 9000).toString();
@@ -55,7 +55,7 @@ const QuickTalk = () => {
         isFetching.current = true;
 
         try {
-          const res = await basicFreeTalkData();
+          const res = await getFreeTalkTotalCnt();
           setTotalPage(res.data.totalPage);
           setIsSpaceBetween(true);
         } catch (error) {
@@ -133,35 +133,64 @@ const QuickTalk = () => {
   };
 
   // 저장 기능
-  const handleSaveContent = async () => {
+  // const handleSaveContent = async () => {
+  //   try {
+  //     if (!content.trim()) {
+  //       throw new Error('Content is empty.');
+  //     }
+
+  //     await postFreeTalkData({
+  //       content,
+  //       free_nickname: freeNickname,
+  //       free_password: freePassword,
+  //     }).then((response) => {
+  //       console.log('Message saved:', response.data);
+  //     }).catch((error) => {
+  //       console.error('Failed to save message:', error);
+  //     });
+  //   } catch (error) {
+  //     console.error('Failed to save message:', error);
+  //   }
+  // };
+  const handleSaveContent = useCallback(async () => {
     try {
+      console.log('handleSaveContent 접속');
+
       if (!content.trim()) {
         throw new Error('Content is empty.');
       }
-
-      await postFreeTalkData({
+  
+      const response = await postFreeTalkData({
         content,
         free_nickname: freeNickname,
         free_password: freePassword,
-      }).then((response) => {
-        console.log('Message saved:', response.data);
-      }).catch((error) => {
-        console.error('Failed to save message:', error);
       });
+      console.log('Message saved:', response.data);
     } catch (error) {
       console.error('Failed to save message:', error);
     }
-  };
+  }, [content, freeNickname, freePassword]);
 
-  // 전송기능
-  const handleSendContent = () => {
+  // 전송 기능
+  const handleSendContent = async () => {
     if (content.trim()) {
       console.log('Content sent:', content);
-      
-      handleSaveContent().then(() => {
+
+      try {
+        await handleSaveContent(); // 게시글 저장
         console.log('Content saved successfully.');
-        resetState();
-      });
+        resetState(); // 상태 초기화 (예: 입력 필드 리셋)
+        
+        // 게시글 저장 후 페이지와 데이터 업데이트
+        const totalCntResponse = await getFreeTalkTotalCnt();
+        setTotalPage(totalCntResponse.data.totalPage);
+
+        const talkDataResponse = await fetchFreeTalkDataAPI(1);
+        setTalkData(talkDataResponse.data);
+        
+      } catch (error) {
+        console.error('Error saving content or updating data:', error);
+      }
     }
   };
 
@@ -178,6 +207,25 @@ const QuickTalk = () => {
       handleTextareaChange(e);
     }
   };
+
+  // 게시글 저장(handleSaveContent) 후 내용 업데이트(totalPage + talkData)
+  // useEffect(() => {
+  //   const settingTotalCnt = async () => {
+  //     const res = await getFreeTalkTotalCnt();
+  //     setTotalPage(res.data.totalPage);
+  //   };
+  //   const settingTalkData = async () => {
+  //     const response = await fetchFreeTalkDataAPI(1);
+  //     setTalkData(response.data);
+  //   };
+
+  //   setPage(1);
+  //   settingTotalCnt().then(() => {
+  //     settingTalkData();
+  //   });
+    
+
+  // }, [handleSaveContent]);
 
   return (
     <div className='talk-wrap'>
