@@ -66,10 +66,6 @@ router.get('/data', (req: Request, res: Response) => {
   });
 });
 
-
-
-
-
 // talk_free 테이블에 데이터 삽입
 router.post('/save', (req:Request, res:Response) => {
   const { content, free_nickname, free_password }: TalkFreeRequestBody = req.body;

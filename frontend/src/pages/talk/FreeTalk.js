@@ -1,11 +1,11 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import SendIcon from '@mui/icons-material/Send';
-import moment from 'moment';
 
 // Components
 import SimpleSnackbar from 'components/utils/SimpleSnackbar';
-
+// menu > freeTalk > FreeTalkMessage component
+import FreeTalkMessage from 'components/menu/freeTalk/FreeTalkMessage';
 
 // API
 import { getFreeTalkTotalCnt, fetchFreeTalkData, postFreeTalkData } from 'services/index';
@@ -132,26 +132,6 @@ const QuickTalk = () => {
     setTextareaHeight('2rem');
   };
 
-  // 저장 기능
-  // const handleSaveContent = async () => {
-  //   try {
-  //     if (!content.trim()) {
-  //       throw new Error('Content is empty.');
-  //     }
-
-  //     await postFreeTalkData({
-  //       content,
-  //       free_nickname: freeNickname,
-  //       free_password: freePassword,
-  //     }).then((response) => {
-  //       console.log('Message saved:', response.data);
-  //     }).catch((error) => {
-  //       console.error('Failed to save message:', error);
-  //     });
-  //   } catch (error) {
-  //     console.error('Failed to save message:', error);
-  //   }
-  // };
   const handleSaveContent = useCallback(async () => {
     try {
       console.log('handleSaveContent 접속');
@@ -208,24 +188,13 @@ const QuickTalk = () => {
     }
   };
 
-  // 게시글 저장(handleSaveContent) 후 내용 업데이트(totalPage + talkData)
-  // useEffect(() => {
-  //   const settingTotalCnt = async () => {
-  //     const res = await getFreeTalkTotalCnt();
-  //     setTotalPage(res.data.totalPage);
-  //   };
-  //   const settingTalkData = async () => {
-  //     const response = await fetchFreeTalkDataAPI(1);
-  //     setTalkData(response.data);
-  //   };
+  const handleEditMessage = (id) => {
+    console.log('Edit message:', id);
+  };
 
-  //   setPage(1);
-  //   settingTotalCnt().then(() => {
-  //     settingTalkData();
-  //   });
-    
-
-  // }, [handleSaveContent]);
+  const handleDeleteMessage = (id) => {
+    console.log('Delete message:', id);
+  };  
 
   return (
     <div className='talk-wrap'>
@@ -233,23 +202,20 @@ const QuickTalk = () => {
       <div className={`talk-body free ${isSpaceBetween ? 'active' : ''}`} >
         <div className='talk-body-title'>
           <h5>자유롭게 작성할 수 있는 공간입니다.</h5>
-          <p className='info-subtle pd40'>⚠️ 아이디와 비밀번호는 글 수정/삭제에 필요하니 꼭 기억해주세요.</p>
+          <p className='info-subtle pd40'>⚠️ 비밀번호는 글 수정/삭제에 필요하니 꼭 기억해주세요.</p>
         </div>
 
-        <div id='talkArea' className={`talk-body-chat ${isSpaceBetween ? 'show' : ''}`}>
+        <ul id='talkArea' className={`talk-body-chat ${isSpaceBetween ? 'show' : ''}`}>
           {talkData.map((talk, index) => (
-            <div
+            <FreeTalkMessage
               key={index}
-              className='talk-body-chat-message'
-              ref={index === talkData.length - 1 ? lastTalkElementRef : null}
-            >
-              <div className='talk-body-chat-message-idx'>{talk.id}</div>
-              <div className='talk-body-chat-message-id'>{talk.free_nickname}</div>
-              <div className='talk-body-chat-message-text'>{talk.content}</div>
-              <div className='talk-body-chat-message-date'>{moment(talk.created_dt).format('YYYY-MM-DD HH:mm:ss')}</div>
-            </div>
+              talkData={talk}
+              onEdit={handleEditMessage}
+              onDelete={handleDeleteMessage}
+              lastTalkElementRef={index === talkData.length - 1 ? lastTalkElementRef : null}
+            />
           ))}
-        </div>
+        </ul>
 
         <div className='talk-body-message'>
           <div className='message-info'>

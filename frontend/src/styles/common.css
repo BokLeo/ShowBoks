@@ -533,12 +533,39 @@ h6 {
   border: 1px solid #555555;
   border-radius: 4px;
   background-color: #1a1a2e;
+  position: relative;
+  transition: width 0.3s ease;
+  width: 100%;
+}
+.talk .talk-wrap .talk-body.free.active .talk-body-chat .talk-body-chat-message:hover {
+  width: calc(100% - 100px);
+  transition: width 0.3s ease;
 }
 .talk .talk-wrap .talk-body.free.active .talk-body-chat .talk-body-chat-message * {
   font-size: 0.75rem;
 }
 .talk .talk-wrap .talk-body.free.active .talk-body-chat .talk-body-chat-message:not(:last-child) {
   margin-bottom: 8px;
+}
+.talk .talk-wrap .talk-body.free.active .talk-body-chat .talk-body-chat-message .talk-body-chat-message-actions {
+  position: absolute;
+  top: 0;
+  right: -100px;
+  width: 100px;
+  height: 100%;
+  display: flex;
+  gap: 4px;
+  justify-content: center;
+}
+.talk .talk-wrap .talk-body.free.active .talk-body-chat .talk-body-chat-message .talk-body-chat-message-actions button {
+  border: 1px solid #6f42c1;
+  border-radius: 4px;
+  width: 40px;
+  padding: 4px;
+}
+.talk .talk-wrap .talk-body.free.active .talk-body-chat .talk-body-chat-message .talk-body-chat-message-actions button:hover {
+  background-color: #6f42c1;
+  color: #fff;
 }
 .talk .talk-wrap .talk-body.free.active .talk-body-chat .talk-body-chat-message .talk-body-chat-message-id {
   width: 120px;
@@ -823,4 +850,4 @@ h6 {
 .user-tab .user-panel .user-panel-bottom .user-panel-option__logout:hover {
   cursor: pointer;
   opacity: 0.8;
-}/*# sourceMappingURL=common.css.map */
+}
