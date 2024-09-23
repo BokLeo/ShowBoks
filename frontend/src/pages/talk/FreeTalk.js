@@ -151,6 +151,15 @@ const QuickTalk = () => {
     }
   }, [content, freeNickname, freePassword]);
 
+  // 페이지 업데이트(저장, 삭제, 수정 후)
+  const updatePage = async () => {
+    resetState(); // 상태 초기화 (예: 입력 필드 리셋)
+    const totalCntResponse = await getFreeTalkTotalCnt();
+    setTotalPage(totalCntResponse.data.totalPage);
+    const talkDataResponse = await fetchFreeTalkDataAPI(1);
+    setTalkData(talkDataResponse.data);
+  };
+
   // 전송 기능
   const handleSendContent = async () => {
     if (content.trim()) {
@@ -159,15 +168,7 @@ const QuickTalk = () => {
       try {
         await handleSaveContent(); // 게시글 저장
         console.log('Content saved successfully.');
-        resetState(); // 상태 초기화 (예: 입력 필드 리셋)
-        
-        // 게시글 저장 후 페이지와 데이터 업데이트
-        const totalCntResponse = await getFreeTalkTotalCnt();
-        setTotalPage(totalCntResponse.data.totalPage);
-
-        const talkDataResponse = await fetchFreeTalkDataAPI(1);
-        setTalkData(talkDataResponse.data);
-        
+        updatePage();        
       } catch (error) {
         console.error('Error saving content or updating data:', error);
       }
@@ -192,9 +193,11 @@ const QuickTalk = () => {
     console.log('Edit message:', id);
   };
 
-  const handleDeleteMessage = (id) => {
-    console.log('Delete message:', id);
-  };  
+  const handleDelete = (message) => {
+    updatePage().then(() => {
+      setSimpleSnackbar({ state: true, message, duration:3000 });
+    });
+  };
 
   return (
     <div className='talk-wrap'>
@@ -211,7 +214,7 @@ const QuickTalk = () => {
               key={index}
               talkData={talk}
               onEdit={handleEditMessage}
-              onDelete={handleDeleteMessage}
+              onDelete={handleDelete}
               lastTalkElementRef={index === talkData.length - 1 ? lastTalkElementRef : null}
             />
           ))}

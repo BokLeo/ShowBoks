@@ -58,3 +58,7 @@ button{
 *{
 	box-sizing: border-box;
 }
+
+input::-ms-reveal {
+	display: none;
+}

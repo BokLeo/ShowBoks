@@ -70,6 +70,10 @@ button {
   box-sizing: border-box;
 }
 
+input::-ms-reveal {
+  display: none;
+}
+
 .talk .info-subtle {
   color: #cccccc !important;
   font-size: 0.875rem;
@@ -534,12 +538,30 @@ h6 {
   border-radius: 4px;
   background-color: #1a1a2e;
   position: relative;
-  transition: width 0.3s ease;
-  width: 100%;
+  width: 846px;
+  transition: none;
 }
-.talk .talk-wrap .talk-body.free.active .talk-body-chat .talk-body-chat-message:hover {
-  width: calc(100% - 100px);
-  transition: width 0.3s ease;
+@keyframes expand {
+  from {
+    width: 100%;
+  }
+  to {
+    width: calc(100% - 100px);
+  }
+}
+@keyframes collapse {
+  from {
+    width: calc(100% - 100px);
+  }
+  to {
+    width: 100%;
+  }
+}
+.talk .talk-wrap .talk-body.free.active .talk-body-chat .talk-body-chat-message.hovered {
+  animation: expand 0.3s ease forwards;
+}
+.talk .talk-wrap .talk-body.free.active .talk-body-chat .talk-body-chat-message.not-hovered {
+  animation: collapse 0.3s ease forwards;
 }
 .talk .talk-wrap .talk-body.free.active .talk-body-chat .talk-body-chat-message * {
   font-size: 0.75rem;
@@ -630,11 +652,6 @@ h6 {
   cursor: pointer;
   transition: 0.3s all ease;
   opacity: 0.8;
-}
-.talk .talk-wrap .talk-body.free .talk-body-message .message-text .send-button SendIcon {
-  font-size: 1.5rem;
-  color: #fff;
-  line-height: 1.5;
 }
 .talk .talk-wrap .talk-body.free .talk-body-message .message-text .send-button:hover {
   color: #27c8e1;

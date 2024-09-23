@@ -499,13 +499,34 @@ h6{
 						border-radius: 4px;
 						background-color: #1a1a2e;
 						position: relative;
-						transition: width 0.3s ease;
-						width: 100%;
-						
-						&:hover{
+						width: 846px;
+						transition: none;
+
+						@keyframes expand {
+							from {
+							  width: 100%;
+							}
+							to {
+							  width: calc(100% - 100px);
+							}
+						  }
+						  
+						  @keyframes collapse {
+							from {
 							width: calc(100% - 100px);
-							transition: width 0.3s ease;
-						}
+							}
+							to {
+							  width: 100%;
+							}
+						  }
+
+						&.hovered {
+							animation: expand 0.3s ease forwards;
+						  }
+					
+						  &.not-hovered {
+							animation: collapse 0.3s ease forwards;
+						  }
 
 						* {
 							font-size: 0.75rem;
@@ -617,11 +638,6 @@ h6{
 						transition: 0.3s all ease;
 						opacity: 0.8;
 	
-						SendIcon{
-							font-size: 1.5rem;
-							color: #fff;
-							line-height: 1.5;
-						}
 						&:hover {
 							color: #27c8e1;
 							opacity: 1;

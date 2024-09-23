@@ -20,6 +20,7 @@ type BaseTalkFree = {
   user_ip: string | null;
   free_nickname: string;
   free_password: string;
+  use_yn: string;
 };
 
 // BaseTalkFree 에서 프론트에서 넘겨 받아야할 (contnet, password, nickname)만 TalkFreeRequestBody 로 정의
@@ -93,5 +94,49 @@ router.post('/save', (req:Request, res:Response) => {
   });
 });
 
+// talk_free 게시글 비밀번호 확인
+router.post('/check_password', (req:Request, res:Response) => {
+  console.log(req.body);
+
+  const { postId, password }: { postId: number, password: string } = req.body;
+
+  console.log(`postId: ${postId}, password: ${password}`);
+
+  conn.query('SELECT * FROM talk_free WHERE id = ? AND free_password = ?', [postId, password], (err:Error, results:BaseTalkFree[]) => {
+    if (err) {
+      console.error('Database query error:', err); // Log the error
+      return res.status(500).json({ error: err });
+    }
+    console.log('Database query results:', results); // Log the results
+
+    if (results.length === 0) {
+      return res.status(200).json({ result: false, error: '비밀번호가 일치하지 않습니다.' });
+    }
+
+    res.status(200).json({ result: true, data: results });
+  });
+});
+
+// talk_free 게시글 삭제
+router.post('/delete', (req: Request, res: Response) => {
+  console.log(req.body);
+
+  const { postId, password }: { postId: number, password: string } = req.body;
+
+  console.log(`postId: ${postId}, password: ${password}`);
+
+  conn.query('UPDATE talk_free SET use_yn = "N" WHERE id = ? AND free_password = ?', [postId, password], (err: Error, results: any) => {
+    if (err) {
+      console.error('Database query error:', err); // Log the error
+      return res.status(500).json({ error: err });
+    }
+
+    if (results.affectedRows === 0) {
+      return res.status(200).json({ result: false, error: '비밀번호가 일치하지 않거나 게시글이 존재하지 않습니다.' });
+    }
+
+    res.status(200).json({ result: true, message: '게시글이 성공적으로 삭제되었습니다.' });
+  });
+});
 
 export default router;
