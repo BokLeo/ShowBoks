@@ -7,7 +7,7 @@ import SendIcon from '@mui/icons-material/Send';
 import { checkFreeTalkPassword } from 'services/common/PasswordApi';
 
 
-const PopupController = ({ open, onClose, loc, type, title, postId, onPasswordVerified }) => {
+const PopupController = ({ open, onClose, loc, type, title, postId, method }) => {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
 
@@ -17,25 +17,21 @@ const PopupController = ({ open, onClose, loc, type, title, postId, onPasswordVe
   };
 
   const handlePasswordSubmit = async () => {
+    console.log('loc:', loc);
     if(loc === 'freeTalk') {
-      try {
-        const res = await checkFreeTalkPassword({ loc, postId, password });        
-        const data = res.data;
+      const res = await checkFreeTalkPassword({ loc, postId, password });
+      const data = res.data;
 
-        if (!data.result) {
-          setError(data.error);
-        } else {
-          console.log('Success:', data);
-          onPasswordVerified(postId, password);
-          onClose();
-        }
-      } catch (err) {
-        console.error('API 호출 오류:', err);
-        setError('서버 오류가 발생했습니다.');
+      if (!data.result) {
+        setError(data.error);
+      } else {
+        const isPasswordCorrect = data.result;
+        method(isPasswordCorrect);
+        onClose();
       }
     }else{
       console.log('loc error');
-    }
+    };
   };
 
   const handleClose = () => {
@@ -51,8 +47,7 @@ const PopupController = ({ open, onClose, loc, type, title, postId, onPasswordVe
             <Header>{title}</Header>
             <CloseButton onClick={handleClose}>&times;</CloseButton>
           </HeaderContainer>
-          {type === 'pass' ? (
-            <>
+          <>
               <Content>
                 <Input
                   type="password"
@@ -63,15 +58,7 @@ const PopupController = ({ open, onClose, loc, type, title, postId, onPasswordVe
                 <Button className='send-button' onClick={handlePasswordSubmit}><SendIcon /></Button>
               </Content>
               {error && <div style={{ color: 'red', marginTop: '10px' }}>{error}</div>}
-            </>
-          ) : (
-            <>
-              <Header>여긴 뭐하지</Header>
-              <Content>
-                내용
-              </Content>
-            </>
-          )}
+          </>
         </Modal>
       )}
     </Popup>

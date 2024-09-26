@@ -89,7 +89,7 @@ router.post('/save', (req:Request, res:Response) => {
       console.error('Database query error:', err); // Log the error
       return res.status(500).json({ error: err });
     }
-    console.log('Database query results:', results); // Log the results
+    results.message = '게시글이 성공적으로 등록되었습니다.';    
     res.json(results);
   });
 });
@@ -121,11 +121,11 @@ router.post('/check_password', (req:Request, res:Response) => {
 router.post('/delete', (req: Request, res: Response) => {
   console.log(req.body);
 
-  const { postId, password }: { postId: number, password: string } = req.body;
+  const { postId }: { postId: number } = req.body;
 
-  console.log(`postId: ${postId}, password: ${password}`);
+  console.log(`postId: ${postId}`);
 
-  conn.query('UPDATE talk_free SET use_yn = "N" WHERE id = ? AND free_password = ?', [postId, password], (err: Error, results: any) => {
+  conn.query('UPDATE talk_free SET use_yn = "N" WHERE id = ?', [postId], (err: Error, results: any) => {
     if (err) {
       console.error('Database query error:', err); // Log the error
       return res.status(500).json({ error: err });
@@ -138,5 +138,26 @@ router.post('/delete', (req: Request, res: Response) => {
     res.status(200).json({ result: true, message: '게시글이 성공적으로 삭제되었습니다.' });
   });
 });
+
+// talk_free 게시글 수정
+router.post('/update', (req: Request, res: Response) => {
+  const { postId, content } : { postId: number, content: string } = req.body;
+
+  console.log(`postId: ${postId}, content: ${content}`);
+
+  conn.query('UPDATE talk_free SET content = ? WHERE id = ?', [content, postId], (err: Error, results: any) => {
+    if (err) {
+      console.error('Database query error:', err); // Log the error
+      return res.status(500).json({ error: err });
+    }
+
+    if (results.affectedRows === 0) {
+      return res.status(200).json({ result: false, error: '게시글이 존재하지 않습니다.' });
+    }
+
+    res.status(200).json({ result: true, message: '게시글이 성공적으로 수정되었습니다.' });
+  });
+});
+
 
 export default router;

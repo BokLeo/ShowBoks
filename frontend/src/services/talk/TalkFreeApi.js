@@ -19,7 +19,12 @@ export const postFreeTalkData = async (data) => {
 };
 
 // freetalk 게시글 삭제
-export const deleteFreeTalkDataApi = async (postId, password) => {
-  return await api.post('/api/talk/talk_free/delete', { postId, password });
+export const deleteFreeTalkDataApi = async (postId) => {
+  return await api.post('/api/talk/talk_free/delete', { postId });
+};
+
+// freetalk 게시글 수정
+export const editFreeTalkDataApi = async (postId, content) => {
+  return await api.post('/api/talk/talk_free/update', { postId, content });
 };
 

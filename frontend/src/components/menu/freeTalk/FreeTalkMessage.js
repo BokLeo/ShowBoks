@@ -5,89 +5,120 @@ import moment from "moment";
 import PopupController from "components/utils/PopupController";
 
 // API 호출
-import { deleteFreeTalkDataApi } from "services/talk/TalkFreeApi";
+import { deleteFreeTalkDataApi, editFreeTalkDataApi } from "services/talk/TalkFreeApi";
 
-const FreeTalkMessage = ({ talkData, onEdit, onDelete, lastTalkElementRef }) => { 
+const FreeTalkMessage = ({ talkData, onSuccess, lastTalkElementRef }) => { 
   const [isHovered, setIsHovered] = useState(false);
-  const [isEditing, setIsEditing] = useState(false);
   const [editedContent, setEditedContent] = useState(talkData.content);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [isPopupTitle, setIsPopupTitle] = useState("");
-  const [editingId, setEditingId] = useState(null); // 현재 수정 중인 항목의 ID
-
-  const handleSaveClick = () => {
-    onEdit(talkData.id, editedContent);
-    setIsEditing(false);
-    setIsPopupTitle("게시글 수정");
-    setIsPopupOpen(true); // 팝업 활성화
-  };
+  const [type, setType] = useState("");
+  // const [isEditing, setIsEditing] = useState(false);
+  // const [editingId, setEditingId] = useState(null); // 현재 수정 중인 항목의 ID
+  const [isEditState, setIsEditState] = useState({
+    isEditing: false,
+    editingId: null,
+  });
 
   const handleCancelClick = () => {
-    setEditedContent(talkData.content);
-    setIsEditing(false);
-    setEditingId(null);
+    setEditedContent(talkData.content); // 이전 수정 내용을 초기화
+    setIsEditState({
+      isEditing: false,
+      editingId: null,
+    });
   };
 
   const handleDeleteClick = () => {
     setIsPopupTitle("게시글 삭제");
     setIsPopupOpen(true); // 팝업 활성화
+    setType("delete");
   };
 
+
+  
+
+  // Edit 상태 변경 이벤트 리스너 추가
+  useEffect(() => {
+    const handleEditStateChange = (event) => {
+      if (event.detail !== talkData.id) {
+        // 현재 컴포넌트가 아닌 다른 컴포넌트에서 수정 상태가 변경된 경우
+        setIsEditState({
+          isEditing: false,
+          editingId: null,
+        });
+      }
+    };
+
+    window.addEventListener('editStateChange', handleEditStateChange);
+
+
+    return () => {
+      // REMIND useEffect에서 **window.removeEventListener**를 사용해 컴포넌트가 언마운트될 때 이벤트 리스너를 제거해야 메모리 누수를 방지할 수 있습니다.
+      window.removeEventListener('editStateChange', handleEditStateChange);
+    };
+  }, [talkData.id]);
+
+  const handleEditClick = () => {
+    setIsPopupTitle("게시글 수정");
+    setIsPopupOpen(true); // 팝업 활성화
+    setType("edit");
+  };
+  
   const closeModal = () => {
     setIsPopupOpen(false);
     setIsHovered(false);
   };
 
-  const prevEditingIdRef = useRef();
-  
-  useEffect(() => {
-    console.log("editingId:", editingId);
-    console.log("prevEditingId.current:", prevEditingIdRef.current);
-  
-    if(prevEditingIdRef.current === null) {
-      console.log("null 실행");
-      setIsEditing(true);
-    } else if (prevEditingIdRef.current !== editingId){
-      console.log("else if 실행");
-      setIsEditing(true);
-      // prevEditingIdRef.current = editingId;
-    } else {
-      console.log("else 실행");
-      setIsEditing(false);
-      setEditedContent(talkData.content);
-    }
-    console.log("전) prevEditingId.current:", prevEditingIdRef.current);
-    prevEditingIdRef.current = editingId;
-    console.log("후) prevEditingId.current:", prevEditingIdRef.current);
+  const checkFreeTalkPassword = (isPasswordCorrect) => {
+    const broadcastEditState = (editingId) => {
+      const event = new CustomEvent('editStateChange', { detail: editingId });
+      window.dispatchEvent(event);
+    };
 
-    // if(prevEditingIdRef.current === null || editingId !== prevEditingIdRef.current) {
-    //   console.log("true");
-    //   // prevEditingIdRef.current = editingId;
-    //   setIsEditing(true);
-    // } else if (prevEditingIdRef.current !== editingId) {
-    //   console.log("false");
-    //   setIsEditing(false);
-    //   setEditedContent(talkData.content);
-    // }
-  
-    // // 논리 실행 후 prevEditingIdRef 업데이트
-    // console.log("여기")
-    // console.log("여기 prevEditingId.current:", prevEditingIdRef.current);
-    // console.log("여기 editingId:", editingId);
-    // prevEditingIdRef.current = editingId;
-    // console.log("여기2 prevEditingId.current:", prevEditingIdRef.current);
-  }, [editingId, talkData.id]);
-
-  const editFreeTalkData = (postId, password) => {
-
+    if(isPasswordCorrect) {
+      if(type === "delete") {
+        console.log("delete 실행");
+        deleteFreeTalkData(talkData.id);
+      } else if(type === "edit") {
+        console.log("edit 실행");
+        broadcastEditState(talkData.id); // 현재 게시글을 수정 상태로 전파
+        setIsEditState({
+          isEditing: true,
+          editingId: talkData.id,
+        });
+      }
+    };
   };
 
-  const deleteFreeTalkData = async (postId, password) => {
+  const editFreeTalkData = async () => {
     try {
-      const deleteRes = await deleteFreeTalkDataApi(postId, password);
+      // console.log("editingId:", editingId);
+      console.log("editedContent:", editedContent);
+
+      const editRes = await editFreeTalkDataApi(isEditState.editingId, editedContent);
+      if (editRes.data.result) {
+        console.log("게시글 수정 성공(FreeTalkMessage):", editRes.data);
+        onSuccess(editRes.data.message);
+        setIsEditState({
+          isEditing: false,
+          editingId: null,
+        });
+      } else {
+        console.error("게시글 수정 실패:", editRes.data.error);
+      }
+    } catch (err) {
+      console.error("게시글 수정 오류:", err);  
+    };
+  };
+
+  const deleteFreeTalkData = async (postId) => {
+    console.log("postId:", postId); 
+
+    try {
+      const deleteRes = await deleteFreeTalkDataApi(postId);
       if (deleteRes.data.result) {
         console.log("게시글 삭제 성공(FreeTalkMessage):", deleteRes.data);
-        onDelete(deleteRes.data.message);
+        onSuccess(deleteRes.data.message);
       } else {
         console.error("게시글 삭제 실패:", deleteRes.data.error);
       }
@@ -101,12 +132,13 @@ const FreeTalkMessage = ({ talkData, onEdit, onDelete, lastTalkElementRef }) => 
       className={`talk-body-chat-message ${isHovered ? "hovered" : "not-hovered"}`}
       ref={lastTalkElementRef}
       onMouseEnter={() => setIsHovered(true)} // mouseEnter
-      onMouseLeave={() => editingId !== talkData.id && setIsHovered(false)} // InfoIcon에서 마우스 뗄 때, 수정 상태가 아니면 hovered 해제
+      onMouseLeave={() => setIsHovered(false)} // InfoIcon에서 마우스 뗄 때, 수정 상태가 아니면 hovered 해제
     >
       <div className="talk-body-chat-message-idx">{talkData.id}</div>
       <div className="talk-body-chat-message-id">{talkData.free_nickname}</div>
-      <div className={`talk-body-chat-message-text ${isEditing ? "message-text" : ""}`}>
-        {isEditing && editingId === talkData.id ? (
+      <div className="talk-body-chat-message-pass">{talkData.free_password}</div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      <div className="talk-body-chat-message-text">
+        {isEditState.editingId === talkData.id ? (
           <textarea
             value={editedContent}
             onChange={(e) => setEditedContent(e.target.value)}
@@ -120,15 +152,15 @@ const FreeTalkMessage = ({ talkData, onEdit, onDelete, lastTalkElementRef }) => 
         {moment(talkData.created_dt).format("YYYY-MM-DD HH:mm:ss")}
       </div>
 
-      {isHovered && editingId !== talkData.id && (
+      {isHovered && isEditState.editingId !== talkData.id && (
         <div className='talk-body-chat-message-actions'>
-          <button onClick={() => setEditingId(talkData.id) }>수정</button>
+          <button onClick={handleEditClick}>수정</button>
           <button onClick={handleDeleteClick}>삭제</button>
         </div>
       )}
-      {editingId === talkData.id && (
+      {isEditState.editingId === talkData.id && (
         <div className='talk-body-chat-message-actions'>
-          <button onClick={() => { /* 저장 로직 추가 */ }}>저장</button>
+          <button onClick={editFreeTalkData}>저장</button>
           <button onClick={handleCancelClick}>취소</button>
         </div>
       )}
@@ -137,10 +169,10 @@ const FreeTalkMessage = ({ talkData, onEdit, onDelete, lastTalkElementRef }) => 
         open={isPopupOpen}
         onClose={closeModal}
         loc={"freeTalk"}
-        type={"pass"}
+        type={type}
         title={isPopupTitle}
         postId={talkData.id}
-        onPasswordVerified={deleteFreeTalkData}
+        method={checkFreeTalkPassword}
       />
     </li>
   );

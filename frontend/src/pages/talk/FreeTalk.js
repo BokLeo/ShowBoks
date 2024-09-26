@@ -14,7 +14,7 @@ const generateRandomPassword = () => {
   return Math.floor(1000 + Math.random() * 9000).toString();
 };
 
-const QuickTalk = () => {
+const FreeTalk = () => {
   const isFetching = useRef(false);
 
   const [textareaHeight, setTextareaHeight] = useState('2rem');
@@ -34,11 +34,7 @@ const QuickTalk = () => {
   const [totalPage, setTotalPage] = useState(0);
   
   // simpleSnackbar
-  const [simpleSnackbar, setSimpleSnackbar] = useState({
-    state: false,
-    message: '마지막 페이지입니다.',
-    duration: 2000,
-  });
+  const snackbarRef = useRef();
 
 
   
@@ -83,30 +79,6 @@ const QuickTalk = () => {
     }
   }, [page, totalPage]);
 
-  const showSnackbarWithTimeout = (message, duration = 2500) => {
-    setSimpleSnackbar((prev) => ({
-      ...prev,
-      state: true,
-      message: message,
-    }));
-
-    const timer = setTimeout(() => {
-      setSimpleSnackbar((prev) => ({
-        ...prev,
-        state: false,
-      }));
-    }, duration);
-
-    return () => clearTimeout(timer); // 컴포넌트 언마운트 시 타이머 정리
-  };
-
-  useEffect(() => {
-    if (totalPage && page >= totalPage) {
-      const cleanup = showSnackbarWithTimeout('마지막 페이지입니다.');
-      return cleanup;
-    }
-  }, [page, totalPage]);
-
   // 무한 스크롤을 위한 IntersectionObserver 설정
   const lastTalkElementRef = useCallback((node) => {
     if (observer.current) observer.current.disconnect();
@@ -116,7 +88,7 @@ const QuickTalk = () => {
           if (prevPage < totalPage) {
             return prevPage + 1;
           } else {
-            showSnackbarWithTimeout('마지막 페이지입니다.');
+            snackbarRef.current.showSnackbarWithTimeout('마지막 페이지입니다.');
             return prevPage;
           }
         });
@@ -146,6 +118,7 @@ const QuickTalk = () => {
         free_password: freePassword,
       });
       console.log('Message saved:', response.data);
+      return response.data.message;
     } catch (error) {
       console.error('Failed to save message:', error);
     }
@@ -166,9 +139,8 @@ const QuickTalk = () => {
       console.log('Content sent:', content);
 
       try {
-        await handleSaveContent(); // 게시글 저장
-        console.log('Content saved successfully.');
-        updatePage();        
+        const message = await handleSaveContent(); // 게시글 저장
+        onSuccess(message);
       } catch (error) {
         console.error('Error saving content or updating data:', error);
       }
@@ -189,19 +161,15 @@ const QuickTalk = () => {
     }
   };
 
-  const handleEditMessage = (id) => {
-    console.log('Edit message:', id);
-  };
-
-  const handleDelete = (message) => {
+  const onSuccess = (message) => {
     updatePage().then(() => {
-      setSimpleSnackbar({ state: true, message, duration:3000 });
+      snackbarRef.current.showSnackbarWithTimeout(message);
     });
   };
 
   return (
     <div className='talk-wrap'>
-      {simpleSnackbar.state && <SimpleSnackbar param={simpleSnackbar} />}
+      <SimpleSnackbar ref={snackbarRef} />
       <div className={`talk-body free ${isSpaceBetween ? 'active' : ''}`} >
         <div className='talk-body-title'>
           <h5>자유롭게 작성할 수 있는 공간입니다.</h5>
@@ -213,8 +181,7 @@ const QuickTalk = () => {
             <FreeTalkMessage
               key={index}
               talkData={talk}
-              onEdit={handleEditMessage}
-              onDelete={handleDelete}
+              onSuccess={onSuccess}
               lastTalkElementRef={index === talkData.length - 1 ? lastTalkElementRef : null}
             />
           ))}
@@ -261,4 +228,4 @@ const QuickTalk = () => {
   );
 }
 
-export default QuickTalk;
+export default FreeTalk;

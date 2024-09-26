@@ -1,46 +1,21 @@
-import * as React from 'react';
-import styled, { css, keyframes } from 'styled-components';
-
-export default function SimpleSnackbar(props) {
-  const [visible, setVisible] = React.useState(false);
-  const [message, setMessage] = React.useState(props.param.message);
-  const [duration, setDuration] = React.useState(props.param.duration);
-
-  React.useEffect(() => {
-    if (message) {
-      setVisible(true);
-      const timer = setTimeout(() => {
-        setVisible(false);
-      }, duration);
-
-      return () => {
-        clearTimeout(timer);
-      };
-    }
-  }, [message, duration]);
-
-  return (
-    <Snackbar className={visible ? 'fadeOn' : 'fadeOff'}>
-      {message}
-    </Snackbar>
-  );
-};
+import React, { useState, useEffect, forwardRef, useImperativeHandle } from 'react';
+import styled, { keyframes } from 'styled-components';
 
 const slideIn = keyframes`
   from {
-    transform: translateY(50%);
+    transform: translateY(100%);
   }
   to {
-    transform: translateY(0);
+    transform: translateY(50%);
   }
 `;
 
 const slideOut = keyframes`
   from {
-    transform: translateY(0);
+    transform: translateY(50%);
   }
   to {
-    transform: translateY(50%);
+    transform: translateY(100%);
   }
 `;
 
@@ -84,3 +59,39 @@ const Snackbar = styled.div`
     animation: ${slideOut} 0.5s forwards, ${fadeOut} 0.5s forwards;
   }
 `;
+
+const SimpleSnackbar = forwardRef(({ duration = 3000 }, ref) => {
+  const [visible, setVisible] = useState(false);
+  const [message, setMessage] = useState('');
+  const [display, setDisplay] = useState('none');
+
+  useImperativeHandle(ref, () => ({
+    showSnackbarWithTimeout(msg, timeout = duration) {
+      setMessage(msg);
+      setVisible(true);
+      setDisplay('block');
+      setTimeout(() => {
+        setVisible(false);
+      }, timeout);
+    }
+  }));
+
+  const handleAnimationEnd = () => {
+    if (!visible) {
+      setMessage('');
+      setDisplay('none');
+    }
+  };
+
+  return (
+    <Snackbar
+      className={visible ? 'fadeOn' : 'fadeOff'}
+      style={{ display: display }}
+      onAnimationEnd={handleAnimationEnd}
+    >
+      {message}
+    </Snackbar>
+  );
+});
+
+export default SimpleSnackbar;
