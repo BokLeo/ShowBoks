@@ -130,13 +130,13 @@ const FreeTalkMessage = ({ talkData, onSuccess, lastTalkElementRef }) => {
   return (
     <li
       className={`talk-body-chat-message ${isHovered ? "hovered" : "not-hovered"}`}
+      // className={`talk-body-chat-message hovered`}
       ref={lastTalkElementRef}
       onMouseEnter={() => setIsHovered(true)} // mouseEnter
       onMouseLeave={() => setIsHovered(false)} // InfoIcon에서 마우스 뗄 때, 수정 상태가 아니면 hovered 해제
     >
       <div className="talk-body-chat-message-idx">{talkData.id}</div>
       <div className="talk-body-chat-message-id">{talkData.free_nickname}</div>
-      <div className="talk-body-chat-message-pass">{talkData.free_password}</div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
       <div className="talk-body-chat-message-text">
         {isEditState.editingId === talkData.id ? (
           <textarea
@@ -198,7 +198,7 @@ const textAreaStyle = {
     resize: 'none',
     padding: '4px',
     paddingRight: '40px',
-    height: '2rem',
+    // height: '2rem',
     maxHeight: '300px', // 최대 높이를 설정하여 너무 커지는 것을 방지
     lineHeight: '1.5', // 줄 높이를 설정
     border: 'none',

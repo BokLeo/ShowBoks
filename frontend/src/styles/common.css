@@ -565,6 +565,10 @@ h6 {
 }
 .talk .talk-wrap .talk-body.free.active .talk-body-chat .talk-body-chat-message * {
   font-size: 0.75rem;
+  display: flex;
+  align-items: center;
+  white-space: pre;
+  line-height: 1rem;
 }
 .talk .talk-wrap .talk-body.free.active .talk-body-chat .talk-body-chat-message:not(:last-child) {
   margin-bottom: 8px;
@@ -573,7 +577,6 @@ h6 {
   position: absolute;
   top: 0;
   right: -100px;
-  width: 100px;
   height: 100%;
   display: flex;
   gap: 4px;
@@ -584,21 +587,38 @@ h6 {
   border-radius: 4px;
   width: 40px;
   padding: 4px;
+  font-size: 0.75rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .talk .talk-wrap .talk-body.free.active .talk-body-chat .talk-body-chat-message .talk-body-chat-message-actions button:hover {
   background-color: #6f42c1;
   color: #fff;
 }
 .talk .talk-wrap .talk-body.free.active .talk-body-chat .talk-body-chat-message .talk-body-chat-message-id {
-  width: 120px;
   margin-right: 40px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 .talk .talk-wrap .talk-body.free.active .talk-body-chat .talk-body-chat-message .talk-body-chat-message-text {
-  flex: 1;
   text-align: left;
+}
+.talk .talk-wrap .talk-body.free.active .talk-body-chat .talk-body-chat-message .talk-body-chat-message-idx {
+  flex: 0 0 40px;
+}
+.talk .talk-wrap .talk-body.free.active .talk-body-chat .talk-body-chat-message .talk-body-chat-message-id {
+  flex: 0 0 40px;
+}
+.talk .talk-wrap .talk-body.free.active .talk-body-chat .talk-body-chat-message .talk-body-chat-message-text {
+  flex: 1 1 auto;
+}
+.talk .talk-wrap .talk-body.free.active .talk-body-chat .talk-body-chat-message .talk-body-chat-message-date {
+  flex: 0 0 40px;
+}
+.talk .talk-wrap .talk-body.free.active .talk-body-chat .talk-body-chat-message .talk-body-chat-message-actions {
+  width: 100px;
 }
 .talk .talk-wrap .talk-body.free .talk-body-message {
   display: flex;
@@ -645,6 +665,8 @@ h6 {
   outline: none;
   box-shadow: none;
   resize: none;
+  white-space: pre;
+  line-height: 1rem;
 }
 .talk .talk-wrap .talk-body.free .talk-body-message .message-text .send-button {
   display: flex;
