@@ -6,7 +6,7 @@ const api = axios.create({
 });
 
 export const checkServerStatus = async () => {
-  return await api.get('/status');  
+  return await api.get('/status');
 };
 
 export default api;

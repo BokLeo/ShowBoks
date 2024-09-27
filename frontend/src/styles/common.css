@@ -141,6 +141,13 @@ body {
   font-size: 16px;
 }
 
+#root {
+  display: flex;
+  flex-direction: column;
+  height: auto;
+  min-height: 100vh;
+}
+
 .btn {
   background-color: transparent;
   border: 0;
@@ -222,19 +229,11 @@ h6 {
   display: block;
 }
 
-#root {
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
-  min-height: 100vh;
-}
-
 .app-header {
   width: 100%;
   height: 80px;
   padding: 0 20px;
   background-color: rgba(255, 255, 255, 0.8);
-  border-bottom: 1px solid #e9ecef;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -244,11 +243,17 @@ h6 {
 }
 .app-header h1 {
   font-size: unset;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.app-header h1 .server-status {
+  display: flex;
+  align-items: center;
 }
 .app-header .showboxs-title {
   font-size: 1.6rem;
   font-weight: 600;
-  margin-bottom: 20px;
 }
 .app-header .showboxs-title a {
   display: flex;
@@ -273,6 +278,10 @@ h6 {
   position: relative;
 }
 
+.about .about-wrap {
+  display: flex;
+}
+
 .experience {
   display: flex;
   align-items: baseline;
@@ -291,11 +300,11 @@ h6 {
   line-height: 2rem;
   text-align: right;
 }
-.experience .sticky-title ul li:hover {
+.experience .sticky-title ul li button:hover {
   cursor: pointer;
   color: #007bff;
 }
-.experience .sticky-title ul li.active {
+.experience .sticky-title ul li button.active {
   color: #007bff;
 }
 .experience .experience-detail {
@@ -461,6 +470,13 @@ h6 {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  align-items: center;
+}
+.talk .talk-wrap .talk-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   align-items: center;
 }
 .talk .talk-wrap .talk-body.quick .question {

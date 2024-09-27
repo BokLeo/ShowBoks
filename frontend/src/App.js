@@ -7,31 +7,11 @@ import './styles/common.css';
 
 // Components
 import { HeaderLayout, BodyLayout } from './components/layout';
-import { checkServerStatus } from 'services/api';
 
 function App() {
-  const [serverStatus, setServerStatus] = useState('Checking...');
-  const [error, setError] = useState(null);
-
-  useEffect(() => {
-    const fetchServerStatus = async () => {
-      try {
-        const response = await checkServerStatus();
-        console.log('Server status response:', response.data); // 디버깅을 위해 응답 데이터 출력
-        setServerStatus(response.data);
-      } catch (error) {
-        setError('Failed to connect to the server.');
-        console.error('Server status check error:', error);
-      }
-    };
-
-    fetchServerStatus();
-  }, []);
 
   return (
     <BrowserRouter>
-      <p>Server Status: {error ? error : serverStatus}</p>
-
       <HeaderLayout />
 
       <BodyLayout />

@@ -87,7 +87,7 @@ const FreeTalkMessage = ({ talkData, onSuccess, lastTalkElementRef }) => {
           editingId: talkData.id,
         });
       }
-    };
+    }
   };
 
   const editFreeTalkData = async () => {

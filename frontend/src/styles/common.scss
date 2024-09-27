@@ -8,9 +8,6 @@
 html { 
 	scroll-behavior: smooth;
 }
-// html, body, #root {
-// 	height: 100%;
-// }
 *{
     margin: 0;
     padding: 0;
@@ -27,7 +24,12 @@ body {
 	font-family: BS.$font-family;
 	font-size: 16px;
 }
-
+#root{
+	display: flex;
+  flex-direction: column;
+	height: auto;
+	min-height: 100vh;
+}
 // Deafult button Design
 .btn {
 	background-color: transparent;
@@ -113,21 +115,13 @@ h6{
 	display: block;
 }
 
-
-#root{
-	display: flex;
-  flex-direction: column;
-	height: 100vh;
-  min-height: 100vh;
-}
-
 // Header Styles
 .app-header{
 	width: 100%;
 	height: 80px;
 	padding: 0 20px;
 	background-color: rgba(255, 255, 255, 0.8);
-	border-bottom: 1px solid #e9ecef;
+	// border-bottom: 1px solid #e9ecef;
 
 	display: flex;
 	justify-content: space-between;
@@ -139,12 +133,18 @@ h6{
 
 	h1{
 		font-size: unset;
+		display: flex;
+		align-items: center;
+		gap: 4px;
+		.server-status{
+			display: flex;
+			align-items: center;
+		}
 	}
 
 	.showboxs-title{
 		font-size: 1.6rem;
 		font-weight: 600;
-		margin-bottom: 20px;
 		a{
 			display: flex;
 			align-items: center;
@@ -172,6 +172,14 @@ h6{
 	}
 }
 
+// about Styles
+.about{
+	.about-wrap{
+		display: flex;
+		;
+	}
+}
+
 //experience Styles
 .experience{
 	display: flex;
@@ -192,13 +200,15 @@ h6{
 			text-align: right;
 
 			li{
-				&:hover{
-					cursor: pointer;
-					color: BS.$color-primary;
+				button{
+					&:hover{
+						cursor: pointer;
+						color: BS.$color-primary;
+					}
+					&.active{
+						color: BS.$color-primary;
+					}	
 				}
-				&.active{
-					color: BS.$color-primary;
-				}	
 			}
 		}
 	}
@@ -405,265 +415,276 @@ h6{
     justify-content: space-between;
 		align-items: center;
 
-		.talk-body.quick{
-			.question{
-				display: flex;
-				flex-direction: row;
-				flex-wrap: wrap;
-				justify-content: center;
-				align-items: center;
-				
-				background-color: #101528;
-				color: BS.$color-typo-fff;
-	
-				margin-top: 40px;
-				li {
-					margin-top: 14px;
-					&:not(:last-child){
-						margin-right: 14px;
-					}
-					
-					button{
-						font-size: 0.875rem;
-						padding: 14px;			
-						border: 1px solid #fff;
-						border-radius: 8px;
-						
-						&:hover{
-							background-color: BS.$color-primary-hover;
-							transform: translateY(-4px);
-							transition: 0.3s all ease;
-						}
-					}	
-				}	
-			}
-
-			.answer{				
-				&.hide{
-					display: none;
-				}
-				&.show{
-					display: flex;
-					flex-direction: column;
-					justify-content: center;
-					align-items: center;
-					
-					margin-top: 40px;
-					padding: 40px;
-					border-radius: 16px;
-	
-					background-color: #ffd200;				
-					color: #101528;	
-					&.fadeInUp{	
-						animation: fadeInUp 1s ease-out;
-						will-change: transform, opacity;
-					}
-				}
-			}
-		}
-
-		.talk-body.free{
+		.talk-body{
 			flex: 1;
 			display: flex;
 			flex-direction: column;
 			justify-content: center;
 			align-items: center;
 
-			.talk-body-title{
-				p{
-					padding-bottom: 0px;
-				}
-			}
-
-			.talk-body-chat{
-				width: 80vw;
-				height: 0px;
-				// padding-bottom: 10px;
-				margin: 20px 0;
-				opacity: 0;
-			}
-
-			&.active{
-				.talk-body-chat{
-					height: 37vh;
-					opacity: 1;
-					transition : height 3s ease, width 3s ease, opacity 3s ease;
-
-					overflow: hidden;
-					overflow-y: auto;
-	
-					.talk-body-chat-message{
-						display: flex;
-						padding: 12px;
-						border: 1px solid #555555;
-						border-radius: 4px;
-						background-color: #1a1a2e;
-						position: relative;
-						width: 846px;
-						transition: none;
-
-						@keyframes expand {
-							from {
-								width: 100%;
-							}
-
-							to {
-								width: calc(100% - 100px);
-							}
-						}
-
-						@keyframes collapse {
-							from {
-								width: calc(100% - 100px);
-							}
-
-							to {
-								width: 100%;
-							}
-						}
-
-						&.hovered {
-							animation: expand 0.3s ease forwards;
-						  }
+			&.quick{
+				.question{
+					display: flex;
+					flex-direction: row;
+					flex-wrap: wrap;
+					justify-content: center;
+					align-items: center;
 					
-						  &.not-hovered {
-							animation: collapse 0.3s ease forwards;
-						  }
-
-						* {
-							font-size: 0.75rem;
-							display: flex;
-							align-items: center;
-							white-space: pre;
-    					line-height: 1rem;
-						}
-
+					background-color: #101528;
+					color: BS.$color-typo-fff;
+		
+					margin-top: 40px;
+					li {
+						margin-top: 14px;
 						&:not(:last-child){
-							margin-bottom: 8px;
+							margin-right: 14px;
 						}
-
-						.talk-body-chat-message-actions {
-							position: absolute;
-							top: 0;
-							right: -100px;
-							height: 100%;
-
-							display: flex;
-							gap: 4px;
-							justify-content: center;
+						
+						button{
+							font-size: 0.875rem;
+							padding: 14px;			
+							border: 1px solid #fff;
+							border-radius: 8px;
 							
-							button{
-								border: 1px solid #6f42c1;
-								border-radius: 4px;
-								width: 40px;
-								padding: 4px;
-								font-size: 0.75rem;
-								display: flex;
-								justify-content: center;
-								align-items: center;
-
-								&:hover{
-									background-color: #6f42c1;
-									color: #fff;
-								}
+							&:hover{
+								background-color: BS.$color-primary-hover;
+								transform: translateY(-4px);
+								transition: 0.3s all ease;
 							}
+						}	
+					}	
+				}
+	
+				.answer{				
+					&.hide{
+						display: none;
+					}
+					&.show{
+						display: flex;
+						flex-direction: column;
+						justify-content: center;
+						align-items: center;
+						
+						margin-top: 40px;
+						padding: 40px;
+						border-radius: 16px;
+		
+						background-color: #ffd200;				
+						color: #101528;	
+						&.fadeInUp{	
+							animation: fadeInUp 1s ease-out;
+							will-change: transform, opacity;
 						}
-
-						.talk-body-chat-message-id{
-							margin-right: 40px;
-							white-space: nowrap;
-							overflow: hidden;
-							text-overflow: ellipsis;
-							
-						}
-						.talk-body-chat-message-text{
-							text-align: left;
-						}
-
-						.talk-body-chat-message-idx    {flex: 0 0 40px;}
-						.talk-body-chat-message-id     {flex: 0 0 40px;}
-						.talk-body-chat-message-text   {flex: 1 1 auto;}
-						.talk-body-chat-message-date   {flex: 0 0 40px;}
-						.talk-body-chat-message-actions{width: 100px;}
 					}
 				}
-			}			
+			}
 
-			.talk-body-message{
+			&.free{
+				flex: 1;
 				display: flex;
 				flex-direction: column;
+				justify-content: center;
 				align-items: center;
-
-				.message-info{
-					display: flex;
-					justify-content: space-between;
-					align-items: center;
-					width: 100%;
-					margin-bottom: 8px;
-
-					.message-id, .message-password{
-						font-size: 0.875rem;
-						width: 49%;
-						padding: 8px;
-						border: 1px solid #555555;
-						border-radius: 4px;
-						background-color: #1a1a2e;
+	
+				.talk-body-title{
+					p{
+						padding-bottom: 0px;
 					}
 				}
-				.message-text{
-					display: flex;
-					align-items: center;
-					width: 100%;
-					border: 1px solid #6f42c1;
-					border-radius: 4px;
-					background-color: #1a1a2e;
-					color: #fff;
-					padding: 4px;	
-
-					.message-input {
-						width: 100%;
-						background-color: transparent;
-						border:0;
-						resize: none;
-						padding: 4px;
-						padding-right: 40px;
 	
-						height: 2rem;
-						max-height: 300px; /* 최대 높이를 설정하여 너무 커지는 것을 방지 */
-						
-						line-height: 1.5; /* 줄 높이를 설정 */
+				.talk-body-chat{
+					width: 80vw;
+					height: 0px;
+					// padding-bottom: 10px;
+					margin: 20px 0;
+					opacity: 0;
+				}
 	
-						border: none;
+				&.active{
+					.talk-body-chat{
+						height: 37vh;
+						opacity: 1;
+						transition : height 3s ease, width 3s ease, opacity 3s ease;
+	
 						overflow: hidden;
-						outline: none;
-				
-						-webkit-box-shadow: none;
-						-moz-box-shadow: none;
-						box-shadow: none;
-				
-						resize: none;
-
-						white-space: pre;
-						line-height: 1rem;
+						overflow-y: auto;
+		
+						.talk-body-chat-message{
+							display: flex;
+							padding: 12px;
+							border: 1px solid #555555;
+							border-radius: 4px;
+							background-color: #1a1a2e;
+							position: relative;
+							width: 846px;
+							transition: none;
+	
+							@keyframes expand {
+								from {
+									width: 100%;
+								}
+	
+								to {
+									width: calc(100% - 100px);
+								}
+							}
+	
+							@keyframes collapse {
+								from {
+									width: calc(100% - 100px);
+								}
+	
+								to {
+									width: 100%;
+								}
+							}
+	
+							&.hovered {
+								animation: expand 0.3s ease forwards;
+								}
+						
+								&.not-hovered {
+								animation: collapse 0.3s ease forwards;
+								}
+	
+							* {
+								font-size: 0.75rem;
+								display: flex;
+								align-items: center;
+								white-space: pre;
+								line-height: 1rem;
+							}
+	
+							&:not(:last-child){
+								margin-bottom: 8px;
+							}
+	
+							.talk-body-chat-message-actions {
+								position: absolute;
+								top: 0;
+								right: -100px;
+								height: 100%;
+	
+								display: flex;
+								gap: 4px;
+								justify-content: center;
+								
+								button{
+									border: 1px solid #6f42c1;
+									border-radius: 4px;
+									width: 40px;
+									padding: 4px;
+									font-size: 0.75rem;
+									display: flex;
+									justify-content: center;
+									align-items: center;
+	
+									&:hover{
+										background-color: #6f42c1;
+										color: #fff;
+									}
+								}
+							}
+	
+							.talk-body-chat-message-id{
+								margin-right: 40px;
+								white-space: nowrap;
+								overflow: hidden;
+								text-overflow: ellipsis;
+								
+							}
+							.talk-body-chat-message-text{
+								text-align: left;
+							}
+	
+							.talk-body-chat-message-idx    {flex: 0 0 40px;}
+							.talk-body-chat-message-id     {flex: 0 0 40px;}
+							.talk-body-chat-message-text   {flex: 1 1 auto;}
+							.talk-body-chat-message-date   {flex: 0 0 40px;}
+							.talk-body-chat-message-actions{width: 100px;}
+						}
 					}
-					
-					.send-button {
+				}			
+	
+				.talk-body-message{
+					display: flex;
+					flex-direction: column;
+					align-items: center;
+	
+					.message-info{
+						display: flex;
+						justify-content: space-between;
+						align-items: center;
+						width: 100%;
+						margin-bottom: 8px;
+	
+						.message-id, .message-password{
+							font-size: 0.875rem;
+							width: 49%;
+							padding: 8px;
+							border: 1px solid #555555;
+							border-radius: 4px;
+							background-color: #1a1a2e;
+						}
+					}
+					.message-text{
 						display: flex;
 						align-items: center;
+						width: 100%;
+						border: 1px solid #6f42c1;
+						border-radius: 4px;
+						background-color: #1a1a2e;
+						color: #fff;
+						padding: 4px;	
 	
-						cursor: pointer;
+						.message-input {
+							width: 100%;
+							background-color: transparent;
+							border:0;
+							resize: none;
+							padding: 4px;
+							padding-right: 40px;
+		
+							height: 2rem;
+							max-height: 300px; /* 최대 높이를 설정하여 너무 커지는 것을 방지 */
+							
+							line-height: 1.5; /* 줄 높이를 설정 */
+		
+							border: none;
+							overflow: hidden;
+							outline: none;
+					
+							-webkit-box-shadow: none;
+							-moz-box-shadow: none;
+							box-shadow: none;
+					
+							resize: none;
+	
+							white-space: pre;
+							line-height: 1rem;
+						}
 						
-						transition: 0.3s all ease;
-						opacity: 0.8;
-	
-						&:hover {
-							color: #27c8e1;
-							opacity: 1;
+						.send-button {
+							display: flex;
+							align-items: center;
+		
+							cursor: pointer;
+							
+							transition: 0.3s all ease;
+							opacity: 0.8;
+		
+							&:hover {
+								color: #27c8e1;
+								opacity: 1;
+							}
 						}
 					}
 				}
 			}
 		}
+		
+
+		
 
 		.move{
 			display: flex;
