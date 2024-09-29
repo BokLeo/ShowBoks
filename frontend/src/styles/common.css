@@ -278,8 +278,73 @@ h6 {
   position: relative;
 }
 
-.about .about-wrap {
+.about .panel-wrap {
   display: flex;
+  gap: 40px;
+  justify-content: space-between;
+}
+.about .panel-wrap .panel-left {
+  width: 40%;
+  position: relative;
+}
+.about .panel-wrap .panel-left .panel-left-wrap {
+  position: sticky;
+  top: 100px;
+}
+.about .panel-wrap .panel-left .about-me-img {
+  width: 80px;
+  height: 80px;
+}
+.about .panel-wrap .panel-left .about-me-img img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover; /* 이미지 커버 설정 */
+  border-radius: 8px;
+}
+.about .panel-wrap .panel-left .introduce {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+.about .panel-wrap .panel-left .detail {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.about .panel-wrap .panel-left .detail .option::before {
+  content: "🔹";
+  margin: 0 4px;
+}
+.about .panel-wrap .panel-left .detail .option::after {
+  content: ":";
+  padding: 0 4px;
+}
+.about .panel-wrap .panel-right {
+  width: 60%;
+}
+.about .panel-wrap .panel-right .section {
+  border-radius: 8px;
+  padding: 40px;
+}
+.about .panel-wrap .panel-right .section:nth-child(odd) {
+  background-color: #f8f9fa;
+}
+.about .panel-wrap .panel-right .section:nth-child(even) {
+  background-color: #fff;
+}
+.about .panel-wrap .panel-right .section .title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+.about .panel-wrap .panel-right .section .title::before {
+  content: "🔹";
+  margin-right: 8px;
+}
+.about .panel-wrap .panel-right .section .detail li {
+  height: 200px;
 }
 
 .experience {

@@ -32,13 +32,25 @@ function UserTab() {
       };
     }, [tabRef]); // tabRef가 변경될 때마다 useEffect 실행
 
+		const handleKeyPress = (event, handler) => {
+			if (event.key === 'Enter' || event.key === ' ') {
+				handler();
+			}
+		};
 
     return (
         <div ref={tabRef}>
 
             <div className="user-tab">
                 <div>
-                    <span className="circle-icon" onClick={onClickUserIcon} />
+                    <span
+											className="circle-icon"
+											onClick={onClickUserIcon}
+											onKeyPress={(event) => handleKeyPress(event, onClickUserIcon)}
+											role="button"
+											tabIndex="0"
+											aria-label="User Icon"
+										/>
                 </div>
 
                 <div className="user-panel">
@@ -57,6 +69,6 @@ function UserTab() {
 
         </div>
     );
-};
+}
 
 export default UserTab;

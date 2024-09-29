@@ -108,7 +108,7 @@ const FreeTalkMessage = ({ talkData, onSuccess, lastTalkElementRef }) => {
       }
     } catch (err) {
       console.error("게시글 수정 오류:", err);  
-    };
+    }
   };
 
   const deleteFreeTalkData = async (postId) => {
@@ -201,10 +201,8 @@ const textAreaStyle = {
     // height: '2rem',
     maxHeight: '300px', // 최대 높이를 설정하여 너무 커지는 것을 방지
     lineHeight: '1.5', // 줄 높이를 설정
-    border: 'none',
     overflow: 'hidden',
     outline: 'none',
     boxShadow: 'none',
-    resize: 'none',
   },
 };

@@ -94,4 +94,7 @@ const SimpleSnackbar = forwardRef(({ duration = 3000 }, ref) => {
   );
 });
 
+// Set displayName for the component
+SimpleSnackbar.displayName = 'SimpleSnackbar';
+
 export default SimpleSnackbar;

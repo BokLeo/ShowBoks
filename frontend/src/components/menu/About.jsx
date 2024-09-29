@@ -1,52 +1,56 @@
 // this page is About page
 import React from 'react';
+// AboutSkillSet component import
+import AboutSkillSet from 'components/menu/about/AboutSkillSet';
+import Container from '@mui/material/Container';
+import { ResponsiveChartContainer } from '@mui/x-charts/ResponsiveChartContainer';
+
 
 const About = () => {
 	return (
 		<div className='about'>
 			<div className='panel-wrap'>
-				<div className='panel-right'>
-					<div className='about-me-img'>이미지</div>
-					<div className='introduce'>
-						<h3 className='intro'>Frontend Developer 강성복</h3>
-						<div className='sub-title'>
-							창의적 코드로 더 나은 경험을 만듭니다.
+				<div className='panel-left'>
+					<div className='panel-left-wrap'>
+						<div className='about-me-img'>
+							<img
+								src={`${process.env.PUBLIC_URL}/images/profile.webp`}
+								alt='Profile'
+							/>
 						</div>
+
+						<div className='introduce'>
+							<h3 className='title'>
+								"사용자 경험을 최우선으로 생각하는 프론트엔드 개발자,
+								강성복입니다."
+							</h3>
+							<div className='sub-title'>부연설명.</div>
+						</div>
+						<ul className='detail'>
+							<li>
+								<span className='option'>경력</span>3년차
+							</li>
+							<li>
+								<span className='option'>Tell</span>010-5694-8240
+							</li>
+							<li>
+								<span className='option'>E-mail</span>yobad713@naver.com
+							</li>
+						</ul>
 					</div>
 				</div>
 
-				<div className='panel-left'>
+				<div className='panel-right'>
 					<div className='section'>
-						<ul>
-							<li>
-								<span className='option'>경력.</span>3년차
-							</li>
-							<li>
-								<span className='option'>Tell.</span>010-5694-8240
-							</li>
-							<li>
-								<span className='option'>E-mail.</span>yobad713@naver.com
-							</li>
-						</ul>
-					</div>
-
-					<div className='section'>
-						<div className='title'>Skills</div>
-						<ul>
-							<li>HTML5</li>
-							<li>CSS3</li>
-							<li>JavaScript</li>
-							<li>React</li>
-							<li>Node.js</li>
-							<li>Express</li>
-							<li>MongoDB</li>
-							<li>MySQL</li>
-						</ul>
+						<div className='title'>Tech Stack</div>
+						{/* <ResponsiveChartContainer className='detail'> */}
+							<AboutSkillSet />
+						{/* </ResponsiveChartContainer> */}
 					</div>
 
 					<div className='section'>
 						<h3 className='title'>I can do it</h3>
-						<ul>
+						<ul className='detail'>
 							<li>
 								<h4>Developments of web</h4>
 								<p>

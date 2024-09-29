@@ -31,7 +31,7 @@ const PopupController = ({ open, onClose, loc, type, title, postId, method }) =>
       }
     }else{
       console.log('loc error');
-    };
+    }
   };
 
   const handleClose = () => {
