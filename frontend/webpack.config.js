@@ -36,7 +36,7 @@ module.exports = {
   },
   resolve: {
     alias: {
-      '@images': path.resolve(__dirname, 'public/src/images'),
+      '@images': path.resolve(__dirname, 'public/images'),
       components: path.resolve(__dirname, 'src/components/'),
       pages: path.resolve(__dirname, 'src/pages/'),
       services: path.resolve(__dirname, 'src/services/'),

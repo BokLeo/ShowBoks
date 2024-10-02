@@ -1,12 +1,21 @@
 // this page is About page
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 // AboutSkillSet component import
 import AboutSkillSet from 'components/menu/about/AboutSkillSet';
 import Container from '@mui/material/Container';
 import { ResponsiveChartContainer } from '@mui/x-charts/ResponsiveChartContainer';
 
+import ToggleBtn from 'components/ui/ToggleBtn';
+import Card from 'components/ui/Card';
+
+// Material-UI Icons
+import DevicesIcon from '@mui/icons-material/Devices';
+import IntegrationInstructionsIcon from '@mui/icons-material/IntegrationInstructions';
+import BrushIcon from '@mui/icons-material/Brush';
 
 const About = () => {
+	const [isAllFlipped, setIsAllFlipped] = useState(false);
+
 	return (
 		<div className='about'>
 			<div className='panel-wrap'>
@@ -26,6 +35,7 @@ const About = () => {
 							</h3>
 							<div className='sub-title'>부연설명.</div>
 						</div>
+
 						<ul className='detail'>
 							<li>
 								<span className='option'>경력</span>3년차
@@ -37,6 +47,10 @@ const About = () => {
 								<span className='option'>E-mail</span>yobad713@naver.com
 							</li>
 						</ul>
+
+						<div className='modules'>
+							
+						</div>
 					</div>
 				</div>
 
@@ -49,22 +63,123 @@ const About = () => {
 					</div>
 
 					<div className='section'>
-						<h3 className='title'>I can do it</h3>
+						<h3 className='title'>
+							Can Do
+							<ToggleBtn isActive={isAllFlipped} onClick={() => setIsAllFlipped(!isAllFlipped)} />
+						</h3>
+
 						<ul className='detail'>
 							<li>
-								<h4>Developments of web</h4>
-								<p>
-									퍼블리싱, 프론트, 백엔드 개발을 통해 웹 사이트를 제작할 수
-									있습니다.
-								</p>
+								<Card
+									frontContent={
+										<div className='front'>
+											<IntegrationInstructionsIcon />
+											<h4>Dev</h4>
+										</div>
+									}
+									backContent={
+										<div className='back'>
+											<h4>웹 개발</h4>
+											<div className='back-detail'>
+												<p className='back-comment'>
+													비즈니스 성장과 사용자 경험 향상을 중요하게 생각하며, 지속 가능한 개발을 지향합니다.
+												</p>
+												<div className='back-skills'>
+													<div className='wrap'>
+														<h5>FrontEnd</h5>
+														<ul>
+															<li className='logo Js'><img src={`${process.env.PUBLIC_URL}/images/logo/js.png`} alt="JavaScript" /></li>
+															<li className='logo Ts'><img src={`${process.env.PUBLIC_URL}/images/logo/ts.png`} alt="TypeScript" /></li>
+															<li className='logo React'><img src={`${process.env.PUBLIC_URL}/images/logo/reactjs.png`} alt="React" /></li>
+															<li className='logo Vue'><img src={`${process.env.PUBLIC_URL}/images/logo/vue.png`} alt="Vue" /></li>
+														</ul>
+													</div>
+													<div className='wrap'>
+														<h5>BackEnd</h5>
+														<ul>
+															<li className='logo Java'><img src={`${process.env.PUBLIC_URL}/images/logo/java.png`} alt="Java" /></li>
+															<li className='logo Spring'><img src={`${process.env.PUBLIC_URL}/images/logo/spring.png`} alt="Spring" /></li>
+														</ul>
+													</div>
+													<div className='wrap'>
+														<h5>DBMS</h5>
+														<ul>
+															<li className='logo Oracle'><img src={`${process.env.PUBLIC_URL}/images/logo/oracle.png`} alt="Oracle" /></li>
+															<li className='logo MySql'><img src={`${process.env.PUBLIC_URL}/images/logo/mysql.png`} alt="MySql" /></li>
+														</ul>
+													</div>
+												</div>
+											</div>
+										</div>
+									}
+									isFlipped={isAllFlipped}
+								/>
 							</li>
+
 							<li>
-								<h4>Responsive Web</h4>
-								<p>반응형 웹 페이지를 CSS(SCSS)를 통해 구현할 수 있습니다.</p>
+								<Card
+									frontContent={
+										<div className='front'>
+											<DevicesIcon />
+											<h4>Responsive Publishing</h4>
+										</div>
+									}
+									backContent={
+										<div className='back'>
+											<h4>반응형<br />퍼블리싱</h4>
+											<div className='back-detail'>
+												<p className='back-comment'>
+													다양한 디바이스 최적화된 유연한 반응형 웹을 구현하며, 사용자에게 일관된 경험을 제공합니다.
+												</p>
+												<div className='back-skills'>
+													<div className="wrap">
+														<h5>기술목록</h5>
+														<ul>
+															<li className='logo HTML'><img src={`${process.env.PUBLIC_URL}/images/logo/html5.png`} alt="HTML5" /></li>
+															<li className='logo CSS'><img src={`${process.env.PUBLIC_URL}/images/logo/css3.png`} alt="CSS3" /></li>
+															<li className='logo SCSS'><img src={`${process.env.PUBLIC_URL}/images/logo/sass.png`} alt="SCSS" /></li>
+															<li className='logo Js'><img src={`${process.env.PUBLIC_URL}/images/logo/js.png`} alt="Javascript" /></li>
+															<li className='logo jQuery'><img src={`${process.env.PUBLIC_URL}/images/logo/jquery.png`} alt="jQuery" /></li>
+														</ul>
+													</div>
+												</div>
+											</div>
+										</div>
+									}
+									isFlipped={isAllFlipped}
+								/>
 							</li>
+							
 							<li>
-								<h4>Design</h4>
-								<p>사용자 중심의 웹 디자인이 가능합니다.</p>
+								<Card
+									frontContent={
+										<div className='front'>
+											<BrushIcon />
+											<h4>Design</h4>
+										</div>
+									}
+									backContent={
+										<div className='back'>
+											<h4>디자인</h4>
+											<div className='back-detail'>
+												<p className='back-comment'>
+													사용자 경험을 최우선으로 고려한 UX 디자인을 통해 직관적이고 쉬운 네비게이션을 설계합니다.
+												</p>
+												<div className='back-skills'>
+													<div className="wrap">
+														<h5>기술목록</h5>
+														<ul>
+															<li className='logo Illustrator'><img src={`${process.env.PUBLIC_URL}/images/logo/illustrator.png`} alt="Adobe Illustrator" /></li>
+															<li className='logo Photoshop'><img src={`${process.env.PUBLIC_URL}/images/logo/photoshop.png`} alt="Adobe Photoshop" /> </li>
+															<li className='logo Figma'><img src={`${process.env.PUBLIC_URL}/images/logo/figma.png`} alt="Figma" /></li>
+														</ul>
+													</div>
+												</div>
+											</div>
+										</div>
+									}
+									isFlipped={isAllFlipped}
+								/>
 							</li>
 						</ul>
 					</div>
