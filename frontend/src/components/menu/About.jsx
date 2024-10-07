@@ -7,11 +7,15 @@ import { ResponsiveChartContainer } from '@mui/x-charts/ResponsiveChartContainer
 
 import ToggleBtn from 'components/ui/ToggleBtn';
 import Card from 'components/ui/Card';
+import Information from 'components/utils/Information';
 
 // Material-UI Icons
 import DevicesIcon from '@mui/icons-material/Devices';
 import IntegrationInstructionsIcon from '@mui/icons-material/IntegrationInstructions';
 import BrushIcon from '@mui/icons-material/Brush';
+
+// AboutModules component import
+import AboutModules from 'components/menu/about/AboutModules';
 
 const About = () => {
 	const [isAllFlipped, setIsAllFlipped] = useState(false);
@@ -49,14 +53,14 @@ const About = () => {
 						</ul>
 
 						<div className='modules'>
-							
+							<AboutModules />
 						</div>
 					</div>
 				</div>
 
 				<div className='panel-right'>
 					<div className='section'>
-						<div className='title'>Tech Stack</div>
+						<div className='title'>Tech Stack<Information iconName="i" text="ChartJs를 통해 그려졌습니다." /></div>
 						{/* <ResponsiveChartContainer className='detail'> */}
 							<AboutSkillSet />
 						{/* </ResponsiveChartContainer> */}

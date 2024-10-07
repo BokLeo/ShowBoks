@@ -1,91 +1,126 @@
-import react from 'react';
-import { BarChart } from '@mui/x-charts/BarChart';
-import { ResponsiveChartContainer } from '@mui/x-charts/ResponsiveChartContainer';
-import { ChartsTooltip, ChartsXAxis, LinePlot, MarkPlot } from '@mui/x-charts';
+import React, { useState } from 'react';
+import { Box, Button, ButtonGroup, Container } from '@mui/material';
+import { Bar } from 'react-chartjs-2';
+import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from 'chart.js';
+import ChartDataLabels from 'chartjs-plugin-datalabels';
 
-// const chartSetting = {
-//   xAxis: [
-//     {
-//       label: 'rainfall (mm)',
-//     },
-//   ],
-//   width: 500,
-//   height: 400,
-// };
-
+ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend, ChartDataLabels);
 
 const dataset = [
-  // 기술 스택
-  { category: '기술 스택', skill: 'HTML', level: 90 },
-  { category: '기술 스택', skill: 'CSS', level: 85 },
-  { category: '기술 스택', skill: 'JavaScript', level: 80 },
-  { category: '기술 스택', skill: 'TypeScript', level: 75 },
-
-  // 프레임워크 & 라이브러리
-  { category: '프레임워크 & 라이브러리', skill: 'React', level: 80 },
-  { category: '프레임워크 & 라이브러리', skill: 'Next.js', level: 70 },
-  { category: '프레임워크 & 라이브러리', skill: 'Redux', level: 65 },
-
-  // 데이터베이스
-  { category: '데이터베이스', skill: 'Oracle SQL', level: 60 },
-  { category: '데이터베이스', skill: 'MySQL', level: 55 },
+  { category: '기술 언어', items: [
+    { skill: 'HTML5', level: 90 },
+    { skill: 'CSS3(SCSS)', level: 90 },
+    { skill: 'JavaScript', level: 70 },
+    { skill: 'TypeScript', level: 50 },
+    { skill: 'JAVA', level: 60 },
+  ]},
+  { category: '프레임워크 & 라이브러리', items: [
+    { skill: 'React', level: 80 },
+    { skill: 'Vue', level: 80 },
+    { skill: 'ChartJs', level: 65 },
+		{ skill: 'eChart', level: 80 },
+  ]},
+  { category: '데이터베이스', items: [
+    { skill: 'Oracle SQL', level: 80 },
+    { skill: 'MySQL', level: 70 },
+  ]},
+  { category: 'Others', items: [
+    { skill: 'Github', level: 60 },
+    { skill: 'Adobe Illustrator', level: 90 },
+    { skill: 'Adobe Photoshop', level: 90 },
+  ]},
 ];
 
+export default function AboutSkillSet() {
+  const [selectedCategory, setSelectedCategory] = useState(dataset[0].category);
 
-const valueFormatter = (value) => `${value} / 100`;
+  const handleCategoryChange = (category) => {
+    setSelectedCategory(category);
+  };
 
+  const selectedData = dataset.find(data => data.category === selectedCategory);
 
-export default function HorizontalBars() {
+  const data = {
+    labels: selectedData.items.map(item => item.skill),
+    datasets: [
+      {
+        label: 'Skill Level',
+        data: selectedData.items.map(item => item.level),
+        backgroundColor: [
+					'rgba(255, 99, 132, 0.2)',
+					'rgba(54, 162, 235, 0.2)',
+					'rgba(255, 206, 86, 0.2)',
+					'rgba(75, 192, 192, 0.2)',
+					'rgba(153, 102, 255, 0.2)',
+					'rgba(255, 159, 64, 0.2)',
+					'rgba(99, 255, 132, 0.2)' 
+				],
+				borderColor: [
+					'rgba(255, 99, 132, 1)',
+					'rgba(54, 162, 235, 1)',
+					'rgba(255, 206, 86, 1)',
+					'rgba(75, 192, 192, 1)',
+					'rgba(153, 102, 255, 1)',
+					'rgba(255, 159, 64, 1)',
+					'rgba(99, 255, 132, 1)' 
+				],
+        borderWidth: 1,
+				barThickness: 40,
+      },
+    ],
+  };
+
+  const options = {
+    responsive: true,
+		scales: {
+			y: {
+				beginAtZero: true,
+				max: 100, // y축의 최대값을 100으로 설정
+			},
+		},
+    plugins: {
+      legend: {
+				display: false,
+      },
+			datalabels: {
+        anchor: 'end',
+        align: 'end',
+        formatter: (value) => value,
+        color: 'black',
+        font: {
+          weight: 'bold',
+        },
+      },
+    },
+  };
+
   return (
-		<>
-			{/* <ResponsiveChartContainer 
-				dataset={dataset}
-				series={[
-					{ dataKey: 'level', stack: '기술 스택', label: '기술 스택', color: '#3f51b5' },
-					{ dataKey: 'level', stack: '프레임워크 & 라이브러리', label: '프레임워크 & 라이브러리', color: '#ff5722' },
-					{ dataKey: 'level', stack: '데이터베이스', label: '데이터베이스', color: '#4caf50' },
-				]}
-				// width={600}
-				// height={350}
-			/> */}
-{/* [ ] mui chart를 써볼껀데 지금 당장 급한건 이게 아님 response로 구성하는 방법 해보기 */}
-<ResponsiveChartContainer
-          series={[
-            {
-              type: 'line',
-              data: [1, 2, 3, 2, 1],
-            },
-          ]}
-          xAxis={[
-            {
-              data: ['A', 'B', 'C', 'D', 'E'],
-              scaleType: 'band',
-              id: 'x-axis-id',
-            },
-          ]}
-          height={200}
-        >
-          <LinePlot />
-          <ChartsXAxis label="X axis" position="bottom" axisId="x-axis-id" />
-          <MarkPlot />
-          <ChartsTooltip />
-        </ResponsiveChartContainer>
-		</>
-    // <BarChart
-    //   dataset={dataset}
-    //   xAxis={[{ scaleType: 'linear', dataKey: 'skill', label: 'category' }]}
-    //   yAxis={[{ scaleType: 'band', dataKey: 'level', label: 'Skill' }]}
-    //   series={[
-    //     { dataKey: 'level', stack: '기술 스택', label: '기술 스택', color: '#3f51b5' },
-    //     { dataKey: 'level', stack: '프레임워크 & 라이브러리', label: '프레임워크 & 라이브러리', color: '#ff5722' },
-    //     { dataKey: 'level', stack: '데이터베이스', label: '데이터베이스', color: '#4caf50' },
-    //   ]}
-    //   layout="horizontal" // 가로 방향 차트
-		// 	slotProps={{ legend: { hidden: true } }}
-		// 	width={600}
-		// 	height={350}
-    // />
+    <Container>
+      <ButtonGroup 
+				size="small" 
+				variant="contained"
+				// variant="text" 
+			>
+        {dataset.map(data => (
+          <Button 
+						key={data.category} 
+						onClick={() => handleCategoryChange(data.category)}
+						style={{
+							color: selectedCategory === data.category ? '#fff' : 'black',
+							backgroundColor: selectedCategory === data.category ? '#007bff' : 'white',
+							fontWeight: selectedCategory === data.category ? 'bold' : 'normal',
+						}}
+					>
+            {data.category}
+          </Button>
+        ))}
+      </ButtonGroup>
+
+      <Box mt={2}>
+        <div>
+          <Bar data={data} options={options} />
+        </div>
+      </Box>
+    </Container>
   );
 }
-
-// export default AboutSkillSet;
