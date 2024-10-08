@@ -1,12 +1,14 @@
 {
   "compilerOptions": {
     "target": "ES6",
-    "module": "commonjs",
+    "module": "commonjs", // CommonJS 모듈 시스템 유지
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
     "outDir": "./dist",
-    "rootDir": "./"
+    "rootDir": "./",
+    "allowSyntheticDefaultImports": true, // ES 모듈의 default import 지원
+    "moduleResolution": "node" // node 환경에서의 모듈 해석 방식 유지
   },
   "include": ["src/**/*", "server.ts"],
   "exclude": ["node_modules"]
