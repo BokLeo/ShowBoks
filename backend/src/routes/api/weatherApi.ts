@@ -34,7 +34,7 @@ const 단기예보조회 = "getVilageFcst";
 const 예보버전조회 = "getFcstVersion";
 
 // 필요한 API Parameter
-const numOfRows = 10;
+const numOfRows = 1000;
 const pageNo = 1;
 const dataType = "JSON";
 
@@ -52,37 +52,17 @@ const getFormattedDate = () => {
   const hours = now.getHours().toString().padStart(2, '0');
   const minutes = now.getMinutes().toString().padStart(2, '0');
 
-  const base_time = `${hours}${minutes}`;
+  // const base_time = `${hours}${minutes}`;
+	// const base_time = '0500';
+	// 만약 현재 분이 45분 이상이면 이전 시간으로 설정(minutes은 문자열임을 주의)
+	const base_time = minutes >= '45' ? `${hours}00` : `${(parseInt(hours) - 1).toString().padStart(2, '0')}00`;
 
   return { base_date, base_time };
 };
 const { base_date, base_time } = getFormattedDate();
 
-
-// 위, 경도 -> 좌표 변환
-
-/**
- * // LCC DFS 좌표변환 ( code : "toXY"(위경도->좌표, v1:위도, v2:경도), "toLL"(좌표->위경도,v1:x, v2:y) )
-//
-
-export default function dfs_xy_conv(code, v1, v2) {
-		var DEGRAD = Math.PI / 180.0;
- * 
- */
-
-		/**
-		 * 파일 경로 : C:\bok\Dev\Project\ShowBoks\backend\src\utils\geoGridConverter.ts
-		 * 
-		 */
 // geoGridConverter 파일 사용
 import { dfs_xy_conv } from '../../utils/geoGridConverter';
-
-
-
-
-
-
-
 
 // 초단기	실황 조회
 router.get('/getUltraSrtNcst', async (req: Request, res: Response) => {
@@ -97,7 +77,17 @@ router.get('/getUltraSrtNcst', async (req: Request, res: Response) => {
 	const { x, y } = dfs_xy_conv('toXY', v1, v2);
 	const { nx, ny } = { nx: x, ny: y };
 	
-	const url = `${WEATHER_API_URL}${초단기실황조회}?serviceKey=${WEATHER_API_KEY}&dataType=${dataType}&base_date=${base_date}&base_time=${base_time}&nx=${nx}&ny=${ny}`;
+	let url = `${WEATHER_API_URL}`;
+	url += `getUltraSrtFcst?`; // 초단기예보조회
+	url += `serviceKey=${WEATHER_API_KEY}&`;
+	url += `pageNo=${pageNo}&`;
+	url += `numOfRows=${numOfRows}&`;
+	url += `dataType=${dataType}&`;
+	url += `base_date=${base_date}&`;
+	url += `base_time=${base_time}&`;
+	url += `nx=${nx}&`;
+	url += `ny=${ny}`;
+
 	console.log(url);	
 	try {
 		const result = await axios.get(url);
@@ -130,7 +120,7 @@ export default router;
 	
 	[초단기실황]
 	T1H	기온	℃	10
-	RN1	1시간 강수량	mm	8
+	RN1	1시간강수량	mm	8
 	UUU	동서바람성분	m/s	12
 	VVV	남북바람성분	m/s	12
 	REH	습도	%	8

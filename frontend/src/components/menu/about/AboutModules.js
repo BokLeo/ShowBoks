@@ -3,8 +3,12 @@
 
 import React, {useState} from 'react';
 import AboutModulesWeather from './AboutModulesWeather';
+import ToggleBtn from 'components/ui/ToggleBtn';
+import { Opacity } from '@mui/icons-material';
 
 const AboutModules = () => {
+	const [isWeather, setIsWeather] = useState(false);
+	const [isNews, setIsNews] = useState(false);
 
 	const AboutModules = {
 		width: "100%",
@@ -15,20 +19,31 @@ const AboutModules = () => {
 		display: "flex",
 		justifyContent: "flex-start",
 		alignItems: "center",
-		backgroundColor: "rgb(77, 77, 77)",
-		borderRadius: "8px",
-		padding: "20px",
-		marginBottom: "20px"
+		marginBottom: "20px",
+		gap: "10px",
 	}
 
-	const [isWeather, setIsWeather] = useState(false);
-	const [isNews, setIsNews] = useState(false);
+	const weatherBtnStyle = {
+		width: "60px",
+		height: "60px",
+		fontSize: "1rem",
+		backgroundColor: "transparent",
+		color: "rgb(77, 77, 77)",
+		border: "1px solid rgb(77, 77, 77)",
+		...(isWeather && { 
+			border: "1px solid #007bff",
+			color: "#007bff",
+			fontWeight: "bold",
+			opacity: "1",
+				
+		}), // 조건부로 스타일 추가
+	}
 
 	return (
 		<div style={AboutModules}>
 			<ul style={AboutModulesBtnArea}>
 				<li>
-					<button onClick={() => setIsWeather(!isWeather)}>날씨</button>
+					<ToggleBtn onClick={() => setIsWeather(!isWeather)} style={weatherBtnStyle}>날씨</ToggleBtn>
 				</li>
 				<li>
 					<button onClick={() => setIsNews(!isNews)}>뉴스</button>

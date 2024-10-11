@@ -61,15 +61,15 @@ const About = () => {
 				<div className='panel-right'>
 					<div className='section'>
 						<div className='title'>Tech Stack<Information iconName="i" text="ChartJs를 통해 그려졌습니다." /></div>
-						{/* <ResponsiveChartContainer className='detail'> */}
-							<AboutSkillSet />
-						{/* </ResponsiveChartContainer> */}
+						<AboutSkillSet />
 					</div>
 
 					<div className='section'>
 						<h3 className='title'>
 							Can Do
-							<ToggleBtn isActive={isAllFlipped} onClick={() => setIsAllFlipped(!isAllFlipped)} />
+							<ToggleBtn isActive={isAllFlipped} onClick={() => setIsAllFlipped(!isAllFlipped)}>
+								{isAllFlipped ? '전체 닫기' : '전체 열기'}
+							</ToggleBtn>
 						</h3>
 
 						<ul className='detail'>

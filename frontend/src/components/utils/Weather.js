@@ -1,121 +1,73 @@
 const weatherTargetObj = {
-	// T1H	기온	℃	10
-	// RN1	1시간 강수량	mm	8
-	// UUU	동서바람성분	m/s	12
-	// VVV	남북바람성분	m/s	12
-	// REH	습도	%	8
-	// PTY	강수형태	코드값	4
-	// VEC	풍향	deg	10
-	// WSD	풍속	m/s	10
-
-	'기온': { key: 'T1H', unit: '℃'	},
-	'1시간 강수량': { key: 'RN1', unit: 'mm' },
-	'동서바람성분': { key: 'UUU', unit: 'm/s' },
-	'남북바람성분': { key: 'VVV', unit: 'm/s' },
-	'습도': { key: 'REH', unit: '%' },
-	'강수형태': { key: 'PTY', unit: '코드값' },
-	'풍향': { key: 'VEC', unit: 'deg' },
-	'풍속': { key: 'WSD', unit: 'm/s' }
+  'POP': { unit: '%', ko: '강수확률' },
+  'PTY': { unit: '코드값', ko: '강수형태' },
+  'PCP': { unit: 'mm', ko: '1시간 강수량' },
+  'REH': { unit: '%', ko: '습도' },
+  'SNO': { unit: 'cm', ko: '1시간 신적설' },
+  'SKY': { unit: '코드값', ko: '하늘상태' },
+  'TMP': { unit: '℃', ko: '1시간 기온' },
+  'TMN': { unit: '℃', ko: '일 최저기온' },
+  'TMX': { unit: '℃', ko: '일 최고기온' },
+  'UUU': { unit: 'm/s', ko: '동서바람성분' },
+  'VVV': { unit: 'm/s', ko: '남북바람성분' },
+  'WAV': { unit: 'M', ko: '파고' },
+  'VEC': { unit: 'deg', ko: '풍향' },
+  'WSD': { unit: 'm/s', ko: '풍속' },
+  'T1H': { unit: '℃', ko: '기온' },
+  'RN1': { unit: 'mm', ko: '1시간 강수량' },
+  'LGT': { unit: 'kA', ko: '낙뢰' }
 };
 
 import { getWeather } from 'services/outside/Weather';
 
+const groupByDateAndTime = (items) => {
+  const groupedItems = {};
 
-/*
-response.data
-{
-    "response": {
-        "header": {
-            "resultCode": "00",
-            "resultMsg": "NORMAL_SERVICE"
-        },
-        "body": {
-            "dataType": "JSON",
-            "items": {
-                "item": [
-                    {
-                        "baseDate": "20241008",
-                        "baseTime": "1600",
-                        "category": "PTY",
-                        "nx": 59,
-                        "ny": 123,
-                        "obsrValue": "0"
-                    },
-                    {
-                        "baseDate": "20241008",
-                        "baseTime": "1600",
-                        "category": "REH",
-                        "nx": 59,
-                        "ny": 123,
-                        "obsrValue": "48"
-                    },
-                    {
-                        "baseDate": "20241008",
-                        "baseTime": "1600",
-                        "category": "RN1",
-                        "nx": 59,
-                        "ny": 123,
-                        "obsrValue": "0"
-                    },
-                    {
-                        "baseDate": "20241008",
-                        "baseTime": "1600",
-                        "category": "T1H",
-                        "nx": 59,
-                        "ny": 123,
-                        "obsrValue": "22.6"
-                    },
-                    {
-                        "baseDate": "20241008",
-                        "baseTime": "1600",
-                        "category": "UUU",
-                        "nx": 59,
-                        "ny": 123,
-                        "obsrValue": "-1.1"
-                    },
-                    {
-                        "baseDate": "20241008",
-                        "baseTime": "1600",
-                        "category": "VEC",
-                        "nx": 59,
-                        "ny": 123,
-                        "obsrValue": "67"
-                    },
-                    {
-                        "baseDate": "20241008",
-                        "baseTime": "1600",
-                        "category": "VVV",
-                        "nx": 59,
-                        "ny": 123,
-                        "obsrValue": "-0.4"
-                    },
-                    {
-                        "baseDate": "20241008",
-                        "baseTime": "1600",
-                        "category": "WSD",
-                        "nx": 59,
-                        "ny": 123,
-                        "obsrValue": "1.3"
-                    }
-                ]
-            },
-            "pageNo": 1,
-            "numOfRows": 10,
-            "totalCount": 8
-        }
+  items.forEach(item => {
+    // fcstDate와 fcstTime을 하나의 키로 결합
+    const key = `${item.fcstDate}_${item.fcstTime}`;
+    
+    // 해당 키가 없으면 새로 생성
+    if (!groupedItems[key]) {
+      groupedItems[key] = {
+        fcstDate: item.fcstDate,
+        fcstTime: item.fcstTime,
+        data: []
+      };
     }
-}
+    
+    // 해당 키의 data 배열에 category, fcstValue, unit, ko 추가
+    groupedItems[key].data.push({
+      category: item.category,
+      fcstValue: item.fcstValue,
+      unit: weatherTargetObj[item.category]?.unit === '코드값' ? '' : weatherTargetObj[item.category]?.unit,
+      ko: weatherTargetObj[item.category]?.ko || 'unknown'
+    });
+  });
 
-*/
+  // 그룹화된 결과를 배열로 반환
+  return Object.values(groupedItems);
+};
 
+async function Weather(keys, x1, y1) {
+  try {
+    const response = await getWeather(x1, y1);
+    const data = response.data;
+    const items = data.response.body.items.item;
 
-async function Weather(key, x1, y1) {
-	const response = await getWeather(x1, y1);
-	const data = response.data;
-	const items = data.response.body.items.item;
-	const target = weatherTargetObj[key];
-	const targetItem = items.find(item => item.category === target.key);
-	return targetItem.obsrValue + target.unit;
+    if (!Array.isArray(keys)) {
+      keys = [keys];
+    }
+
+		const filteredItems = items.filter(item => keys.includes(item.category));
+		
+		const result = groupByDateAndTime(filteredItems);
+		return result;
+
+  } catch (error) {
+    console.error('Error fetching weather data:', error);
+    return null;
+  }
 }
 
 export default Weather;

@@ -14,7 +14,7 @@ const StyledButton = styled.button`
   font-size: 0.825rem;
   margin: 4px 2px;
   cursor: pointer;
-  transition-duration: 0.4s;
+  transition-duration: 0.3s;
 	
   &:hover {
 		opacity: 1;
@@ -35,10 +35,10 @@ const StyledButton = styled.button`
 	}
 `;
 
-const ToggleBtn = ({ isActive, onClick }) => {
+const ToggleBtn = (props) => {
   return (
-    <StyledButton className={`toggle-btn ${isActive ? 'active' : ''}`} onClick={onClick}>
-      {isActive ? '비활성화' : '활성화'}
+    <StyledButton className={`toggle-btn ${props.isActive ? 'active' : ''}`} onClick={props.onClick} style={props.style}>
+			{props.children}
     </StyledButton>
   );
 };
