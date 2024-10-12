@@ -51,18 +51,33 @@ const AboutModulesWeather = () => {
         <div>
           <p>Geolocation success: x={location.x}, y={location.y}</p>
           {/* 날씨 정보를 가져와서 화면에 표시하는 로직 추가 */}
+					
 					{weather && (
-						<div className='weather-grid'>
-							{weather.map((item, index) => (
-								<div key={index}>
-									<p>{item.fcstDate} {item.fcstTime}</p>
-									<ul>
-										{item.data.map((data, index) => (
-											<li key={index}>{data.ko}: {data.fcstValue} {data.unit}</li>
-										))}
-									</ul>
-								</div>
-							))}
+						<div>
+							<div className='weather-data now-time'>
+								{/* 
+									{
+										fcstDate: "20241011"
+										fcstTime: "2300" 
+										data: 
+											0: {category: 'PTY', fcstValue: '0', unit: '', ko: '강수형태'}
+											1: {category: 'RN1', fcstValue: '강수없음', unit: 'mm', ko: '1시간 강수량'}
+											2: {category: 'SKY', fcstValue: '1', unit: '', ko: '하늘상태'}
+											3: {category: 'T1H', fcstValue: '15', unit: '℃', ko: '기온'}
+									}
+								*/}
+								{
+									weather[0].data.map((item, index) => (
+										<div key={index} className='weather-item'>
+
+										</div>
+									))
+								}
+							</div>
+
+							<ul className='weather-data after-time'>
+
+							</ul>
 						</div>
 					)}
         </div>

@@ -1,8 +1,18 @@
 .weather-wrap{
+	width: 100%;
 
 	.weather-grid{
-		display: grid;
-		grid-template-columns: repeat(3, 1fr);
-		grid-gap: 1rem;
+		display: flex;
+				flex-direction: column;
+				height: 100vh; /* 전체 화면 높이 */
+
+		.weather-grid-item{
+			&:first-child{
+				margin-bottom: auto;
+			}
+			
+
+
+		}
 	}
 }
