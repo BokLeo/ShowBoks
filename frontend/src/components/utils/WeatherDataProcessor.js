@@ -1,6 +1,6 @@
 const weatherTargetObj = {
-  'POP': { unit: '%', ko: '강수확률' },
-  'PTY': { unit: '코드값', ko: '강수형태' },
+	'POP': { unit: '%', ko: '강수확률' },
+  'PTY': { unit: '코드값', ko: '강수형태' }, // 없음(0), 비(1), 비/눈(2), 눈(3), 소나기(4) 
   'PCP': { unit: 'mm', ko: '1시간 강수량' },
   'REH': { unit: '%', ko: '습도' },
   'SNO': { unit: 'cm', ko: '1시간 신적설' },
@@ -18,8 +18,6 @@ const weatherTargetObj = {
   'LGT': { unit: 'kA', ko: '낙뢰' }
 };
 
-import { getWeather } from 'services/outside/Weather';
-
 const groupByDateAndTime = (items) => {
   const groupedItems = {};
 
@@ -30,8 +28,8 @@ const groupByDateAndTime = (items) => {
     // 해당 키가 없으면 새로 생성
     if (!groupedItems[key]) {
       groupedItems[key] = {
-        fcstDate: item.fcstDate,
-        fcstTime: item.fcstTime,
+				fcstDate: `${item.fcstDate.substring(4, 6)}.${item.fcstDate.substring(6, 8)}`,
+				fcstTime: `${item.fcstTime.substring(0, 2)}:${item.fcstTime.substring(2, 4)}`,
         data: []
       };
     }
@@ -49,11 +47,9 @@ const groupByDateAndTime = (items) => {
   return Object.values(groupedItems);
 };
 
-async function Weather(keys, x1, y1) {
+async function processWeatherData(data, keys) {
   try {
-    const response = await getWeather(x1, y1);
-    const data = response.data;
-    const items = data.response.body.items.item;
+    const items = data.data.response.body.items.item;
 
     if (!Array.isArray(keys)) {
       keys = [keys];
@@ -70,4 +66,4 @@ async function Weather(keys, x1, y1) {
   }
 }
 
-export default Weather;
+export default processWeatherData;

@@ -23,20 +23,11 @@ const WEATHER_API_KEY = process.env.WEATHER_API_KEY_ENCODING;
 // 날씨 API 호출을 위한 axios 라이브러리
 const axios = require('axios');
 
-
 // 날씨 API 호출을 위한 URL
 const WEATHER_API_URL = 'http://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/';
 
-// 날씨 API 각 서비스별 URL String
-const 초단기실황조회 = "getUltraSrtNcst";
-const 초단기예보조회 = "getUltraSrtFcst";
-const 단기예보조회 = "getVilageFcst";
-const 예보버전조회 = "getFcstVersion";
-
-// 필요한 API Parameter
-const numOfRows = 1000;
-const pageNo = 1;
-const dataType = "JSON";
+// 위경도 -> 좌표 변환 함수
+import { dfs_xy_conv } from '../../utils/geoGridConverter';
 
 const getFormattedDate = () => {
   const now = new Date();
@@ -59,13 +50,27 @@ const getFormattedDate = () => {
 
   return { base_date, base_time };
 };
+
+// 필수 API Parameter
+const serviceKey = WEATHER_API_KEY;
+const numOfRows = 1000;
+const pageNo = 1;
+const dataType = "JSON";
 const { base_date, base_time } = getFormattedDate();
 
-// geoGridConverter 파일 사용
-import { dfs_xy_conv } from '../../utils/geoGridConverter';
-
+	
 // 초단기	실황 조회
-router.get('/getUltraSrtNcst', async (req: Request, res: Response) => {
+router.get('/:path', async (req: Request, res: Response) => {
+	const { path } = req.params;
+	/**
+	 * @readonly path - API 경로
+	 * : 설명 : API 경로에 따라 다른 데이터를 가져올 수 있습니다.
+	 * 
+	 * - @property {string} getUltraSrtNcst - 초단기실황조회
+	 * - @property {string} getUltraSrtFcst - 초단기예보조회
+	 * - @property {string} getVilageFcst - 단기예보조회
+	*/
+
 	const v1 = parseFloat(req.query.v1 as string);
 	const v2 = parseFloat(req.query.v2 as string);
 
@@ -77,24 +82,16 @@ router.get('/getUltraSrtNcst', async (req: Request, res: Response) => {
 	const { x, y } = dfs_xy_conv('toXY', v1, v2);
 	const { nx, ny } = { nx: x, ny: y };
 	
-	let url = `${WEATHER_API_URL}`;
-	url += `getUltraSrtFcst?`; // 초단기예보조회
-	url += `serviceKey=${WEATHER_API_KEY}&`;
-	url += `pageNo=${pageNo}&`;
-	url += `numOfRows=${numOfRows}&`;
-	url += `dataType=${dataType}&`;
-	url += `base_date=${base_date}&`;
-	url += `base_time=${base_time}&`;
-	url += `nx=${nx}&`;
-	url += `ny=${ny}`;
+	// 경로에 따라 다른 URL 생성
+  let apiUrl = `${WEATHER_API_URL}${path}?serviceKey=${WEATHER_API_KEY}&numOfRows=${numOfRows}&pageNo=${pageNo}&dataType=${dataType}&base_date=${base_date}&base_time=${base_time}&nx=${nx}&ny=${ny}`;
+  console.log(apiUrl);
 
-	console.log(url);	
-	try {
-		const result = await axios.get(url);
-		res.json(result.data);
-	} catch (err: any) {
-		res.status(500).json({ error: err.message });
-	}
+  try {
+    const result = await axios.get(apiUrl);
+    res.json(result.data);
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to fetch weather data' });
+  }
 });
 
 export default router;
