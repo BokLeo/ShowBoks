@@ -3,7 +3,7 @@ import axios from 'axios';
 import { BrowserRouter, Link } from 'react-router-dom';
 
 // CSS
-import './styles/common.css';
+import './styles/common.scss';
 
 // Components
 import { HeaderLayout, BodyLayout } from './components/layout';

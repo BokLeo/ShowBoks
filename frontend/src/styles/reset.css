@@ -62,3 +62,6 @@ button{
 input::-ms-reveal {
 	display: none;
 }
+strong{
+	font-weight: bold;
+}

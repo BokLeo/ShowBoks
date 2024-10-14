@@ -1,4 +1,6 @@
 const path = require('path');
+console.log("lkasndlkasndlkasn :::: ", path.resolve(__dirname, 'src/assets/icons'));
+
 
 module.exports = {
   // 다른 설정들...
@@ -17,7 +19,16 @@ module.exports = {
       },
       {
         test: /\.(png|svg|jpg|jpeg|gif|webp)$/,
-        use: ['file-loader'],
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              name: '[name].[hash].[ext]',
+              outputPath: 'images',
+              publicPath: '/images',
+            },
+          },
+        ],
       },
       {
         test: /\.scss$/,
@@ -35,12 +46,13 @@ module.exports = {
     ],
   },
   resolve: {
-    alias: {
-      '@images': path.resolve(__dirname, 'public/images'),
-      components: path.resolve(__dirname, 'src/components/'),
-      pages: path.resolve(__dirname, 'src/pages/'),
-      services: path.resolve(__dirname, 'src/services/'),
-    },
-    extensions: ['.js', '.jsx'],
-  },
+		alias: {
+			'@icons': path.resolve(__dirname, 'src/assets/icons'),
+			components: path.resolve(__dirname, 'src/components/'),
+			pages: path.resolve(__dirname, 'src/pages/'),
+			services: path.resolve(__dirname, 'src/services/'),
+		},
+		extensions: ['.js', '.jsx'],
+	},
 };
+

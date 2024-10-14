@@ -16,7 +16,10 @@ import { getUltraSrtFcst } from 'services/outside/WeatherApi';
 import processWeatherData from 'components/utils/WeatherDataProcessor';
 
 // 날씨 Css 파일(경로 : src\styles\about-modules-weather.scss)
-import 'styles/about-modules-weather.css';
+import 'styles/about-modules-weather.scss';
+
+// 날씨 icon을 위한 Asset-icon 컴포넌트
+import AssetIcon from 'components/ui/AssetIcon';
 
 
 const AboutModulesWeather = () => {
@@ -27,7 +30,7 @@ const AboutModulesWeather = () => {
 		street: null,
 	});
 	const [requestWeatherTarget, setRequestWeatherTarget] = useState([ 'SKY', 'T1H', 'PTY', 'RN1' ]);
-
+	
   useEffect(() => {
     // 위치 정보 가져오기
     const fetchLocation = async () => {
@@ -40,6 +43,7 @@ const AboutModulesWeather = () => {
   }, []); // 빈 배열을 사용하여 컴포넌트가 마운트될 때만 실행
 
 	useEffect(() => {
+		console.log("location useEffect");
 		const fetchAddress = async () => {
 			if (location.success) {
 				const rawPayload = await getReverseeocode(location.x, location.y);
@@ -71,6 +75,31 @@ const AboutModulesWeather = () => {
     fetchWeatherData();
   }, [location, requestWeatherTarget]); // location과 requestWeatherTarget이 변경될 때마다 실행
 
+	// 하늘상태
+	const SKY_CODES = {
+		1 : { icon : 'sun', text : '맑음' },
+		3 : { icon : 'cloud-sun', text : '구름많음' },
+		4 : { icon : 'cloud', text : '흐림' },
+	};
+
+	//강수형태(없음(0), 비(1), 비/눈(2), 눈(3), 빗방울(5), 빗방울눈날림(6), 눈날림(7))
+	const PTY_CODES = {
+		0 : { icon : 'none', text : '없음' },
+		1 : { icon : 'rain', text : '비' },
+		2 : { icon : 'rain-snow', text : '비/눈' },
+		3 : { icon : 'snow', text : '눈' },
+		5 : { icon : 'rain', text : '비' },
+		6 : { icon : 'rain-snow', text : '비/눈' },
+		7 : { icon : 'snow', text : '눈' },
+	};
+
+
+	/*
+		"sun","cloud-sun","cloud","rain","rain-snow","snow "
+	 */
+
+	
+	
 
   return (
     <div className='weather'>
@@ -78,8 +107,12 @@ const AboutModulesWeather = () => {
       {location.success === true && (
 				<>
 					<p className='weather-location'>
-          현재 위치는 : {address ? `${address.city}, ${address.street}` : '주소 정보를 가져올 수 없습니다.'}
-        </p>
+						{address.city && address.street ? (
+							<>현재 위치는 <strong><span className='txt-blue fs-xl'>{address.city}, {address.street}</span></strong> 입니다.</>
+						) : (
+							<>주소 정보를 가져올 수 없습니다.</>
+						)}
+					</p>
 					<div className='weather-wrap'>
 						
 						{/* 날씨 정보를 가져와서 화면에 표시하는 로직 추가 */}
@@ -102,21 +135,31 @@ const AboutModulesWeather = () => {
 
 							*/
 							weather && weather.map((item, index) => {
+								const skyData = item.data.find(d => d.category === 'SKY');
+								const tempData = item.data.find(d => d.category === 'T1H');
+								const rainData = item.data.find(d => d.category === 'RN1');
+								const ptyData = item.data.find(d => d.category === 'PTY');
+
+								const skyStatus = ptyData.fcstValue === "0";
+								
 								return (
 									<div key={index} className='weather-item'>
-										<div className='weather-date'>{item.fcstDate}</div>
-										<div className='weather-time'>{item.fcstTime}</div>
+										<div className='weather-date fs-xl'>{item.fcstDate}<span className='weather-time fs-lg'> ({item.fcstTime})</span></div>
+										
 										<div className='weather-data'>
-											{
-												item.data.map((data, index) => {
-													return (
-														<div key={index} className='weather-data-item'>
-															<div className='weather-data-category'>{data.ko}</div>
-															<div className='weather-data-value'>{data.fcstValue}{data.unit}</div>
-														</div>
-													)
-												})
-											}
+										{skyStatus ? (
+											<>
+												<AssetIcon iconName={SKY_CODES[skyData.fcstValue].icon}/>
+												<>{SKY_CODES[skyData.fcstValue].icon}</>
+												{/* <p className={`sky-icon`}><AssetIcon name={SKY_CODES[skyData.fcstValue].icon} /><span className='screen-reader-text'>{SKY_CODES[skyData.fcstValue].text}</span></p> */}
+												<p className='sky-value fs-md'>{tempData.fcstValue} {tempData.unit}</p>
+											</>
+										) : (
+											<>
+												<p className={`sky-icon ${PTY_CODES[ptyData.fcstValue].icon}`}><span className='screen-reader-text'>{PTY_CODES[ptyData.fcstValue].text}</span></p>
+												<p className='sky-value fs-md'>{tempData.fcstValue} {tempData.unit} / {rainData.fcstValue}</p>
+											</>
+										)}
 										</div>
 									</div>
 								);

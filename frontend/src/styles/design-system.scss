@@ -8,3 +8,33 @@
 .pd40{
   padding: 20px;
 }
+
+.txt-blue{
+	color: rgb(0, 123, 255);
+}
+
+// Font Size
+.fs-xs{ font-size: map-get(BS.$font-sizes, 'xs'); }
+.fs-sm{ font-size: map-get(BS.$font-sizes, 'sm'); }
+.fs-md{ font-size: map-get(BS.$font-sizes, 'md'); }
+.fs-lg{ font-size: map-get(BS.$font-sizes, 'lg'); }
+.fs-xl{ font-size: map-get(BS.$font-sizes, 'xl'); }
+.fs-xxl{ font-size: map-get(BS.$font-sizes, 'xxl'); }
+
+.screen-reader-text {
+	position: absolute;
+	clip: rect(1px, 1px, 1px, 1px);
+	padding: 0;
+	border: 0;
+	height: 1px;
+	width: 1px;
+	margin: -1px;
+	overflow: hidden;
+	white-space: nowrap;
+}
+
+.icon{
+	&.sky-icon{
+		
+	}
+}

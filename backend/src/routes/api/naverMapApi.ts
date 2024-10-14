@@ -20,8 +20,6 @@ const NAVER_API_URL = `https://naveropenapi.apigw.ntruss.com/map-reversegeocode/
 
 
 router.get('/reversegeocode', async (req: Request, res: Response) => {
-	console.log('naverMapApi accessed');
-
 	const { lat, lng } = req.query;
 
 	const headers = {
@@ -36,7 +34,6 @@ router.get('/reversegeocode', async (req: Request, res: Response) => {
 	};
 
 	try {
-		console.log('Naver Map API request:', { headers, params });
 		const response = await axios.get(NAVER_API_URL, { headers, params });
 		res.json(response.data);
 	} catch (error) {
