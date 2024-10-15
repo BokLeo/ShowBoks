@@ -52,15 +52,15 @@ const AboutModules = () => {
             날씨
           </ToggleBtn>
         </li>
-        <li>
-          <ToggleBtn onClick={() => setActiveModule(activeModule === 'news' ? null : 'news')} style={newsBtnStyle}>
+        {/* <li>
+          <ToggleBtn onClick={() => setActiveModule(null)} style={newsBtnStyle}>
             뉴스
           </ToggleBtn>
-        </li>
+        </li> */}
       </ul>
       <div>
         {activeModule === 'weather' && <div><AboutModulesWeather /></div>}
-        {activeModule === 'news' && <div>뉴스 정보</div>}
+        {activeModule === 'news' && <div>뉴스</div>}
       </div>
     </div>
 	);

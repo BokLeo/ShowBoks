@@ -20,6 +20,10 @@ import 'styles/about-modules-weather.scss';
 
 // 날씨 icon을 위한 Asset-icon 컴포넌트
 import AssetIcon from 'components/ui/AssetIcon';
+import Information from 'components/utils/Information';
+
+// react Loading spinner
+import HashLoader from "react-spinners/HashLoader";
 
 
 const AboutModulesWeather = () => {
@@ -30,7 +34,8 @@ const AboutModulesWeather = () => {
 		street: null,
 	});
 	const [requestWeatherTarget, setRequestWeatherTarget] = useState([ 'SKY', 'T1H', 'PTY', 'RN1' ]);
-	
+	const [loading, setLoading] = useState(false);
+
   useEffect(() => {
     // 위치 정보 가져오기
     const fetchLocation = async () => {
@@ -43,13 +48,10 @@ const AboutModulesWeather = () => {
   }, []); // 빈 배열을 사용하여 컴포넌트가 마운트될 때만 실행
 
 	useEffect(() => {
-		console.log("location useEffect");
 		const fetchAddress = async () => {
 			if (location.success) {
 				const rawPayload = await getReverseeocode(location.x, location.y);
 				const addressObj = rawPayload.data.results[0].region;
-				// const addressName = addressObj.area1.name + ' ' + addressObj.area2.name;
-				// console.log('addressName:', addressName);
 				setAddress({
 					city: addressObj.area1.name,
 					street: addressObj.area2.name,
@@ -66,16 +68,15 @@ const AboutModulesWeather = () => {
         const rawPayload = await getUltraSrtFcst(location.x, location.y);
 				// ultraSrtFcst가 완료되면 processWeatherData 함수를 사용하여 데이터를 가공
 				const response = await processWeatherData(rawPayload, requestWeatherTarget);
-				console.log('response:', response);
-				// 가공된 데이터를 상태로 저장
 				setWeather(response);
+				setLoading(true);
       }
     };
 
     fetchWeatherData();
   }, [location, requestWeatherTarget]); // location과 requestWeatherTarget이 변경될 때마다 실행
 
-	// 하늘상태
+	// 하늘상태(1:맑음, 3:구름많음, 4:흐림)
 	const SKY_CODES = {
 		1 : { icon : 'sun', text : '맑음' },
 		3 : { icon : 'cloud-sun', text : '구름많음' },
@@ -93,13 +94,15 @@ const AboutModulesWeather = () => {
 		7 : { icon : 'snow', text : '눈' },
 	};
 
-
-	/*
-		"sun","cloud-sun","cloud","rain","rain-snow","snow "
-	 */
-
-	
-	
+	if(!loading) {
+		return (
+			<div className='weather'>
+				<div style={{padding: '20px'}} >
+					<HashLoader color={"rgb(0, 123, 255)"} loading={!loading} size={50} />
+				</div>
+			</div>
+		);
+	}
 
   return (
     <div className='weather'>
@@ -108,32 +111,15 @@ const AboutModulesWeather = () => {
 				<>
 					<p className='weather-location'>
 						{address.city && address.street ? (
-							<>현재 위치는 <strong><span className='txt-blue fs-xl'>{address.city}, {address.street}</span></strong> 입니다.</>
+							<>
+								현재 위치는 <strong><span className='txt-blue fs-xl'>{address.city} {address.street}</span></strong> 입니다.
+							</>
 						) : (
 							<>주소 정보를 가져올 수 없습니다.</>
 						)}
 					</p>
 					<div className='weather-wrap'>
-						
-						{/* 날씨 정보를 가져와서 화면에 표시하는 로직 추가 */}
-						
 						{
-							/* weather 데이터 구조[array6]
-								[
-									{
-										fcstDate: "10.13",
-										fcstTime: "07:00",
-										data: [
-											{ category: "PTY", fcstValue: "0", unit: "", ko: "강수형태" },
-											{ category: "RN1", fcstValue: "강수없음", unit: "mm", ko: "1시간 강수량" },
-											{ category: "SKY", fcstValue: "1", unit: "", ko: "하늘상태" },
-											{ category: "T1H", fcstValue: "15", unit: "℃", ko: "기온" }
-										]
-									},
-									...
-								]
-
-							*/
 							weather && weather.map((item, index) => {
 								const skyData = item.data.find(d => d.category === 'SKY');
 								const tempData = item.data.find(d => d.category === 'T1H');
@@ -149,14 +135,12 @@ const AboutModulesWeather = () => {
 										<div className='weather-data'>
 										{skyStatus ? (
 											<>
-												<AssetIcon iconName={SKY_CODES[skyData.fcstValue].icon}/>
-												<>{SKY_CODES[skyData.fcstValue].icon}</>
-												{/* <p className={`sky-icon`}><AssetIcon name={SKY_CODES[skyData.fcstValue].icon} /><span className='screen-reader-text'>{SKY_CODES[skyData.fcstValue].text}</span></p> */}
+												<p className={`sky-icon`}><AssetIcon iconName={SKY_CODES[skyData.fcstValue].icon} /></p>
 												<p className='sky-value fs-md'>{tempData.fcstValue} {tempData.unit}</p>
 											</>
 										) : (
 											<>
-												<p className={`sky-icon ${PTY_CODES[ptyData.fcstValue].icon}`}><span className='screen-reader-text'>{PTY_CODES[ptyData.fcstValue].text}</span></p>
+												<p className={`sky-icon`}><AssetIcon iconName={PTY_CODES[ptyData.fcstValue].icon} /></p>
 												<p className='sky-value fs-md'>{tempData.fcstValue} {tempData.unit} / {rainData.fcstValue}</p>
 											</>
 										)}
@@ -164,10 +148,9 @@ const AboutModulesWeather = () => {
 									</div>
 								);
 							})
-									
-						
 						}
 					</div>
+					<Information iconName="i" text="✨ 제작한 아이콘입니다." style={{ alignSelf: "flex-end", marginTop: "8px" }} direction="left" />
 				</>
       )}
       {location.success === false && <p>Geolocation failed or not supported.</p>}

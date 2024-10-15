@@ -7,25 +7,26 @@ import ChartDataLabels from 'chartjs-plugin-datalabels';
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend, ChartDataLabels);
 
 const dataset = [
-  { category: '기술 언어', items: [
+  { category: '언어 도구', items: [
     { skill: 'HTML5', level: 90 },
     { skill: 'CSS3(SCSS)', level: 90 },
-    { skill: 'JavaScript', level: 70 },
+    { skill: 'JavaScript', level: 80 },
     { skill: 'TypeScript', level: 50 },
     { skill: 'JAVA', level: 60 },
   ]},
   { category: '프레임워크 & 라이브러리', items: [
     { skill: 'React', level: 80 },
     { skill: 'Vue', level: 80 },
-    { skill: 'ChartJs', level: 65 },
-		{ skill: 'eChart', level: 80 },
+		{ skill: 'Spring', level: 60 },
+    { skill: 'ChartJs', level: 70 },
+		{ skill: 'eChart', level: 90 },
   ]},
   { category: '데이터베이스', items: [
-    { skill: 'Oracle SQL', level: 80 },
+    { skill: 'Oracle SQL', level: 85 },
     { skill: 'MySQL', level: 70 },
   ]},
   { category: 'Others', items: [
-    { skill: 'Github', level: 60 },
+    { skill: 'Github', level: 70 },
     { skill: 'Adobe Illustrator', level: 90 },
     { skill: 'Adobe Photoshop', level: 90 },
   ]},

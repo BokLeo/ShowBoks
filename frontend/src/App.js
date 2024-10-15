@@ -17,10 +17,11 @@ function App() {
       <BodyLayout />
 
       <div className='app-footer'>
-        <ul className='footer-link'>
-          <li><Link to="/test1">Feedback</Link></li>
+				Copyright (c) 2024 Showboks. All rights reserved.
+        {/* <ul className='footer-link'>
+          <li><Link to="/Freeback">Feedback</Link></li>
           <li><Link to="/test2">Contact</Link></li>
-        </ul>
+        </ul> */}
       </div>
     </BrowserRouter>
   );

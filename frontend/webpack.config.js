@@ -1,6 +1,4 @@
 const path = require('path');
-console.log("lkasndlkasndlkasn :::: ", path.resolve(__dirname, 'src/assets/icons'));
-
 
 module.exports = {
   // 다른 설정들...
@@ -47,7 +45,6 @@ module.exports = {
   },
   resolve: {
 		alias: {
-			'@icons': path.resolve(__dirname, 'src/assets/icons'),
 			components: path.resolve(__dirname, 'src/components/'),
 			pages: path.resolve(__dirname, 'src/pages/'),
 			services: path.resolve(__dirname, 'src/services/'),

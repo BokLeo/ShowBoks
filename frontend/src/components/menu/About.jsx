@@ -16,6 +16,7 @@ import BrushIcon from '@mui/icons-material/Brush';
 
 // AboutModules component import
 import AboutModules from 'components/menu/about/AboutModules';
+import BalloonTip from 'components/ui/BalloonTip';
 
 const About = () => {
 	const [isAllFlipped, setIsAllFlipped] = useState(false);
@@ -60,7 +61,7 @@ const About = () => {
 
 				<div className='panel-right'>
 					<div className='section'>
-						<div className='title'>Tech Stack<Information iconName="i" text="ChartJs를 통해 그려졌습니다." /></div>
+						<div className='title'>Tech Stack<Information iconName="i" text="ChartJs를 활용하였습니다. 📊" /></div>
 						<AboutSkillSet />
 					</div>
 
@@ -92,24 +93,24 @@ const About = () => {
 													<div className='wrap'>
 														<h5>FrontEnd</h5>
 														<ul>
-															<li className='logo Js'><img src={`${process.env.PUBLIC_URL}/images/logo/js.png`} alt="JavaScript" /></li>
-															<li className='logo Ts'><img src={`${process.env.PUBLIC_URL}/images/logo/ts.png`} alt="TypeScript" /></li>
-															<li className='logo React'><img src={`${process.env.PUBLIC_URL}/images/logo/reactjs.png`} alt="React" /></li>
-															<li className='logo Vue'><img src={`${process.env.PUBLIC_URL}/images/logo/vue.png`} alt="Vue" /></li>
+															<li className='logo Js'><BalloonTip text={"JavaScript"} src={<img src={`${process.env.PUBLIC_URL}/images/logo/js.png`} alt="JavaScript" />}/></li>
+															<li className='logo React'><BalloonTip text={"React"} src={<img src={`${process.env.PUBLIC_URL}/images/logo/reactjs.png`} alt="React" />}/></li>
+															<li className='logo Vue'><BalloonTip text={"Vue"} src={<img src={`${process.env.PUBLIC_URL}/images/logo/vue.png`} alt="Vue" />}/></li>
 														</ul>
 													</div>
 													<div className='wrap'>
 														<h5>BackEnd</h5>
 														<ul>
-															<li className='logo Java'><img src={`${process.env.PUBLIC_URL}/images/logo/java.png`} alt="Java" /></li>
-															<li className='logo Spring'><img src={`${process.env.PUBLIC_URL}/images/logo/spring.png`} alt="Spring" /></li>
+															<li className='logo Java'><BalloonTip text={"Java"} src={<img src={`${process.env.PUBLIC_URL}/images/logo/java.png`} alt="java" />}/></li>
+															<li className='logo Spring'><BalloonTip text={"Spring"} src={<img src={`${process.env.PUBLIC_URL}/images/logo/spring.png`} alt="Spring" />}/></li>
+															<li className='logo NodeJs'><BalloonTip text={"Node.js"} src={<img src={`${process.env.PUBLIC_URL}/images/logo/nodejs.png`} alt="Node.js" />}/></li>
 														</ul>
 													</div>
 													<div className='wrap'>
 														<h5>DBMS</h5>
 														<ul>
-															<li className='logo Oracle'><img src={`${process.env.PUBLIC_URL}/images/logo/oracle.png`} alt="Oracle" /></li>
-															<li className='logo MySql'><img src={`${process.env.PUBLIC_URL}/images/logo/mysql.png`} alt="MySql" /></li>
+															<li className='logo Oracle'><BalloonTip text={"Oracle"} src={<img src={`${process.env.PUBLIC_URL}/images/logo/oracle.png`} alt="Oracle" />}/></li>
+															<li className='logo MySql'><BalloonTip text={"MySql"} src={<img src={`${process.env.PUBLIC_URL}/images/logo/mysql.png`} alt="MySql" />}/></li>
 														</ul>
 													</div>
 												</div>
@@ -139,11 +140,11 @@ const About = () => {
 													<div className="wrap">
 														<h5>기술목록</h5>
 														<ul>
-															<li className='logo HTML'><img src={`${process.env.PUBLIC_URL}/images/logo/html5.png`} alt="HTML5" /></li>
-															<li className='logo CSS'><img src={`${process.env.PUBLIC_URL}/images/logo/css3.png`} alt="CSS3" /></li>
-															<li className='logo SCSS'><img src={`${process.env.PUBLIC_URL}/images/logo/sass.png`} alt="SCSS" /></li>
-															<li className='logo Js'><img src={`${process.env.PUBLIC_URL}/images/logo/js.png`} alt="Javascript" /></li>
-															<li className='logo jQuery'><img src={`${process.env.PUBLIC_URL}/images/logo/jquery.png`} alt="jQuery" /></li>
+															<li className='logo HTML'><BalloonTip text={"HTML5"} src={<img src={`${process.env.PUBLIC_URL}/images/logo/html5.png`} alt="HTML5" />}/></li>
+															<li className='logo CSS'><BalloonTip text={"CSS3"} src={<img src={`${process.env.PUBLIC_URL}/images/logo/css3.png`} alt="CSS3" />}/></li>
+															<li className='logo SCSS'><BalloonTip text={"SCSS"} src={<img src={`${process.env.PUBLIC_URL}/images/logo/sass.png`} alt="SCSS" />}/></li>
+															<li className='logo Js'><BalloonTip text={"JavaScript"} src={<img src={`${process.env.PUBLIC_URL}/images/logo/js.png`} alt="JavaScript" />}/></li>
+															<li className='logo jQuery'><BalloonTip text={"jQuery"} src={<img src={`${process.env.PUBLIC_URL}/images/logo/jquery.png`} alt="jQuery" />}/></li>
 														</ul>
 													</div>
 												</div>
@@ -173,9 +174,9 @@ const About = () => {
 													<div className="wrap">
 														<h5>기술목록</h5>
 														<ul>
-															<li className='logo Illustrator'><img src={`${process.env.PUBLIC_URL}/images/logo/illustrator.png`} alt="Adobe Illustrator" /></li>
-															<li className='logo Photoshop'><img src={`${process.env.PUBLIC_URL}/images/logo/photoshop.png`} alt="Adobe Photoshop" /> </li>
-															<li className='logo Figma'><img src={`${process.env.PUBLIC_URL}/images/logo/figma.png`} alt="Figma" /></li>
+															<li className='logo Illustrator'><BalloonTip text={"Adobe Illustrator"} src={<img src={`${process.env.PUBLIC_URL}/images/logo/illustrator.png`} alt="Adobe Illustrator" />}/></li>
+															<li className='logo Photoshop'><BalloonTip text={"Adobe Photoshop"} src={<img src={`${process.env.PUBLIC_URL}/images/logo/photoshop.png`} alt="Adobe Photoshop" />}/></li>
+															<li className='logo Figma'><BalloonTip text={"Figma"} src={<img src={`${process.env.PUBLIC_URL}/images/logo/figma.png`} alt="Figma" />}/></li>
 														</ul>
 													</div>
 												</div>
