@@ -31,7 +31,7 @@ const dataset = [
     { skill: 'Adobe Photoshop', level: 90 },
   ]},
 ];
-
+// 잔디심기
 export default function AboutSkillSet() {
   const [selectedCategory, setSelectedCategory] = useState(dataset[0].category);
 
