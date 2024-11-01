@@ -5,9 +5,13 @@ import React, {useState} from 'react';
 import AboutModulesWeather from './AboutModulesWeather';
 import ToggleBtn from 'components/ui/ToggleBtn';
 import { Opacity } from '@mui/icons-material';
+import { useSelector } from 'react-redux';
+import styled from 'styled-components';
 
 const AboutModules = () => {
 	const [activeModule, setActiveModule] = useState(null);
+
+	const serverStatus = useSelector((state) => state.connection.serverStatus);
 
 
 	const AboutModulesStyle = {
@@ -23,34 +27,15 @@ const AboutModules = () => {
 		gap: "4px",
 	}
 
-	const baseBtnStyle = {
-		width: "60px",
-		height: "60px",
-		fontSize: "1rem",
-		backgroundColor: "transparent",
-		color: "rgb(77, 77, 77)",
-		border: "1px solid rgb(77, 77, 77)",
-	};
-	
-	const getConditionalStyles = (isActive) => (
-		isActive ? {
-			border: "1px solid #007bff",
-			color: "#007bff",
-			fontWeight: "bold",
-			opacity: "1",
-		} : {}
-	);
-	
-	const weatherBtnStyle = { ...baseBtnStyle, ...getConditionalStyles(activeModule === 'weather') };
-  const newsBtnStyle = { ...baseBtnStyle, ...getConditionalStyles(activeModule === 'news') };
-
 	return (
 		<div style={AboutModulesStyle}>
       <ul style={AboutModulesBtnArea}>
         <li>
-          <ToggleBtn onClick={() => setActiveModule(activeModule === 'weather' ? null : 'weather')} style={weatherBtnStyle}>
-            날씨
-          </ToggleBtn>
+          <BaseButton 
+						onClick={() => setActiveModule(activeModule === 'weather' ? null : 'weather')} 
+						className={activeModule === 'weather' ? 'active' : ''}
+						disabled={serverStatus.status !== 'working'}
+					>날씨</BaseButton>
         </li>
         {/* <li>
           <ToggleBtn onClick={() => setActiveModule(null)} style={newsBtnStyle}>
@@ -59,11 +44,36 @@ const AboutModules = () => {
         </li> */}
       </ul>
       <div>
-        {activeModule === 'weather' && <div><AboutModulesWeather /></div>}
-        {activeModule === 'news' && <div>뉴스</div>}
+				{/* 
+					1.serverStatus.status 'working'인지 확인 하고 
+					2. serverStatus.status 'working'이면 activeModule값에 따라 AboutModulesWeather 컴포넌트를 보여줍니다.
+				*/}
+				{ serverStatus.status === 'working' && activeModule === 'weather' && <div><AboutModulesWeather /></div> }
+				{ serverStatus.status === 'working' && activeModule === 'news' && <div>뉴스</div> }
+				{ serverStatus.status !== 'working' && <div>서버 상태를 확인 중입니다...</div> }
       </div>
     </div>
 	);
 };
 
 export default AboutModules;
+
+const BaseButton = styled.button`
+		width: 60px;
+		height: 60px;
+		font-size: 1rem;
+		background-color: transparent;
+		color: rgb(77, 77, 77);
+		border: 1px solid rgb(77, 77, 77);
+		border-radius: 4px;
+		cursor: pointer;
+
+		&:hover {
+			border: 1px solid #007bff;
+			color: #007bff;
+		}
+		&.active {
+			border: 1px solid #007bff;
+			color: #007bff;
+		}
+	`;

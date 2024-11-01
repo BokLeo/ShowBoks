@@ -6,7 +6,13 @@ import { BrowserRouter, Link } from 'react-router-dom';
 import './styles/common.scss';
 
 // Components
-import { HeaderLayout, BodyLayout } from './components/layout';
+// import { HeaderLayout, BodyLayout } from './components/layout';
+
+
+// @를 사용한 경로
+import { HeaderLayout, BodyLayout } from 'components/layout';
+// 또는 alias 없이
+// import { HeaderLayout, BodyLayout } from 'components/layout';
 
 function App() {
 

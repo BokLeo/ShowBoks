@@ -8,42 +8,31 @@ import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import DoNotDisturbIcon from '@mui/icons-material/DoNotDisturb';
 
 // server status check
-import { checkServerStatus } from 'services/api';
+import ConnectionChecker from 'components/utils/ConnectionChecker';
 
 import Nav from 'components/utils/Nav';
-import UserTab from 'components/utils/UserTab';
+import UserTab from 'components/utils/UserTab';import { useSelector } from 'react-redux';
+
 
 function HeaderLayout() {
   const [serverIcon, setServerIcon] = useState(<WarningIcon fontSize='small' style={{ color: '#ffcc00' }} />);
-  const [serverStatus, setServerStatus] = useState({
-    status: 'checking',
-    message: 'Checking server status...',
-  });
-  useEffect(() => {
-    const fetchServerStatus = async () => {
-      try {
-        const response = await checkServerStatus();
-        if(response.data.result) {
-          setServerIcon(<CheckCircleIcon fontSize='small' style={{ color: '#007bff' }} />);
-          setServerStatus({
-            status: 'ok',
-            message: 'Server is running.',
-          });
-        }
-      } catch (error) {
-        setServerIcon(<DoNotDisturbIcon fontSize='small' style={{ color: 'red' }} />);
-        setServerStatus({
-          status: 'error',
-          message: 'Failed to connect to the server.',
-        });
-      }
-    };
+  const serverStatus = useSelector((state) => state.connection.serverStatus);
 
-    fetchServerStatus();
-  }, []);
+  useEffect(() => {
+
+    if (serverStatus.status === 'working') {
+      setServerIcon(<CheckCircleIcon fontSize='small' style={{ color: '#007bff' }} />);
+    } else if (serverStatus.status === 'not-working') {
+      setServerIcon(<DoNotDisturbIcon fontSize='small' style={{ color: 'red' }} />);
+    } else {
+      setServerIcon(<WarningIcon fontSize='small' style={{ color: '#ffcc00' }} />);
+    }
+  }, [serverStatus]);
 
   return (
-    <div className='app-header'>
+    <div className='app-header'>      
+			<ConnectionChecker />
+
       <h1>
         <Link to="/" className='showboxs-title'>ShowBok&apos;s</Link>
         <span className='server-status' title={serverStatus.message}>{ serverIcon }</span>
