@@ -9,7 +9,7 @@ export const setServerStatus = (status) => ({
 export const checkServerConnection = () => async (dispatch) => {
   try {
     const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/status`);
-		const data = await response.json();
+    const data = await response.json();
 
     if (data.result) {
       dispatch(setServerStatus({
@@ -23,6 +23,7 @@ export const checkServerConnection = () => async (dispatch) => {
       }));
     }
   } catch (error) {
+    // ERR_CONNECTION_REFUSED가 콘솔에 표시되지 않도록 error 로깅 제거
     dispatch(setServerStatus({
       status: 'error',
       message: 'Failed to connect to the server.',

@@ -3,10 +3,9 @@
 
 import React, {useState} from 'react';
 import AboutModulesWeather from './AboutModulesWeather';
-import ToggleBtn from 'components/ui/ToggleBtn';
-import { Opacity } from '@mui/icons-material';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
+import AlertBox from 'components/ui/AlertBox';
 
 const AboutModules = () => {
 	const [activeModule, setActiveModule] = useState(null);
@@ -43,15 +42,17 @@ const AboutModules = () => {
           </ToggleBtn>
         </li> */}
       </ul>
-      <div>
-				{/* 
-					1.serverStatus.status 'working'인지 확인 하고 
-					2. serverStatus.status 'working'이면 activeModule값에 따라 AboutModulesWeather 컴포넌트를 보여줍니다.
-				*/}
+      <>
 				{ serverStatus.status === 'working' && activeModule === 'weather' && <div><AboutModulesWeather /></div> }
 				{ serverStatus.status === 'working' && activeModule === 'news' && <div>뉴스</div> }
-				{ serverStatus.status !== 'working' && <div>서버 상태를 확인 중입니다...</div> }
-      </div>
+				{ serverStatus.status !== 'working' && (
+					<AlertBox
+						message="서버와의 연결이 끊어졌습니다."
+						type="error"
+						isVisible={true}
+					/>
+				)}
+      </>
     </div>
 	);
 };
@@ -76,4 +77,19 @@ const BaseButton = styled.button`
 			border: 1px solid #007bff;
 			color: #007bff;
 		}
+		&[disabled] {
+			border: 1px solid red;
+			color: red;
+			opacity: 0.25;
+			cursor: not-allowed;
+		}
 	`;
+
+const ServerNotWorkingMessage = styled.div`
+	background-color: #f8d7da;
+	color: #721c24;
+	padding: 10px;
+	border-radius: 4px;
+	display: inline;
+`;
+	

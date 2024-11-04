@@ -363,196 +363,13 @@ h6{
 	}
 }
 
-//experience Styles
-.experience{
-	display: flex;
-	align-items: baseline;
-	.sticky-title{
-		position: -webkit-sticky; /* For Safari */
-		position: sticky;
-		top: 110px;
-		z-index: 1000; /* Optional: to ensure the title stays on top of other content */
-		margin-right: 40px;
-
-		ul{
-			color: BS.$color-typo-666;
-			font-size: 1.5rem;
-			@include BS.font-weight('regular');
-			margin-top: 12px;
-			line-height: 2rem;
-			text-align: right;
-
-			li{
-				button{
-					&:hover{
-						cursor: pointer;
-						color: BS.$color-primary;
-					}
-					&.active{
-						color: BS.$color-primary;
-					}	
-				}
-			}
-		}
-	}
-	.experience-detail{
-		width: 80%;
-
-		.experience-section{
-			margin-bottom: 80px;
-
-			h4{
-				&::before{
-					content: '🔹';
-					display: inline-block;
-					width: 4px;
-					height: 16px;
-					margin-right: 16px;
-				}
-				font-size: 1rem;
-				padding: 8px 16px;
-				border-bottom: 1px solid #d9d9d9;
-				margin-bottom: 20px;
-			}
-
-
-			ul[class*="-list"]{
-				display: flex;
-				flex-direction: column;
-				flex-wrap: nowrap;
-				align-items: flex-end;
-				
-				>li{
-					display: flex;
-					flex-direction: row;
-					width: 100%;
-					
-					padding: 20px;
-
-					.period{
-						display: flex;
-						flex-direction: column;
-						align-items: center;
-		
-						width: 40%;
-						font-size: 1rem;
-						font-weight: 600;
-						line-height: 1.5;
-					}
-		
-					.detail{
-						width: 60%;
-					}
-				}
-			}
-		}
-	}
-
-	.experience-section > ul{
-		h5[class*="title"]{
-			font-size: 1.25rem;
-			font-weight: 600;
-			margin-bottom: 12px;
-		}
-	
-		p[class*="desc"]{
-			font-size: 1rem;
-			font-weight: 300;
-			margin-bottom: 12px;
-			line-height: 1.25;
-		}
-	}
-
-	
-	.experience-section .job-list{
-		.job{
-			&:not(:last-child){
-				margin-bottom: 20px;
-			}
-
-			.period{
-				&::after{
-					content: '';
-					display: block;
-					width: 1px;
-					height: 100%;
-					background-color: BS.$color-typo-666;
-					margin-top: 12px;
-				}
-			}
-			.job-title{
-				&::before{
-					content: '⏺️';
-					display: inline-block;
-					width: 16px;
-					height: 16px;
-					margin-right: 16px;
-					margin-left: -4px;
-				}
-			}
-			.job-skill{
-				h5{
-					font-size: 1rem;
-					font-weight: 400;
-					margin-bottom: 4px;	
-
-					background-color: BS.$color-typo-333;
-					color: BS.$color-typo-fff;
-					border-radius: 4px;
-					padding: 4px 8px;
-					display: inline-block;
-				}
-				.skills{
-					display: flex;
-					flex-wrap: wrap;
-					li{
-						margin-right: 8px;
-						line-height: 1.25;
-						font-weight: 300;
-						&:not(:last-child)::after{
-							content: '|';
-							margin-left: 8px;
-						}
-					}
-				}
-			}
-
-			//---------------- defualt style
-			opacity: 0.3;
-			//----------------
-			&.active{
-				opacity: 1;
-				box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-				transition: 0.3s all ease;
-				.period, .job-title{
-					color: BS.$color-primary;
-				}
-				.job-skill h5{
-					background-color: BS.$color-primary;
-				}
-			}
-			&:hover{
-				cursor: pointer;
-				opacity: 1;
-				transition: 0.3s all ease;
-				.period, .job-title{
-					color: BS.$color-primary;
-				}
-				.job-skill h5{
-					background-color: BS.$color-primary;
-				}
-			}
-		}
-	}
-
-}
-
 // Talk Styles
 .talk{
 	display: flex;
 	justify-content: center;
 	align-items: center;
-
+	flex-direction: column;
+	gap: 40px;
   color: #fff; // 기본 글자 색을 흰색으로 설정
   // 하위 요소들에 대한 스타일
   & * {
@@ -583,6 +400,13 @@ h6{
 			&:hover{
 				background-color: BS.$color-primary-hover;
 				opacity: 1;
+			}
+			&[disabled]{
+				opacity: 0.25;
+				cursor: not-allowed;
+				&:hover{
+					background-color: transparent;
+				}
 			}
 		}
 	}
@@ -890,72 +714,11 @@ h6{
 
 // Projects Styles
 .projects{
-	display: grid;
-	grid-template-columns: repeat(4, 1fr); /* 4개의 열을 생성 */
-	gap: 10px; /* 아이템 간의 간격 */
-	align-items: start;
+	// display: grid;
+	// grid-template-columns: repeat(4, 1fr); /* 4개의 열을 생성 */
+	// gap: 10px; /* 아이템 간의 간격 */
+	// align-items: start;
 
-	.projects__section{
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		align-items: center;
-		position: relative;
-
-		.section-link{
-			display: flex;
-			flex-direction: column;
-			justify-content: center;
-			align-items: center;
-
-			width: 100%;
-			padding: 20px;
-
-			box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
-
-			&.on{
-				background-color: #fff;
-				color: BS.$color-typo-333;
-				&:hover{
-					cursor: pointer;
-					transition: 0.2s all ease;
-					background-color: BS.$color-primary;
-					color: BS.$color-typo-fff;
-				}		
-			}
-			&.off{
-				background-color: #f8f9fa;
-				color: BS.$color-typo-ccc;
-			}
-		}
-
-		.section-dec{
-			width: 100%;
-			margin-top: 8px;
-			padding: 4px;
-			@include BS.font-size('md'); // 1.5rem (24px)
-
-			>li{
-				display: flex;
-				flex-direction: column;
-
-				&:not(:last-child){
-					margin-bottom: 8px;
-				}
-
-				.section-dec-title{
-					width: max-content;
-					background-color: #333;
-					color: BS.$color-typo-fff;
-					border-radius: 4px;
-					padding: 4px 8px 4px 4px;
-					margin-right: 4px;
-
-					margin-bottom: 4px;
-				}
-			}
-		}
-	}
 }
 
 .app-footer{

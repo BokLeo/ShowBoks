@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { fetchQuickTalkData } from 'services/index';
+import { faqData } from 'data/faqData';
+import { useSelector } from 'react-redux';
 
 const QuickTalk = () => {
   const [answerState, setAnswerState] = useState('hide');
@@ -9,6 +11,8 @@ const QuickTalk = () => {
   const [quickTalkData, setQuickTalkData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+	const [faqList, setFaqList] = useState(faqData);
+	const serverStatus = useSelector((state) => state.connection.serverStatus);
 
   const handleQuestionClick = (e) => {
     const question = e.target.innerText;
@@ -29,8 +33,7 @@ const QuickTalk = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetchQuickTalkData();
-        setQuickTalkData(response.data);
+        setQuickTalkData(faqList);
       } catch (error) {
         setError('fetch error');
         console.error('Fetch error:', error);
@@ -40,7 +43,7 @@ const QuickTalk = () => {
     };
 
     fetchData();
-  }, []);
+  }, [faqList]);
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>{error}</p>;
@@ -65,7 +68,9 @@ const QuickTalk = () => {
 
       {/* 자유작성으로 이동하기 위한 링크 */}
       <div className='move'>
-        <Link to="/Talk/FreeTalk" className='right-double-arrow'>자유 작성으로 이동하기</Link>
+				{serverStatus.status == 'working' && (
+					<Link to="/Talk/FreeTalk" className='right-double-arrow'>자유 작성으로 이동하기</Link>
+				)}
       </div>
     </div>
   );

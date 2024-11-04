@@ -1,4 +1,61 @@
-import React from "react";
+
+export const experienceList = ['경력', '학력', '자격'];
+
+export const eduData = [
+	{
+		period: '2021.09 ~ 2022.03',
+		title: '한국소프트웨어인재개발원(KOSMO)',
+		desc: 'JAVA 개발자 양성과정(프로젝트 최우수상/특모범상/봉사상 수상)',
+	},
+	{
+		period: '2019.12 ~ 2020.04',
+		title: '이젠컴퓨터학원(안양)',
+		desc: '스마트기기 UI/UX 웹디자인(웹퍼블리싱과정)',
+	},
+	{
+		period: '2011.03 ~ 2017.03',
+		title: '건양대학교(4년제)',
+		desc: '시각디자인학과',
+	},
+	{
+		period: '2008.03 ~ 2011.03',
+		title: '인덕원고등학교',
+		desc: '이과계열',
+	},
+];
+
+export const certData = [
+	{
+		period: '2020.04',
+		title: '웹디자인기능사',
+		desc: '한국산업인력공단',
+	},
+	{
+		period: '2020.01',
+		title: 'GTQ포토샵 1급',
+		desc: '한국생산성본부(KPC)',
+	},
+	{
+		period: '2020.01',
+		title: 'GTQ일러스트 1급',
+		desc: '한국생산성본부(KPC)',
+	},
+	{
+		period: '2017.11',
+		title: '자동차운전면허',
+		desc: '경찰청(운전면허시험관리단)',
+	},
+	{
+		period: '2011.05',
+		title: 'MOS Office PowerPoint',
+		desc: 'Microsoft',
+	},
+	{
+		period: '2011.05',
+		title: 'ACA Photoshop CS3',
+		desc: 'ADOBE',
+	},
+];
 
 class Job {
   constructor(period, title, company, desc, skills) {
@@ -10,7 +67,7 @@ class Job {
   }
 }
 
-const jobs = [
+export const jobs = [
   new Job(
     "2022.07 - 2024.04",
     "Frontend Developer",
@@ -42,50 +99,3 @@ const jobs = [
     ["Adobe Illustrator", "Adobe Photoshop", "Adobe InDesign"]
   ),
 ];
-
-const ExperienceJob = () => {
-  const toggleHoverJobActive = (e) => {
-    e.preventDefault();
-    const jobList = e.target.closest(".job-list");
-    const jobItems = jobList.querySelectorAll(".job");
-
-    jobItems.forEach((item) => {
-      item.classList.remove("active");
-    });
-
-    e.target.closest(".job").classList.add("active");
-  };
-
-  return (
-    <ul className="job-list">
-      {jobs.map((job, index) => (
-        <li
-          className={`job ${index === 0 ? "active" : ""}`}
-          key={index}
-          onMouseEnter={toggleHoverJobActive}
-        >
-          <div className="period">{job.period}</div>
-
-          <div className="detail">
-            <h5 className="job-title">
-              {job.title}
-              <span className="dashed" />
-              {job.company}
-            </h5>
-            <p className="job-desc">{job.desc}</p>
-            <div className="job-skill">
-              <h5>Used Tech</h5>
-              <ul className="skills">
-                {job.skills.map((skill, index) => (
-                  <li key={index}>{skill}</li>
-                ))}
-              </ul>
-            </div>
-          </div>
-        </li>
-      ))}
-    </ul>
-  );
-};
-
-export default ExperienceJob;

@@ -8,7 +8,6 @@ function getGeolocation() {
     } else {
       navigator.geolocation.getCurrentPosition(
         (position) => {
-					console.log('position:', position);
           resolve({
             success: true,
             x: position.coords.latitude,
