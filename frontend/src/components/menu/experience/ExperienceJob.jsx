@@ -31,14 +31,22 @@ const ExperienceJob = () => {
               <span className="dashed" />
               {job.company}
             </h5>
-            <p className="job-desc">{job.desc}</p>
-            <div className="job-skill">
-              <h6>Used Tech</h6>
-              <ul className="skills">
-                {job.skills.map((skill, index) => (
-                  <li key={index}>{skill}</li>
-                ))}
-              </ul>
+						<ul className='job-desc-list'>
+								{Array.isArray(job.desc) ? (
+										job.desc.map((desc, index) => (
+												<li key={index}>{desc}</li>
+										))
+								) : (
+										<li>설명 데이터가 없습니다.</li>
+								)}	
+						</ul>            
+						<div className="job-skill">
+							<h6>Used Tech</h6>
+							<ul className="skills">
+								{job.skills.map((skill, index) => (
+									<li key={index}>{skill}</li>
+								))}
+							</ul>
             </div>
           </div>
         </li>
@@ -89,12 +97,14 @@ const JobListStyle = styled.ul`
 
 		.detail{
 			width: 60%;
+			display: flex;
+			flex-direction: column;
+			gap: 12px;
 		}
 
 		.job-title{
 			font-size: 1.25rem;
 			font-weight: 600;
-			margin-bottom: 12px;
 
 			&::before{
 				content: '⏺️';
@@ -105,36 +115,42 @@ const JobListStyle = styled.ul`
 				margin-left: -4px;
 			}
 		}
-		.job-desc{
-			font-size: 1rem;
-			font-weight: 300;
-			margin-bottom: 12px;
+		.job-desc-list{
+			list-style: none;
+			display: flex;
+			flex-direction: column;
 			line-height: 1.25;
+			gap: 8px;
+			li{
+				&::before{
+					content: '🔹';
+					margin-right: 8px;
+				}
+			}
 		}
 
 		.job-skill{
 			h6{
 				font-size: 1rem;
 				font-weight: 400;
-				margin-bottom: 4px;	
-
+				margin-bottom: 8px;
 				background-color: #333;
 				color: #fff;
 				border-radius: 4px;
 				padding: 4px 8px;
 				display: inline-block;
 			}
-			.skills{
+
+			ul{
 				display: flex;
+				gap: 8px;
 				flex-wrap: wrap;
 				li{
-					margin-right: 8px;
-					line-height: 1.25;
+					font-size: 1rem;
 					font-weight: 300;
-					&:not(:last-child)::after{
-						content: '|';
-						margin-left: 8px;
-					}
+					padding: 0.25rem 0.5rem;
+					border: 1px solid #666;
+					border-radius: 4px;
 				}
 			}
 		}
@@ -151,7 +167,7 @@ const JobListStyle = styled.ul`
 			}
 		}
 		&:hover{
-			cursor: pointer;
+			// cursor: pointer;
 			opacity: 1;
 			transition: 0.3s all ease;
 			.period, .job-title{

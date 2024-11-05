@@ -7,7 +7,7 @@ import ChartDataLabels from 'chartjs-plugin-datalabels';
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend, ChartDataLabels);
 
 const dataset = [
-  { category: '언어 도구', items: [
+  { category: '언어 & 마크업 도구', items: [
     { skill: 'HTML5', level: 90 },
     { skill: 'CSS3(SCSS)', level: 90 },
     { skill: 'JavaScript', level: 80 },
@@ -109,7 +109,8 @@ export default function AboutSkillSet() {
 						style={{
 							color: selectedCategory === data.category ? '#fff' : 'black',
 							backgroundColor: selectedCategory === data.category ? '#007bff' : 'white',
-							fontWeight: selectedCategory === data.category ? 'bold' : 'normal',
+							fontWeight: selectedCategory === data.category ? '500' : '400',
+							fontFamily: "Pretendard",
 						}}
 					>
             {data.category}

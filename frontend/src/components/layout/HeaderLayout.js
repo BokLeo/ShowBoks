@@ -11,7 +11,8 @@ import DoNotDisturbIcon from '@mui/icons-material/DoNotDisturb';
 import ConnectionChecker from 'components/utils/ConnectionChecker';
 
 import Nav from 'components/utils/Nav';
-import UserTab from 'components/utils/UserTab';import { useSelector } from 'react-redux';
+import UserTab from 'components/utils/UserTab';
+import { useSelector } from 'react-redux';
 
 
 function HeaderLayout() {
@@ -40,7 +41,7 @@ function HeaderLayout() {
 
       <Nav />
 
-      <UserTab />
+      {/* <UserTab /> 미사용으로 삭제 */}
     </div>
   );
 }

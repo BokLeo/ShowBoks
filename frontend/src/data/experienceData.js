@@ -57,45 +57,76 @@ export const certData = [
 	},
 ];
 
-class Job {
-  constructor(period, title, company, desc, skills) {
-    this.period = period;
-    this.title = title;
-    this.company = company;
-    this.desc = desc;
-    this.skills = skills;
-  }
-}
-
 export const jobs = [
-  new Job(
-    "2022.07 - 2024.04",
-    "Frontend Developer",
-    "㈜WiseLake",
-    "Build, style, and ship high-quality websites, design systems, mobile apps, and digital experiences for a diverse array of projects for clients including Harvard Business School, Everytown for Gun Safety, Pratt Institute, Koala Health, Vanderbilt University, The 19th News, and more. Provide leadership within engineering department through close collaboration, knowledge shares, and spearheading the development of internal tools.",
-    [
-      "React",
-      "Next.js",
-      "Typescript",
-      "Node.js",
-      "GraphQL",
-      "Storybook",
-      "Styled Components",
+	{
+		period: "2022.07 - 2024.04",
+		title: "Frontend Developer",
+		company: "㈜WiseLake",
+		desc: [
+			"피그플랜(양돈 생산·경영관리 솔루션) 웹 솔루션 풀스택 개발 및 유지보수",
+			"솔루션 전체 메뉴 화면 리뉴얼",
+			"비동기 멀티 스레드를 통한 대시보드 통계 자료 수집 및 표시",
+			"Chart 라이브러리를 활용한 데이터 시각화(Chart.js, Echarts)",
+			"Oracle DB를 사용한 상·하위 집계 및 시각화",
+			"솔루션 정산 시스템 구축(FE·BE)",
+			"관리자 페이지 그룹 및 회원 관리 시스템 디자인 리뉴얼",
+			"피그플랜 랜딩페이지 다국어 기능 개발",
+			"현장 컨설팅 및 교육 진행",
+			"가금 사양 관리 의사 결정 지원 시스템 프론트 개발",
+			"돈육 품질 분류 브랜드 사업화 시스템 프론트 개발",
+			"밸류체인 플랫폼 프론트 개발",
+			"곤충 사양 관리 시스템 프론트 플랫폼",
+			"문의 처리 및 유지 보수 개발",
+		],
+		skills: [
+      "JAVA",
+			"JSP",
+			"React",
+			"Vue.js",
+      "Javascript",
+      "OracleDB",
       "Git",
+			"Chart.js",
+			"Echarts",
+			"CROWNIX Report",
+			"Slack",
+			"Notion",
+			"Photoshop",
+			"Illustrator",
+			"Figma"
     ]
-  ),
-  new Job(
-    "2020.08 - 2021.08",
-    "Publisher",
-    "㈜신영이에스디",
-    "Build, style, and ship high-quality websites, design systems, mobile apps, and digital experiences for a diverse array of projects for clients including Harvard Business School, Everytown for Gun Safety, Pratt Institute, Koala Health, Vanderbilt University, The 19th News, and more. Provide leadership within engineering department through close collaboration, knowledge shares, and spearheading the development of internal tools.",
-    ["HTML5", "CSS3", "SCSS", "Javascript", "jQuery", "Adobe Photoshop"]
-  ),
-  new Job(
-    "2016.12 - 2019.01",
-    "Designer",
-    "㈜세중에스앤씨",
-    "Build, style, and ship high-quality websites, design systems, mobile apps, and digital experiences for a diverse array of projects for clients including Harvard Business School, Everytown for Gun Safety, Pratt Institute, Koala Health, Vanderbilt University, The 19th News, and more. Provide leadership within engineering department through close collaboration, knowledge shares, and spearheading the development of internal tools.",
-    ["Adobe Illustrator", "Adobe Photoshop", "Adobe InDesign"]
-  ),
+	},
+	{
+		period: "2020.08 - 2021.08",
+		title: "Publisher",
+		company: "㈜신영이에스디",
+		desc: [
+			"서울주택도시공사 ‘빈집매입시스템 구축 용역’ 중 관리자페이지 디자인 및 퍼블리싱 개발",
+			"URIS 도시재생 종합정보체계 기능 추가에 따른 화면 구현",
+			"사내 공통 제안서 디자인 리뉴얼",
+			"사내 뉴스레터 TFT 활동(콘텐츠 기획·제작·퍼블리싱·배포)",
+			"사내 신규입사자 가이드 웹페이지 기획·제작",
+		],
+		skills: [
+			"HTML5",
+			"CSS3",
+			"SCSS",
+			"Javascript",
+			"jQuery",
+			"Photoshop",
+			"Illustrator",
+			"Figma"
+		]
+	},
+	{
+		period: "2016.12 - 2019.01",
+		title: "Designer",
+		company: "㈜세중에스앤씨",
+		desc: [
+			"현대백화점·아울렛 PMS솔루션 디자인·운영관리",
+			"전자랜드 PMS솔루션 디자인·운영관리",
+			"롯데슈퍼 PMS솔루션 디자인·운영관리",
+		],
+		skills: ["Adobe Illustrator", "Adobe Photoshop", "Adobe InDesign"]
+	}
 ];

@@ -17,6 +17,7 @@ import BrushIcon from '@mui/icons-material/Brush';
 // AboutModules component import
 import AboutModules from 'components/menu/about/AboutModules';
 import BalloonTip from 'components/ui/BalloonTip';
+import { Link } from 'react-router-dom';
 
 const About = () => {
 	const [isAllFlipped, setIsAllFlipped] = useState(false);
@@ -26,19 +27,22 @@ const About = () => {
 			<div className='panel-wrap'>
 				<div className='panel-left'>
 					<div className='panel-left-wrap'>
-						<div className='about-me-img'>
+						{/* <div className='about-me-img'>
 							<img
 								src={`${process.env.PUBLIC_URL}/images/profile.webp`}
 								alt='Profile'
 							/>
-						</div>
+						</div> */}
 
 						<div className='introduce'>
-							<h3 className='title'>
-								"사용자 경험을 최우선으로 생각하는 프론트엔드 개발자,
-								강성복입니다."
+							<h3 className='title' style={{fontSize: "1.5rem"}}>
+							{`{ Frontend Developer . 강성복 }`}
 							</h3>
-							<div className='sub-title'>부연설명.</div>
+							<div className='sub-title'>
+								<p style={{lineHeight: "1.5rem"}}>
+									안녕하세요. 사용자 경험 중심의 웹 개발을 지향하는 프론트엔드 개발자 강성복입니다.
+								</p>
+							</div>
 						</div>
 
 						<ul className='detail'>
@@ -49,7 +53,10 @@ const About = () => {
 								<span className='option'>Tell</span>010-5694-8240
 							</li>
 							<li>
-								<span className='option'>E-mail</span>yobad713@naver.com
+								<span className='option'>GitHub</span><Link to='https://github.com/BokLeo' target='_blank'>#️⃣BokLeo</Link>
+							</li>
+							<li>
+								<span className='option'>E-mail</span>bubblewrap0713@gmail.com
 							</li>
 						</ul>
 

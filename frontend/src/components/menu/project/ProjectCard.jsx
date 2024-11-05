@@ -1,30 +1,67 @@
 import react from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import Information from 'components/utils/Information';
 
 const ProjectCard = ({ card }) => {
 
 	return (
 		<ProjectCardStyle>
-			<Link to={card.url} target='_blank' rel='noreferrer'>
-				<div className='project-img'>
-					<img src={card.img} alt={card.title} />
-				</div>
-				<div className='project-desc'>
-					<h5>{card.title}</h5>
-					<p>{card.desc}</p>
-					<div className='project-skill'>
-						<h6>Used Tech</h6>
-						<ul>
-							{card.skills.map((skill, index) => (
-								<li key={index}>{skill}</li>
-							))}
-						</ul>
+			{card.url ? (
+				<Link to={card.url} target='_blank' rel='noreferrer'>
+					<div className='project-img'>
+						<img src={card.img} alt={card.title} />
 					</div>
-				</div>
-			</Link>
+					<div className='project-desc'>
+						<h5>{card.title}</h5>
+						<ul className='project-desc-list'>
+							{Array.isArray(card.desc) ? (
+									card.desc.map((desc, index) => (
+											<li key={index}>{desc}</li>
+									))
+							) : (
+									<li>설명 데이터가 없습니다.</li>
+							)}	
+						</ul>
+						<div className='project-skill'>
+							<h6>Used Tech</h6>
+							<ul>
+								{card.skills.map((skill, index) => (
+									<li key={index}>{skill}</li>
+								))}
+							</ul>
+						</div>
+					</div>
+				</Link>
+				):(
+					<>
+						<div className='project-img'>
+							<img src={card.img} alt={card.title} />
+						</div>
+						<div className='project-desc'>
+							<h5 style={{display: "flex"}}>{card.title}<Information iconName="i" text="현재 사이트 입니다." style={{ }} direction="right" /></h5>
+							<ul className='project-desc-list'>
+								{Array.isArray(card.desc) ? (
+										card.desc.map((desc, index) => (
+												<li key={index}>{desc}</li>
+										))
+								) : (
+										<li>설명 데이터가 없습니다.</li>
+								)}	
+							</ul>
+							<div className='project-skill'>
+								<h6>Used Tech</h6>
+								<ul>
+									{card.skills.map((skill, index) => (
+										<li key={index}>{skill}</li>
+									))}
+								</ul>
+							</div>
+						</div>
+					</>
+				)
+			}
 		</ProjectCardStyle>
-		
 	)
 };
 
@@ -39,6 +76,13 @@ const ProjectCardStyle = styled.div`
 	border-radius: 4px;
 	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 
+	&:hover{
+		box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+		transform: translateY(-4px);
+		transition: all 0.3s ease;
+		background-color: #f7fbff;
+	}
+
 	.project-img{
 		display: flex;
     justify-content: center;
@@ -51,16 +95,31 @@ const ProjectCardStyle = styled.div`
 	}
 
 	.project-desc{
+		display: flex;
+		flex-direction: column;
+		gap: 12px;
+
 		h5{
 			font-size: 1.25rem;
 			font-weight: 600;
-			margin-bottom: 12px;
+		}
+		.project-desc-list{
+			list-style: none;
+			display: flex;
+			flex-direction: column;
+			line-height: 1.25;
+			gap: 8px;
+			li{
+				&::before{
+					content: '🔹';
+					margin-right: 8px;
+				}
+			}
 		}
 
 		p{
 			font-size: 1rem;
 			font-weight: 300;
-			margin-bottom: 12px;
 			line-height: 1.25;
 		}
 
@@ -68,7 +127,7 @@ const ProjectCardStyle = styled.div`
 			h6{
 				font-size: 1rem;
 				font-weight: 400;
-				margin-bottom: 4px;
+				margin-bottom: 8px;
 				background-color: #333;
 				color: #fff;
 				border-radius: 4px;
@@ -78,14 +137,13 @@ const ProjectCardStyle = styled.div`
 
 			ul{
 				display: flex;
-				gap: 1rem;
+				gap: 8px;
 				flex-wrap: wrap;
 				li{
 					font-size: 1rem;
 					font-weight: 300;
-					background-color: #cee2f3;
-					
 					padding: 0.25rem 0.5rem;
+					border: 1px solid #666;
 					border-radius: 4px;
 				}
 			}
