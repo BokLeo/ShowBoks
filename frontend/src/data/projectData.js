@@ -49,7 +49,7 @@ export const applicationData = [
 export const publishingData = [
 	{
 		img: images['kakao_logo'],
-		url: 'https://bokleo.github.io/-Pub-KakaoTogether/',
+		url: 'https://bokleo.github.io/-Pub-ShowboksLegacy/kakao_info.html',
 		title: '(개인) KaKao 같이가치 프로젝트',
 		desc: [
 			'가상 프로모션 사이트 제작',
@@ -60,7 +60,7 @@ export const publishingData = [
 	},
 	{
 		img: images['kyobo_logo'],
-		url: 'https://bokleo.github.io/-Pub-Kyobo/',
+		url: 'https://bokleo.github.io/-Pub-ShowboksLegacy/kyobo_info.html',
 		title: '(개인) 교보문고 프로젝트',
 		desc: [
 			'가상 웹 리뉴얼 사이트 제작',
