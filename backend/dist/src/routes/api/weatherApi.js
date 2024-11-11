@@ -17,7 +17,7 @@ const path_1 = __importDefault(require("path"));
 const app_root_path_1 = __importDefault(require("app-root-path"));
 const router = express_1.default.Router();
 // 접속 
-const connPath = path_1.default.join(app_root_path_1.default.path, 'src', 'conn'); // 절대 경로로 conn 파일 경로 설정
+const connPath = path_1.default.join(app_root_path_1.default.path, 'dist', 'src', 'conn'); // dist로 경로 수정
 const conn = require(connPath).default; // conn 모듈 가져오기
 /*
     해당 파일은 DATA.go.kr에서 제공하는 날씨 API를 사용하기 위한 파일입니다.

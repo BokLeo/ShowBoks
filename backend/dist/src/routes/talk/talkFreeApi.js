@@ -8,10 +8,10 @@ const path_1 = __importDefault(require("path"));
 const app_root_path_1 = __importDefault(require("app-root-path"));
 const router = express_1.default.Router();
 // 접속 
-const connPath = path_1.default.join(app_root_path_1.default.path, 'src', 'conn'); // 절대 경로로 conn 파일 경로 설정
+const connPath = path_1.default.join(app_root_path_1.default.path, 'dist', 'src', 'conn'); // dist로 경로 수정
 const conn = require(connPath).default; // conn 모듈 가져오기
 // Utils > getUserIp 가져오기
-const getUserIp = require(path_1.default.join(app_root_path_1.default.path, 'src', 'utils', 'getUserIp')).default;
+const getUserIp = require(path_1.default.join(app_root_path_1.default.path, 'dist', 'src', 'utils', 'getUserIp')).default;
 ;
 router.get('/total_cnt', (req, res) => {
     conn.query(`SELECT count(*) as cnt FROM talk_free where use_yn = 'Y'`, (err, results) => {

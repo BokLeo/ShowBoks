@@ -4,7 +4,8 @@ import appRoot from 'app-root-path';
 
 const router = express.Router();
 
-const connPath = path.join(appRoot.path, 'src', 'conn'); // 절대 경로로 conn 파일 경로 설정
+// 빌드 후 dist/src/conn.js 경로를 맞추기 위해 경로 수정
+const connPath = path.join(appRoot.path, 'dist', 'src', 'conn'); // dist로 경로 수정
 const conn = require(connPath).default; // conn 모듈 가져오기
 
 type BaseTalkQna = {

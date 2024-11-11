@@ -5,11 +5,11 @@ import appRoot from 'app-root-path';
 const router = express.Router();
 
 // 접속 
-const connPath = path.join(appRoot.path, 'src', 'conn'); // 절대 경로로 conn 파일 경로 설정
+const connPath = path.join(appRoot.path, 'dist', 'src', 'conn'); // dist로 경로 수정
 const conn = require(connPath).default; // conn 모듈 가져오기
 
 // Utils > getUserIp 가져오기
-const getUserIp = require(path.join(appRoot.path, 'src', 'utils', 'getUserIp')).default;
+const getUserIp = require(path.join(appRoot.path, 'dist', 'src', 'utils', 'getUserIp')).default;
 
 type BaseTalkFree = {
   cnt: number;
