@@ -18,7 +18,8 @@ app.get('/status', (req: Request, res: Response) => {
   });
 });
 
-const PORT = process.env.BACKEND_PORT;
-app.listen(5000, '0.0.0.0', () => {
-  console.log('Backend server running on port 5000');
+const port = 5000;  // 5000번 포트
+
+app.listen(port, () => {
+  console.log(`Server is running on http://localhost:${port}`);
 });
