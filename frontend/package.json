@@ -1,5 +1,5 @@
 {
-  "name": "ppumbbae-calc",
+  "name": "showboks",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -21,7 +21,6 @@
     "chart.js": "^4.4.4",
     "chartjs-plugin-datalabels": "^2.2.0",
     "moment": "^2.30.1",
-    "ppumbbae-calc": "file:",
     "pretendard": "^1.3.9",
     "react": "^17.0.0 || ^18.0.0",
     "react-chartjs-2": "^5.2.0",
@@ -34,6 +33,7 @@
     "redux": "^5.0.1",
     "redux-thunk": "^3.1.0",
     "sass": "^1.79.5",
+    "showboks": "file:",
     "styled-components": "^6.1.13",
     "tui-grid": "^4.21.22",
     "web-vitals": "^2.1.4"
