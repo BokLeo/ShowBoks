@@ -4,14 +4,15 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 const dbConfig: ConnectionOptions = {
-  host: process.env.DB_HOST as string,
-  user: process.env.DB_USER as string,
-  password: process.env.DB_PASS as string,
-  database: process.env.DB_NAME as string,
-  port: process.env.DB_PORT ? parseInt(process.env.DB_PORT) : undefined,
+  host: process.env.DB_HOST_RELEASE as string,
+  user: process.env.DB_USER_RELEASE as string,
+  password: process.env.DB_PASS_RELEASE as string,
+  database: process.env.DB_NAME_RELEASE as string,
+  port: process.env.DB_PORT_RELEASE ? parseInt(process.env.DB_PORT_RELEASE) : undefined,
 };
 
 const conn = mysql.createConnection(dbConfig);
+
 
 conn.connect((err: mysql.QueryError | null) => {
   if (err) {
@@ -20,5 +21,14 @@ conn.connect((err: mysql.QueryError | null) => {
   }
   console.log('Connected to MySQL');
 });
+
+// Ping the database to check the connection
+// conn.ping((err: mysql.QueryError | null) => {
+//   if (err) {
+//     console.error('Ping error:', err);
+//   } else {
+//     console.log('Ping successful');
+//   }
+// });
 
 export default conn;

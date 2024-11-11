@@ -1,14 +1,9 @@
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-// used 'request-ip' package
-const request_ip_1 = __importDefault(require("request-ip"));
-const app = require('express')();
+// [ ] TODO: 배포 후 UserIp를 가져오는 방법을 수정해야 함
 const getUserIp = (req) => {
-    const clientIp = request_ip_1.default.getClientIp(req);
+    const clientIp = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
     console.warn(`clientIp: ${clientIp}`);
-    return clientIp;
+    return 'test';
 };
 exports.default = getUserIp;

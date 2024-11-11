@@ -7,11 +7,11 @@ const mysql2_1 = __importDefault(require("mysql2"));
 const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
 const dbConfig = {
-    host: process.env.DB_HOST,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASS,
-    database: process.env.DB_NAME,
-    port: process.env.DB_PORT ? parseInt(process.env.DB_PORT) : undefined,
+    host: process.env.DB_HOST_RELEASE,
+    user: process.env.DB_USER_RELEASE,
+    password: process.env.DB_PASS_RELEASE,
+    database: process.env.DB_NAME_RELEASE,
+    port: process.env.DB_PORT_RELEASE ? parseInt(process.env.DB_PORT_RELEASE) : undefined,
 };
 const conn = mysql2_1.default.createConnection(dbConfig);
 conn.connect((err) => {
