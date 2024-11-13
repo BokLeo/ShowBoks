@@ -22,13 +22,4 @@ conn.connect((err: mysql.QueryError | null) => {
   console.log('Connected to MySQL');
 });
 
-// Ping the database to check the connection
-// conn.ping((err: mysql.QueryError | null) => {
-//   if (err) {
-//     console.error('Ping error:', err);
-//   } else {
-//     console.log('Ping successful');
-//   }
-// });
-
 export default conn;

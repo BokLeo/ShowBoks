@@ -5,7 +5,9 @@ import routes from './src/routes';
 
 const app = express();
 
-app.use(cors());
+app.use(cors({
+  origin: '*',  // 모든 도메인에서의 접근을 허용
+}));
 app.use(morgan('dev'));
 app.use(express.json());
 
