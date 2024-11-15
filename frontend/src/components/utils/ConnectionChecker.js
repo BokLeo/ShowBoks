@@ -8,7 +8,7 @@ const ConnectionChecker = () => {
 	useEffect(() => {
     const interval = setInterval(() => {
       dispatch(checkServerConnection());
-    }, 5000);
+    }, 60000);
     dispatch(checkServerConnection());
 
     return () => clearInterval(interval);

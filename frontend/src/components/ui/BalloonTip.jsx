@@ -4,6 +4,7 @@ import styled from 'styled-components';
 const BalloonTipDiv = styled.div`
   height: 100%;
   position: relative;
+	cursor: auto;
 `;
 
 const BalloonTopAlterMsgDom = styled.div`
@@ -18,6 +19,7 @@ const BalloonTopAlterMsgDom = styled.div`
   white-space: nowrap;
   opacity: ${(props) => (props.$visible ? 1 : 0)};
   transition: opacity 0.3s ease-in-out;
+	pointer-events: none; /* 마우스 이벤트 무시 */
 
   &::after {
     content: '';

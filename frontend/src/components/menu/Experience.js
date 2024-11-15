@@ -1,5 +1,5 @@
 // components/Home.js
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import ExperienceJob from './experience/ExperienceJob';
 import { experienceList, eduData, certData } from '../../data/experienceData';
@@ -24,6 +24,31 @@ function Experience() {
     });
 	};
 
+	// 스크롤 이벤트 핸들러
+  const handleScroll = () => {
+    const scrollPosition = window.scrollY + window.innerHeight / 2;
+    let activeIndex = -1;
+
+    sectionRefs.current.forEach((ref, index) => {
+      if (ref.current) {
+        const sectionTop = ref.current.offsetTop;
+        const sectionBottom = sectionTop + ref.current.offsetHeight;
+
+        if (scrollPosition >= sectionTop && scrollPosition < sectionBottom) {
+          activeIndex = index;
+        }
+      }
+    });
+
+    if (activeIndex !== -1) {
+      setActiveSection(`section${activeIndex + 1}`);
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
 	return (
 		<div className='experience' style={{ display: 'flex', alignItems: 'baseline' }}>
@@ -119,5 +144,5 @@ const SectionTitle = styled.h4`
 `;	
 
 const ExperienceSectionStyle = styled.div`
-	margin-bottom: 40px;
+	margin-bottom: 80px;
 `;
