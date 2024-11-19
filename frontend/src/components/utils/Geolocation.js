@@ -17,7 +17,12 @@ function getGeolocation() {
         (error) => {
           console.error('Geolocation error:', error);
           resolve({ success: false });
-        }
+        },
+				{
+					enableHighAccuracy: true,
+					timeout: Infinity,
+					maximumAge: 0,
+				}
       );
     }
   });
