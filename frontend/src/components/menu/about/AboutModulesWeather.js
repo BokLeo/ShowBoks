@@ -49,12 +49,33 @@ const AboutModulesWeather = () => {
 
 	useEffect(() => {
 		const fetchAddress = async () => {
-			if (location.success) {
-				const rawPayload = await getReverseeocode(location.x, location.y);
-				const addressObj = rawPayload.data.results[0].region;
+			try {
+				if (location.success) {
+					const rawPayload = await getReverseeocode(location.x, location.y);
+					// const addressObj = rawPayload?.data?.results[0].region;
+					// setAddress({
+					// 	city: addressObj.area1.name,
+					// 	street: addressObj.area2.name,
+					// });
+					const result = rawPayload?.data?.results;
+					if(!result || result.length === 0){
+						throw new Error('주소 정보를 가져올 수 없습니다.');
+					}
+					const addressObj = result[0]?.region;
+					if(!addressObj){
+						throw new Error('주소 정보를 가져올 수 없습니다.');
+					}
+
+					setAddress({
+						city: addressObj.area1.name,
+						street: addressObj.area2.name,
+					});
+				}	
+			} catch (error) {
+				console.error('주소 정보를 가져오는 중 에러가 발생했습니다.', error);
 				setAddress({
-					city: addressObj.area1.name,
-					street: addressObj.area2.name,
+					city: null,
+					street: null,
 				});
 			}
 		};
