@@ -30,26 +30,19 @@ const WEATHER_API_URL = 'http://apis.data.go.kr/1360000/VilageFcstInfoService_2.
 import { dfs_xy_conv } from '../../utils/geoGridConverter';
 
 const getFormattedDate = () => {
-  const now = new Date();
-	console.log(`Request sent at: ${new Date().toISOString()}`);
+  const now = new Date().toLocaleString('en-US', { timeZone: 'Asia/Seoul' });
+  const date = new Date(now);
 
-  // 날짜 포맷: YYYYMMDD
-  const year = now.getFullYear().toString();
-  const month = (now.getMonth() + 1).toString().padStart(2, '0'); // 월은 0부터 시작하므로 1을 더함
-  const day = now.getDate().toString().padStart(2, '0');
+  const year = date.getFullYear().toString();
+  const month = (date.getMonth() + 1).toString().padStart(2, '0');
+  const day = date.getDate().toString().padStart(2, '0');
+
+  const hours = date.getHours().toString().padStart(2, '0');
+  const minutes = date.getMinutes().toString().padStart(2, '0');
 
   const base_date = `${year}${month}${day}`;
+  const base_time = minutes >= '45' ? `${hours}00` : `${(parseInt(hours) - 1).toString().padStart(2, '0')}00`;
 
-  // 시간 포맷: HHmm (24시간 형식)
-  const hours = now.getHours().toString().padStart(2, '0');
-  const minutes = now.getMinutes().toString().padStart(2, '0');
-
-	// 만약 현재 분이 45분 이상이면 이전 시간으로 설정(minutes은 문자열임을 주의)
-	const base_time = minutes >= '45' ? `${hours}00` : `${(parseInt(hours) - 1).toString().padStart(2, '0')}00`;
-
-	console.log(`Current time: ${now}`);
-	console.log(`Base date: ${base_date}`);
-	console.log(`Base time: ${base_time}`);
   return { base_date, base_time };
 };
 
