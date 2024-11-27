@@ -1,6 +1,7 @@
 import express, { Request, Response } from 'express';
 import path from 'path';
 import appRoot from 'app-root-path';
+import moment from 'moment-timezone';
 
 const router = express.Router();
 
@@ -30,15 +31,12 @@ const WEATHER_API_URL = 'http://apis.data.go.kr/1360000/VilageFcstInfoService_2.
 import { dfs_xy_conv } from '../../utils/geoGridConverter';
 
 const getFormattedDate = () => {
-  const now = new Date().toLocaleString('en-US', { timeZone: 'Asia/Seoul' });
-  const date = new Date(now);
-
-  const year = date.getFullYear().toString();
-  const month = (date.getMonth() + 1).toString().padStart(2, '0');
-  const day = date.getDate().toString().padStart(2, '0');
-
-  const hours = date.getHours().toString().padStart(2, '0');
-  const minutes = date.getMinutes().toString().padStart(2, '0');
+  const now = moment.tz("Asia/Seoul");
+  const year = now.year().toString();
+  const month = (now.month() + 1).toString().padStart(2, '0');
+  const day = now.date().toString().padStart(2, '0');
+  const hours = now.hours().toString().padStart(2, '0');
+  const minutes = now.minutes().toString().padStart(2, '0');
 
   const base_date = `${year}${month}${day}`;
   const base_time = minutes >= '45' ? `${hours}00` : `${(parseInt(hours) - 1).toString().padStart(2, '0')}00`;
