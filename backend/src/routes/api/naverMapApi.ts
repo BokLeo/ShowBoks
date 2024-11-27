@@ -29,7 +29,7 @@ router.get('/reversegeocode', async (req: Request, res: Response) => {
 
 	const params = {
 		coords: `${lng},${lat}`,
-		orders: 'roadaddr',
+		orders: 'legalcode%2Cadmcode%2Caddr%2Croadaddr',
 		output: 'json',
 	};
 
