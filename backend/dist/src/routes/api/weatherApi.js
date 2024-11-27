@@ -15,6 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const path_1 = __importDefault(require("path"));
 const app_root_path_1 = __importDefault(require("app-root-path"));
+const moment_timezone_1 = __importDefault(require("moment-timezone"));
 const router = express_1.default.Router();
 // 접속 
 const connPath = path_1.default.join(app_root_path_1.default.path, 'dist', 'src', 'conn'); // dist로 경로 수정
@@ -36,18 +37,13 @@ const WEATHER_API_URL = 'http://apis.data.go.kr/1360000/VilageFcstInfoService_2.
 // 위경도 -> 좌표 변환 함수
 const geoGridConverter_1 = require("../../utils/geoGridConverter");
 const getFormattedDate = () => {
-    const now = new Date();
-    // 날짜 포맷: YYYYMMDD
-    const year = now.getFullYear().toString();
-    const month = (now.getMonth() + 1).toString().padStart(2, '0'); // 월은 0부터 시작하므로 1을 더함
-    const day = now.getDate().toString().padStart(2, '0');
+    const now = moment_timezone_1.default.tz("Asia/Seoul");
+    const year = now.year().toString();
+    const month = (now.month() + 1).toString().padStart(2, '0');
+    const day = now.date().toString().padStart(2, '0');
+    const hours = now.hours().toString().padStart(2, '0');
+    const minutes = now.minutes().toString().padStart(2, '0');
     const base_date = `${year}${month}${day}`;
-    // 시간 포맷: HHmm (24시간 형식)
-    const hours = now.getHours().toString().padStart(2, '0');
-    const minutes = now.getMinutes().toString().padStart(2, '0');
-    // const base_time = `${hours}${minutes}`;
-    // const base_time = '0500';
-    // 만약 현재 분이 45분 이상이면 이전 시간으로 설정(minutes은 문자열임을 주의)
     const base_time = minutes >= '45' ? `${hours}00` : `${(parseInt(hours) - 1).toString().padStart(2, '0')}00`;
     return { base_date, base_time };
 };
@@ -74,22 +70,9 @@ router.get('/:path', (req, res) => __awaiter(void 0, void 0, void 0, function* (
         return res.status(400).json({ error: 'Invalid query parameters' });
     }
     // 위, 경도 -> 좌표 변환
-    console.log("v1 : " + v1);
-    console.log("v2 : " + v2);
     const { x, y } = (0, geoGridConverter_1.dfs_xy_conv)('toXY', v1, v2);
-    console.log("x : " + x);
-    console.log("y : " + y);
     const { nx, ny } = { nx: x, ny: y };
     // 경로에 따라 다른 URL 생성
-    console.log("WEATHER_API_URL : " + WEATHER_API_URL);
-    console.log("serviceKey : " + serviceKey);
-    console.log("numOfRows : " + numOfRows);
-    console.log("pageNo : " + pageNo);
-    console.log("dataType : " + dataType);
-    console.log("base_date : " + base_date);
-    console.log("base_time : " + base_time);
-    console.log("nx : " + nx);
-    console.log("ny : " + ny);
     let apiUrl = `${WEATHER_API_URL}${path}?serviceKey=${WEATHER_API_KEY}&numOfRows=${numOfRows}&pageNo=${pageNo}&dataType=${dataType}&base_date=${base_date}&base_time=${base_time}&nx=${nx}&ny=${ny}`;
     console.log("apiUrl : " + apiUrl);
     try {
