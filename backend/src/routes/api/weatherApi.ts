@@ -72,26 +72,10 @@ router.get('/:path', async (req: Request, res: Response) => {
 	}
 
 	// 위, 경도 -> 좌표 변환
-	console.log("v1 : " + v1);
-	console.log("v2 : " + v2);
-
 	const { x, y } = dfs_xy_conv('toXY', v1, v2);
-	console.log("x : " + x);
-	console.log("y : " + y);
 	const { nx, ny } = { nx: x, ny: y };
 	
 	// 경로에 따라 다른 URL 생성
-	console.log("WEATHER_API_URL : " + WEATHER_API_URL);
-	console.log("serviceKey : " + serviceKey);
-	console.log("numOfRows : " + numOfRows);
-	console.log("pageNo : " + pageNo);
-	console.log("dataType : " + dataType);
-	console.log("base_date : " + base_date);
-	console.log("base_time : " + base_time);
-	console.log("nx : " + nx);
-	console.log("ny : " + ny);
-
-
   let apiUrl = `${WEATHER_API_URL}${path}?serviceKey=${WEATHER_API_KEY}&numOfRows=${numOfRows}&pageNo=${pageNo}&dataType=${dataType}&base_date=${base_date}&base_time=${base_time}&nx=${nx}&ny=${ny}`;
   console.log("apiUrl : " + apiUrl);
 
