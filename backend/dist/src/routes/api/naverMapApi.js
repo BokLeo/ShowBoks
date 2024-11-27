@@ -38,11 +38,7 @@ router.get('/reversegeocode', (req, res) => __awaiter(void 0, void 0, void 0, fu
         output: 'json',
     };
     try {
-        console.log("Request URL:", NAVER_API_URL);
-        console.log("Request Headers:", headers);
-        console.log("Request Params:", params);
         const response = yield axios.get(NAVER_API_URL, { headers, params });
-        console.log('API Response:', response.data); // API 응답 로그
         res.json(response.data);
     }
     catch (error) {
