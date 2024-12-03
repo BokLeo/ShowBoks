@@ -49,7 +49,6 @@ const serviceKey = WEATHER_API_KEY;
 const numOfRows = 1000;
 const pageNo = 1;
 const dataType = "JSON";
-const { base_date, base_time } = getFormattedDate();
 
 	
 // 초단기	실황 조회
@@ -75,6 +74,9 @@ router.get('/:path', async (req: Request, res: Response) => {
 	const { x, y } = dfs_xy_conv('toXY', v1, v2);
 	const { nx, ny } = { nx: x, ny: y };
 	
+	// 날짜, 시간 설정
+	const { base_date, base_time } = getFormattedDate();
+
 	// 경로에 따라 다른 URL 생성
   let apiUrl = `${WEATHER_API_URL}${path}?serviceKey=${WEATHER_API_KEY}&numOfRows=${numOfRows}&pageNo=${pageNo}&dataType=${dataType}&base_date=${base_date}&base_time=${base_time}&nx=${nx}&ny=${ny}`;
   console.log("apiUrl : " + apiUrl);
