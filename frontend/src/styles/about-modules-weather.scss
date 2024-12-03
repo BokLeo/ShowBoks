@@ -29,6 +29,12 @@
 				color: rgb(0, 123, 255);
 			}
 
+			.weather-date{
+				display: flex;
+				flex-direction: column;
+				gap: 4px;
+			}
+
 			.sky-icon{
 				width: 80px;
 				height: 80px;
