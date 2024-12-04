@@ -43,9 +43,11 @@ const getFormattedDate = () => {
     const day = now.date().toString().padStart(2, '0');
     const hours = now.hours().toString().padStart(2, '0');
     const minutes = now.minutes().toString().padStart(2, '0');
+    console.log("now : " + now);
+    console.log("day : " + day);
     console.log("year : " + year, "month : " + month, "day : " + day, "hours : " + hours, "minutes : " + minutes);
     const base_date = `${year}${month}${day}`;
-    const base_time = minutes >= '45' ? `${hours}00` : `${(parseInt(hours) - 1).toString().padStart(2, '0')}00`;
+    const base_time = minutes >= '45' ? `${hours}30` : `${(parseInt(hours) - 1).toString().padStart(2, '0')}30`;
     return { base_date, base_time };
 };
 // 필수 API Parameter
