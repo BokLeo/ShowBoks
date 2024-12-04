@@ -43,6 +43,7 @@ const getFormattedDate = () => {
     const day = now.date().toString().padStart(2, '0');
     const hours = now.hours().toString().padStart(2, '0');
     const minutes = now.minutes().toString().padStart(2, '0');
+    console.log("year : " + year, "month : " + month, "day : " + day, "hours : " + hours, "minutes : " + minutes);
     const base_date = `${year}${month}${day}`;
     const base_time = minutes >= '45' ? `${hours}00` : `${(parseInt(hours) - 1).toString().padStart(2, '0')}00`;
     return { base_date, base_time };
