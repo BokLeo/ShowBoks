@@ -26,8 +26,10 @@ export const applicationData = [
 			'Chart.js를 이용한 정보 시각화',
 			'Redux를 이용한 전역 상태 관리',
 			'OCI 클라우드 서버 배포',
+			'Nginx를 이용한 SSL인증 및 리버스 프록시 구축',
+			'Docker를 이용한 서비스 컨테이너화 및 서버 자원 관리'
 		],
-		skills: ['React', 'Redux', 'Node.js', 'Express', 'Javascript', 'OCI', 'Photoshop', 'Illustrator'],
+		skills: ['React', 'Redux', 'Node.js', 'Express', 'Javascript', 'Oracle Cloud Instance', 'NGINX', 'Docker', 'Photoshop', 'Illustrator'],
 	},
 	{
 		img: images['freep_logo'],
