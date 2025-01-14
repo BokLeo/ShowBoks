@@ -1,0 +1,32 @@
+name: Deploy Backend
+
+on:
+  push:
+    paths:
+      - 'backend/**'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Build Docker image for Backend
+      run: |
+        cd backend
+        docker build -t showboks_backend .
+
+    - name: Deploy to server
+      uses: appleboy/ssh-action@v0.1.8
+      with:
+        host: ${{ secrets.SSH_HOST }}
+        username: ${{ secrets.SSH_USER }}
+        key: ${{ secrets.SSH_KEY }}
+        port: 22
+        script: |
+          cd /home/showboks/docker/ShowBoks/backend/
+          git pull origin main
+          docker-compose down
+          docker-compose up -d --build
