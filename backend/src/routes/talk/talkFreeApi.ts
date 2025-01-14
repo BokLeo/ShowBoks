@@ -89,7 +89,7 @@ router.post('/save', (req:Request, res:Response) => {
       console.error('Database query error:', err); // Log the error
       return res.status(500).json({ error: err });
     }
-    results.message = '게시글이 성공적으로 등록되었습니다.';    
+    results.message = '게시글이 성공적으로 등록되었습니다!';    
     res.json(results);
   });
 });
