@@ -24,7 +24,7 @@ jobs:
         host: ${{ secrets.SSH_HOST }}
         username: ${{ secrets.SSH_USER }}
         key: ${{ secrets.SSH_KEY }}
-        port: 22
+        port: 11122
         script: |
           cd /home/showboks/docker/ShowBoks/frontend/
           git pull origin main
