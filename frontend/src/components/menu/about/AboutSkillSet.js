@@ -11,7 +11,7 @@ const dataset = [
     { skill: 'HTML5', level: 90 },
     { skill: 'CSS3(SCSS)', level: 90 },
     { skill: 'JavaScript', level: 80 },
-    { skill: 'TypeScript', level: 50 },
+    { skill: 'TypeScript', level: 70 },
     { skill: 'JAVA', level: 60 },
   ]},
   { category: '프레임워크 & 라이브러리', items: [
