@@ -29,27 +29,21 @@ router.get('/total_cnt', (req, res) => {
 });
 // 데이터 요청
 router.get('/data', (req, res) => {
-	console.log('talkFree API accessed');
-	// 페이지네이션 파라미터 가져오기
-	const page = parseInt(req.query.page) || 1; // 기본값 1
-	const pageSize = 8;
-	// OFFSET 계산
-	const offset = (page - 1) * pageSize;
-	console.log(`page: ${page}, pageSize: ${pageSize}, offset: ${offset}`);
-
-	// 최종 실행되는 SQL 쿼리 확인
-	const sqlQuery = `SELECT * FROM talk_free WHERE use_yn = 'Y' ORDER BY id DESC LIMIT ? OFFSET ?`;
-	const finalQuery = conn.format(sqlQuery, [pageSize, offset]);
-	console.log('최종 SQL 쿼리:', finalQuery);
-
-	// 데이터 조회 쿼리 실행
-	conn.query(sqlQuery, [pageSize, offset], (err, results) => {
-			if (err) {
-					console.error('Database query error:', err);
-					return res.status(500).json({ error: err.message });
-			}
-			res.json(results);
-	});
+    console.log('talkFree API accessed');
+    // 페이지네이션 파라미터 가져오기
+    const page = parseInt(req.query.page) || 1; // 기본값 1
+    const pageSize = 8;
+    // OFFSET 계산
+    const offset = (page - 1) * pageSize;
+    console.log(`page: ${page}, pageSize: ${pageSize}, offset: ${offset}`);
+    // 데이터 조회 쿼리 실행
+    conn.query(`SELECT * FROM talk_free WHERE use_yn = 'Y' ORDER BY updated_dt DESC LIMIT ? OFFSET ?`, [pageSize, offset], (err, results) => {
+        if (err) {
+            console.error('Database query error:', err); // Log the error
+            return res.status(500).json({ error: err.message });
+        }
+        res.json(results);
+    });
 });
 // talk_free 테이블에 데이터 삽입
 router.post('/save', (req, res) => {
@@ -68,7 +62,7 @@ router.post('/save', (req, res) => {
             console.error('Database query error:', err); // Log the error
             return res.status(500).json({ error: err });
         }
-        results.message = '게시글이 성공적으로 등록되었습니다.';
+        results.message = '게시글이 성공적으로 등록되었습니다!';
         res.json(results);
     });
 });
