@@ -46,21 +46,25 @@ router.get('/total_cnt', (req: Request, res: Response) => {
 // 데이터 요청
 router.get('/data', (req: Request, res: Response) => {
   console.log('talkFree API accessed');
-
-  // 페이지네이션 파라미터 가져오기
-  const page = parseInt(req.query.page as string) || 1; // 기본값 1
+  
+  // 쿼리 파라미터 처리
+  const pageParam = Array.isArray(req.query.page) ? req.query.page[0] : req.query.page;
+	const page = typeof pageParam === 'string' ? parseInt(pageParam, 10) : 1;
   const pageSize = 8;
-
   
   // OFFSET 계산
   const offset = (page - 1) * pageSize;
-
   console.log(`page: ${page}, pageSize: ${pageSize}, offset: ${offset}`);
 
+  // 최종 실행되는 SQL 쿼리 확인
+  const sqlQuery = `SELECT * FROM talk_free WHERE use_yn = 'Y' ORDER BY id DESC LIMIT ? OFFSET ?`;
+  const finalQuery = conn.format(sqlQuery, [pageSize, offset]);
+  console.log('최종 SQL 쿼리:', finalQuery);
+
   // 데이터 조회 쿼리 실행
-  conn.query(`SELECT * FROM talk_free WHERE use_yn = 'Y' ORDER BY updated_dt DESC LIMIT ? OFFSET ?`, [pageSize, offset], (err: Error, results: any[]) => {
+  conn.query(sqlQuery, [pageSize, offset], (err:any, results:any) => {
     if (err) {
-      console.error('Database query error:', err); // Log the error
+      console.error('Database query error:', err);
       return res.status(500).json({ error: err.message });
     }
     res.json(results);
