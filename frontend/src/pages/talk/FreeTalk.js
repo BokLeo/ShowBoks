@@ -111,7 +111,7 @@ const FreeTalk = () => {
       if (!content.trim()) {
         throw new Error('Content is empty.');
       }
-  
+			
       const response = await postFreeTalkData({
         content,
         free_nickname: freeNickname,

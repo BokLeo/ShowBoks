@@ -37,7 +37,7 @@ router.get('/data', (req, res) => {
     const offset = (page - 1) * pageSize;
     console.log(`page: ${page}, pageSize: ${pageSize}, offset: ${offset}`);
     // 데이터 조회 쿼리 실행
-    conn.query(`SELECT * FROM talk_free WHERE use_yn = 'Y' ORDER BY updated_dt DESC LIMIT ? OFFSET ?`, [pageSize, offset], (err, results) => {
+    conn.query(`SELECT * FROM talk_free WHERE use_yn = 'Y' ORDER BY id DESC LIMIT ? OFFSET ?`, [pageSize, offset], (err, results) => {
         if (err) {
             console.error('Database query error:', err); // Log the error
             return res.status(500).json({ error: err.message });
