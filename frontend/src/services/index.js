@@ -9,4 +9,4 @@ export * from './outside/WeatherApi';
 // export { getFreeTalkTotalCnt, fetchFreeTalkData, postFreeTalkData, deleteFreeTalkDataApi } from './talk/TalkFreeApi';
 export * from './talk/TalkFreeApi';
 
-export * from './outside/NaverMapApi';
+// export * from './outside/NaverMapApi';
